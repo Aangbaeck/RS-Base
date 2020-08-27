@@ -71,5 +71,5 @@ REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Prev
 
 Roadmap
 * Add FontAwesome for even more icons! + Example!
-* Add Magnus Janssons nice looking gui stuff to the examples.. :)
+* Add nice looking gui stuff to the examples.. :)
 * Add automatic template creation when building.

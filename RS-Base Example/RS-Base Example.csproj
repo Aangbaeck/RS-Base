@@ -5,14 +5,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>RS_Base</RootNamespace>
     <UseWPF>true</UseWPF>
-    <Version>2.1.0</Version>
+    <Version>2.1.1</Version>
     <PackageId>RS-Base</PackageId>
     <AssemblyName>RS-Base</AssemblyName>
     <PublishTrimmed>true</PublishTrimmed>
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <Description>Example project that show what RS-Base is supposed to achieve.</Description>
+    <Description>Example project that show what RS-Base can do.</Description>
     <Copyright>RemaSawco</Copyright>
     <PackageLicenseFile></PackageLicenseFile>
   </PropertyGroup>

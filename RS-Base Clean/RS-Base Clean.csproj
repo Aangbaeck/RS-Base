@@ -5,10 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>RS_Base</RootNamespace>
     <UseWPF>true</UseWPF>
-    <Version>2.1.0</Version>
+    <Version>2.1.1</Version>
     <PackageId>RS-Base</PackageId>
     <AssemblyName>RS-Base</AssemblyName>
-    <Copyright>MIT-license</Copyright>
+    <Copyright>RemaSawco</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
