@@ -11,6 +11,7 @@
     ShowInTaskbar="False"
     SizeToContent="WidthAndHeight"
     Style="{StaticResource WindowStyle}"
+    Language="{UICulture}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStyle="None">
     <Window.Icon>
