@@ -1,0 +1,75 @@
+﻿V1.1 Bjorn Angback 2018-04-20
+Added licenses and Readme
+Added Helper catalogue with:
+Converters - added example in App.xaml
+DeepCopyByExpressionTrees - in functional programming we dont want to change the reference object when we use methods. This is a good way to copy large classes fast to avoid contamination.
+ObservableDictionary - What it sounds like. Dictionary AND observable! :D
+Serialize - for local serialization of objects.
+SVG-viewbox for using of SVG-images (added RS logo). (Remember to copy the SVG to output directory)
+
+V1.2 Bjorn Angback 2018-05-10
+Cleaned up a bit.
+NuGet packages now in local repo on \\xxx.xxx.xxx\data$\Gemensam\Produkter\Kod\NuGet
+
+V1.3 Bjorn Angback 2018-05-16
+Rightclick on RS-logo will open logfile.
+When window is deactivated it dims the title-bar a bit. Looks better.
+DoubleClick on WindowListIcon closes program (normal bahavior).
+Removed converters and added NuGet RSConverters instead. Examples are still in App.xaml.
+Changed target framework for this template to net4.7 (could of course be lower, but we're aiming high! :). 
+
+V1.4 Bjorn Angback 2018-05-23
+MUCH WORK ON TITLEBAR. SUCH NICENESS!
+Added maximize/restore button topbar. 
+Added resize abilities to window.
+made window intuitively as a window should behave but still customized. 
+
+V1.5 Bjorn Angback 2018-06-18
+Stepped back to .Net 4.5.2 to make everything more portable and work intially... 
+
+V1.6 Bjorn Angback 2018-09-26
+I have forgotten what i did here. Think i fixed some small bug and other small stuff...
+
+V1.7 Bjorn Angback 2019-01-04
+Mayor fixes and functionality added. Cleaned up the project quite a bit. Did some small graphical adjustments.
+* The position and what window is opened is stored localy and restored at restart.
+* More general window opener with type instead of string. More typesafe and we dont need to add every new window to MessengerID all the time.
+* Make Item template for new views so it's easy to add windows without manually styling them every time
+* Implemented SwitchBindingExtension converter. Many WOW, such nice!!!
+
+V1.8 Bjorn Angback 2019-04-23
+* Added nice Usercontrol for the titlebar. Less UI XAML + code to deal with.
+* Moved to Azure Devops GIT repo
+* Added settings class.
+* Removed some stuff that was unecessary...
+* Added Material design demo in the Assets folder
+- Removed Material design demo in the Assets folder. It's already in the G:\Produkter\Kod\RS Base.Net\MaterialDesignDemo folder..
+
+V1.9 Björn Ångbäck 2019-05-28
+* Forgot what i did here. But probably not something big... Whatever.
+
+V2.0 Björn Ångbäck 2019-12-19
+* Ported everything to .Net Core 3.1
+* Moved the common stuff to a usercontrol library called RS-StandardComponents.
+* Added infralution localization to RS-StandardComponents.
+* Added option to publish as single file when rightclicking project and building.
+* General polishing
+
+* Split the Project into 3 different project. 
+	- One Clean setup for experienced users. 
+	- One more comprehensive Example-project
+	- And one StandardComponents project with a lot of stuff baked so that we don't need to clutter our new projects. 
+	  Released as a Nuget so the other projects can use it - The Clean-project uses the Nuget because it should be independent. The Example project uses the reference directly so new functions can be tested there and then released via Nuget to the Clean project.
+
+V2.1
+* We are going open source under MIT-License.
+* Added localization examples
+* Added readme for licensing and overview of referenced frameworks and other code.
+* General polishing and cleaning up.
+
+REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Previews of the .NET Core SDK (Requiers restart)" to make the WPF designer to work in VS 2019.
+
+Roadmap
+* Add FontAwesome for even more icons! + Example!
+* Add Magnus Janssons nice looking gui stuff to the examples.. :)
+* Add automatic template creation when building.

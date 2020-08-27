@@ -1,0 +1,72 @@
+﻿<Application
+    x:Class="RS_Base.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:rsStandardComponents="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
+    xmlns:views="clr-namespace:RS_Base.Net.Views"
+    xmlns:views1="clr-namespace:RS_Base.Views"
+    StartupUri="Views/MainV.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--  This is to make Matieral design work  -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.yellow.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/materialdesigndarktheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--  This style is the make the windows borderless but still resizable  -->
+            <Style x:Key="WindowStyle" TargetType="{x:Type Window}">
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome
+                            CaptionHeight="1"
+                            CornerRadius="0"
+                            GlassFrameThickness="0"
+                            ResizeBorderThickness="6" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="WindowStyle">
+                    <Setter.Value>
+                        None
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="WindowState" Value="Maximized">
+                        <Setter Property="BorderThickness" Value="6" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+
+            <!--  Global View Model Locator for MVVM-Light  -->
+            <views1:ViewModelLocator x:Key="Locator" />
+            <rsStandardComponents:VisualToImageSourceConverter x:Key="ConvertMaterialDesignIconToIcon" />
+            <rsStandardComponents:BoolToBrushConverter
+                x:Key="ConnectedColorConverter"
+                FalseValue="Crimson"
+                TrueValue="ForestGreen" />
+            <rsStandardComponents:BoolToObjectConverter
+                x:Key="IconMaximizeConverter"
+                FalseValue="WindowMaximize"
+                TrueValue="WindowRestore" />
+            <rsStandardComponents:BoolToStringConverter
+                x:Key="StringMaximizeConverter"
+                FalseValue="Maximize"
+                TrueValue="Restore" />
+            <rsStandardComponents:BoolToBrushConverter
+                x:Key="ExampleConverter"
+                FalseValue="Aqua"
+                TrueValue="DodgerBlue" />
+            <rsStandardComponents:IndexBooleanConverter x:Key="IndexConverter" />
+            <rsStandardComponents:BoolToVisibilityConverter
+                x:Key="CollapsedConverter"
+                FalseValue="Collapsed"
+                TrueValue="Visible" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
