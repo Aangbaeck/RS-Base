@@ -1,8 +1,8 @@
 ![RS-Base](Etc/LogoRSBase.png) 
 
-> A awesome boilerplate template for building beautiful MVVM WPF .Net Core applications.
-> It comes with MVVM-light, Serilog, Localization, MaterialDesignForXAML and a nice structure preconfigured.
-> Every release has a Project and Item template for Visual Studio to easily get started.
+> An awesome boilerplate template for building beautiful MVVM WPF .Net Core applications.
+> It comes preconfigured with MVVM-light, Serilog, Localization, MaterialDesignForXAML and a nice architectural structure.
+> Every release has an Project and Item template for Visual Studio to easily get started.
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
@@ -13,14 +13,14 @@
 - Clone this repo to your local machine using `https://github.com/Aangbaeck/RS-Base.git`
 
 ## Setup
+
 ### Developer Setup
 You need to have .Net Core 3.1 and Visual Studio 2019 installed
 
-To get started:
 When creating project templates - use the whole project "RS-Base Clean""
 When creating the item template for windows - use the EmptyWindowV.xaml under "RS-Base Example"
 
-###
+### User Setup
 * Close Visual Studio.
 * Copy "RS-Base Vx.zip" and put in "%USERPROFILE%\Documents\Visual Studio 2019\Templates\ProjectTemplates".
 * Copy "RS-Base Window Vx.zip" and "RS-Base TabControlWindow Vx.zip" and put in "%USERPROFILE%\Documents\Visual Studio 2019\Templates\ItemTemplates".
@@ -29,7 +29,8 @@ When creating a new Project or Item in Visual Studiop these template will show u
 
 You need to have .Net Core 3.1 installed.
 If the references gives you any troubles: Run the command "Update-Package -Reinstall" (without "") in the Package-Manager console
-- If you want more syntax highlighting, format your code like this:
+
+The NuGet-package RS-StandardComponents is published on NuGet [Nuget Gallery](https://www.nuget.org/packages/RS-StandardComponents)
 
 Tips:
 Use LogExpert to read the logfiles. LogExpert can tail the logfile very efficient. Can be used as a stand-alone console window in a sense.
