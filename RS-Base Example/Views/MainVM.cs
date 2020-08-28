@@ -29,7 +29,13 @@ namespace RS_Base.Views
             S.Settings.Language = lang;
             S.SaveSettings();
         });
-        
+        public RelayCommand<bool> ToggleBaseCommand => new RelayCommand<bool>(o =>
+        {
+            ApplyBase((bool)o);
+            S.Settings.IsLightTheme = o;
+            S.SaveSettings();
+        });
+
         public RelayCommand OpenLogFile => new RelayCommand(() =>
         {
             try
@@ -62,9 +68,7 @@ namespace RS_Base.Views
         }
 
         private string _welcomeTitle;
-        private bool _isLightTheme;
-
-
+        
         public string WelcomeTitle
         {
             get { return _welcomeTitle; }
@@ -77,18 +81,9 @@ namespace RS_Base.Views
                 RaisePropertyChanged();
             }
         }
-
-        public ICommand ToggleBaseCommand { get; } = new RelayCommand<bool>(o => ApplyBase((bool)!o));
-
-        public bool IsLightTheme
+        private static void ApplyBase(bool isLightTheme)
         {
-            get { return _isLightTheme; }
-            set { _isLightTheme = value; RaisePropertyChanged(); }
-        }
-
-        private static void ApplyBase(bool isDark)
-        {
-            ModifyTheme(theme => theme.SetBaseTheme(isDark ? Theme.Dark : Theme.Light));
+            ModifyTheme(theme => theme.SetBaseTheme(isLightTheme ? Theme.Light : Theme.Dark));
         }
         private static void ModifyTheme(Action<ITheme> modificationAction)
         {
@@ -106,6 +101,7 @@ namespace RS_Base.Views
             S = s;
             D = d;  //Here you can control that the DataService is correct
             WelcomeTitle = D.Title;  //Setting the initial values from DataService
+            ApplyBase(S.Settings.IsLightTheme);
             Messenger.Default.Send("Hej");
             Messenger.Default.Register<string>(this, TaEmotHej);
         }

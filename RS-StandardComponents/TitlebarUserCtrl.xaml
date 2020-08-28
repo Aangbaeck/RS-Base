@@ -12,7 +12,8 @@
         x:Name="DialogHost"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
-        DialogClosing="OnDialogClosing">
+        DialogClosing="OnDialogClosing"
+        DialogTheme="Inherit">
         <materialDesign:DialogHost.DialogContent>
             <StackPanel Margin="16">
                 <TextBlock HorizontalAlignment="Center" Text="{Resx ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl, Key=ClosingTextQuestion}" />
@@ -25,11 +26,8 @@
                         IsDefault="True"
                         Style="{DynamicResource MaterialDesignFlatButton}">
                         <Button.CommandParameter>
-                            <!--<system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">-->
                             True
-                            <!--</system:Boolean>-->
                         </Button.CommandParameter>
-
                     </Button>
                     <Button
                         Margin="0,8,8,0"

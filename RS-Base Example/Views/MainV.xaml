@@ -81,11 +81,11 @@
                 Margin="0,20,0,0"
                 Command="{Binding ToggleBaseCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}"
-                IsChecked="{Binding IsLightTheme}" />
+                IsChecked="{Binding S.Settings.IsLightTheme}" />
             <TextBlock
                 Margin="10"
                 HorizontalAlignment="Center"
-                Text="{rsStandardComponents:SwitchBinding IsLightTheme,
+                Text="{rsStandardComponents:SwitchBinding S.Settings.IsLightTheme,
                                                           Light theme,
                                                           Dark theme}" />
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
