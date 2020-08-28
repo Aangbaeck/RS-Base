@@ -2,7 +2,7 @@
 
 > An awesome boilerplate template for building beautiful MVVM WPF .Net Core applications.
 > It comes preconfigured with MVVM-light, Serilog, Localization, MaterialDesignForXAML and a nice architectural structure.
-> Every release has an Project and Item template for Visual Studio to easily get started.
+> Every release has a Project and an Item template for Visual Studio to easily get started.
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
@@ -44,6 +44,7 @@ REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Prev
 ## Featuring
 - [MVVM-Light](https://github.com/lbugnion/mvvmlight)
 - [MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
+- [MaterialDesignExtensions](https://github.com/spiegelp/MaterialDesignExtensions)
 - [Serilog](https://github.com/serilog/serilog)
 - [Localization Infralution](https://www.codeproject.com/Articles/35159/WPF-Localization-Using-RESX-Files)
 
