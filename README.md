@@ -33,19 +33,19 @@ If the references gives you any troubles: Run the command "Update-Package -Reins
 The NuGet-package RS-StandardComponents is published on NuGet [Nuget Gallery](https://www.nuget.org/packages/RS-StandardComponents)
 
 Tips:
-Use LogExpert to read the logfiles. LogExpert can tail the logfile very efficient. Can be used as a stand-alone console window in a sense.
-Use ResX Manager for handling the Resource files. It's a very convenient tool. It's both availible as a standalone app and a extension to Visual Studio.
-There is a compiled version of MaterialDesignForXAML to be used as a cheat set to se what types of controls are availible.
+* Use [LogExpert](https://github.com/zarunbal/LogExpert) to read the logfiles. LogExpert can tail the logfiles very efficient.
+* Use [ResX Manager](https://github.com/dotnet/ResXResourceManager) for handling the Resource files. It's a very convenient tool. It's both availible as a standalone app and a extension to Visual Studio.
+* There is a compiled version of [MaterialDesignInXAML](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/releases) to be used as a cheat set to see what types of controls are availible
 
 REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Previews of the .NET Core SDK (Requiers restart)" to make the WPF designer to work in VS 2019.
 
 ---
 
 ## Featuring
-[MVVM-Light](https://github.com/lbugnion/mvvmlight)
-[MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
-[Serilog](https://github.com/serilog/serilog)
-[Localization Infralution](https://www.codeproject.com/Articles/35159/WPF-Localization-Using-RESX-Files)
+- [MVVM-Light](https://github.com/lbugnion/mvvmlight)
+- [MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
+- [Serilog](https://github.com/serilog/serilog)
+- [Localization Infralution](https://www.codeproject.com/Articles/35159/WPF-Localization-Using-RESX-Files)
 
 
 ---
