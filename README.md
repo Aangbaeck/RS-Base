@@ -2,7 +2,7 @@
 
 > An awesome boilerplate template for building beautiful MVVM WPF .Net Core applications.
 > It comes preconfigured with MVVM-light, Serilog, Localization, MaterialDesignForXAML and a nice architectural structure.
-> Every release has an Project and Item template for Visual Studio to easily get started.
+> Every release has a Project and an Item template for Visual Studio to easily get started.
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
@@ -33,19 +33,20 @@ If the references gives you any troubles: Run the command "Update-Package -Reins
 The NuGet-package RS-StandardComponents is published on NuGet [Nuget Gallery](https://www.nuget.org/packages/RS-StandardComponents)
 
 Tips:
-Use LogExpert to read the logfiles. LogExpert can tail the logfile very efficient. Can be used as a stand-alone console window in a sense.
-Use ResX Manager for handling the Resource files. It's a very convenient tool. It's both availible as a standalone app and a extension to Visual Studio.
-There is a compiled version of MaterialDesignForXAML to be used as a cheat set to se what types of controls are availible.
+* Use [LogExpert](https://github.com/zarunbal/LogExpert) to read the logfiles. LogExpert can tail the logfiles very efficient.
+* Use [ResX Manager](https://github.com/dotnet/ResXResourceManager) for handling the Resource files. It's a very convenient tool. It's both availible as a standalone app and a extension to Visual Studio.
+* There is a compiled version of [MaterialDesignInXAML](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/releases) to be used as a cheat set to see what types of controls are availible
 
 REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Previews of the .NET Core SDK (Requiers restart)" to make the WPF designer to work in VS 2019.
 
 ---
 
 ## Featuring
-[MVVM-Light](https://github.com/lbugnion/mvvmlight)
-[MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
-[Serilog](https://github.com/serilog/serilog)
-[Localization Infralution](https://www.codeproject.com/Articles/35159/WPF-Localization-Using-RESX-Files)
+- [MVVM-Light](https://github.com/lbugnion/mvvmlight)
+- [MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
+- [MaterialDesignExtensions](https://github.com/spiegelp/MaterialDesignExtensions)
+- [Serilog](https://github.com/serilog/serilog)
+- [Localization Infralution](https://www.codeproject.com/Articles/35159/WPF-Localization-Using-RESX-Files)
 
 
 ---
@@ -74,5 +75,3 @@ REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Prev
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
 - Copyright 2020 © [RemaSawco](https://remasawco.se/)
-
-Have fun!
