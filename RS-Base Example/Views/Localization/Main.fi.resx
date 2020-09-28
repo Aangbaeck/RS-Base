@@ -129,4 +129,7 @@
   <data name="Finnish" xml:space="preserve">
     <value>Keksiä</value>
   </data>
+  <data name="ChangeLanguageInBackEndString" xml:space="preserve">
+    <value>ChangeLanguageInBackEndString</value>
+  </data>
 </root>

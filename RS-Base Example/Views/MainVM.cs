@@ -53,6 +53,7 @@ namespace RS_Base.Views
             }
             catch (Exception e)
             {
+                
                 Log.Error(e, "Could not open log file...");
             }
         });
@@ -64,6 +65,8 @@ namespace RS_Base.Views
 
         private void ChangeTitleLocal()
         {
+            //To change strings with localized text in back end we could use
+            WelcomeTitle = ResxExtension.GetResourceValue("ChangeLanguageInBackEndString", "RS_Base.Views.Localization.Main");
             WelcomeTitle = "Hallabaloo!";
         }
 
@@ -104,6 +107,8 @@ namespace RS_Base.Views
             ApplyBase(S.Settings.IsLightTheme);
             Messenger.Default.Send("Hej");
             Messenger.Default.Register<string>(this, TaEmotHej);
+
+
         }
 
         public SettingsService S { get; set; }
