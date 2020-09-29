@@ -4,14 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:rsStandardComponents="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     DataContext="{Binding EmptyWindowVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
+    Language="{UICulture}"
     ShowInTaskbar="False"
     SizeToContent="WidthAndHeight"
     Style="{StaticResource WindowStyle}"
-    Language="{UICulture}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStyle="None">
     <Window.Icon>
@@ -25,6 +26,9 @@
             </Binding.Source>
         </Binding>
     </Window.Icon>
+    <Window.Resources>
+        <sys:String x:Key="B">RS_Base.Views.Localization.EmptyWindow</sys:String>
+    </Window.Resources>
     <Grid>
         <Grid>
             <rsStandardComponents:TitlebarUserCtrl
@@ -35,13 +39,15 @@
                 EnableClosable="True"
                 EnableMaximize="True"
                 EnableMinimize="True"
-                Icon="Accessibility" />
-            <StackPanel MinWidth="600" MinHeight="400">
+                Icon="Accessibility">
 
-                <!--  PUT YOUR STUFF HERE!!!!  -->
+                <StackPanel MinWidth="600" MinHeight="400">
 
-            </StackPanel>
+                    <!--  PUT YOUR STUFF HERE!!!!  -->
 
+                </StackPanel>
+            </rsStandardComponents:TitlebarUserCtrl>
+            
         </Grid>
         <!--  Border edge  -->
 
