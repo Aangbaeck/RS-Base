@@ -67,9 +67,18 @@ V2.1
 * Added readme for licensing and overview of referenced frameworks and other code.
 * General polishing and cleaning up.
 
+V2.2
+* Support for .Net Core 3.1 AND .Net Framework 4.7.2
+* Now the TitlebarUserCtrl is used as a ContentPresenter and wraps the content inside itself. Much better.
+* The TitlebarUserCtrl has a option of being hidden and locked in place with a "pin". It's called EnableFreezeMode.
+
+V2.2.1
+* Fixed some minor translation bugs
+
+
 REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Previews of the .NET Core SDK (Requiers restart)" to make the WPF designer to work in VS 2019.
 
 Roadmap
-* Add FontAwesome for even more icons! + Example!
+* Add FontAwesome for even more icons! + Example!  Use MahappsIcons instead and get a huge amounts of Icons
 * Add nice looking gui stuff to the examples.. :)
 * Add automatic template creation when building.

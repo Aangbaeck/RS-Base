@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Infralution.Localization.Wpf;
 using MaterialDesignThemes.Wpf;
@@ -36,6 +38,18 @@ namespace RS_StandardComponents
         public static readonly DependencyProperty CheckBeforeCloseProperty =
             DependencyProperty.Register("CheckBeforeClose", typeof(bool), typeof(TitlebarUserCtrl),
                 new PropertyMetadata(false));
+        public static readonly DependencyProperty EnableFreezeModeProperty =
+            DependencyProperty.Register("EnableFreezeMode", typeof(bool), typeof(TitlebarUserCtrl),
+                new PropertyMetadata(false,SetFreezeMode));
+
+        
+
+        public static new readonly DependencyProperty ContentProperty =
+   DependencyProperty.Register("Content", typeof(object),
+    typeof(TitlebarUserCtrl), new UIPropertyMetadata(null));
+
+
+        
 
         private Window _localWindow;
         private bool _mRestoreForDragMove;
@@ -43,9 +57,15 @@ namespace RS_StandardComponents
         public TitlebarUserCtrl()
         {
             InitializeComponent();
-            MaximizeIcon.Kind = PackIconKind.WindowMaximize;
+            MaximizeButton.Visibility = Visibility.Hidden;
+            RestoreButton.Visibility = Visibility.Visible;
+            PinButton.Visibility = Visibility.Collapsed;
+            UnpinButton.Visibility = Visibility.Collapsed;
         }
-
+        public new object Content {
+            get => GetValue(ContentProperty);
+            set => SetValue(ContentProperty, value);
+        }
         public Window LocalWindow
         {
             get => _localWindow;
@@ -53,7 +73,21 @@ namespace RS_StandardComponents
             {
                 _localWindow = value;
                 BoundWindow?.LoadPlacement();
-                MaximizeIcon.Kind = BoundWindow?.WindowState == WindowState.Maximized ? PackIconKind.WindowRestore : PackIconKind.WindowMaximize;
+                SetMaximizeRestoreIcons(BoundWindow);
+            }
+        }
+
+        private void SetMaximizeRestoreIcons(Window boundWindow)
+        {
+            if (boundWindow?.WindowState == WindowState.Maximized)
+            {
+                MaximizeButton.Visibility = Visibility.Hidden;
+                RestoreButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MaximizeButton.Visibility = Visibility.Visible;
+                RestoreButton.Visibility = Visibility.Hidden;
             }
         }
 
@@ -100,6 +134,11 @@ namespace RS_StandardComponents
             get => (bool)GetValue(CheckBeforeCloseProperty);
             set => SetValue(CheckBeforeCloseProperty, value);
         }
+        public bool EnableFreezeMode
+        {
+            get => (bool)GetValue(EnableFreezeModeProperty);
+            set => SetValue(EnableFreezeModeProperty, value);
+        }
 
 
         private void StateChanged(object sender, EventArgs e)
@@ -111,9 +150,7 @@ namespace RS_StandardComponents
                     BoundWindow.SizeToContent = SizeToContent.Manual;
                     BoundWindow.WindowState = WindowState.Maximized;
                 }
-                MaximizeIcon.Kind = win.WindowState == WindowState.Maximized
-                    ? PackIconKind.WindowRestore
-                    : PackIconKind.WindowMaximize;
+                SetMaximizeRestoreIcons(win);
             }
         }
 
@@ -131,49 +168,76 @@ namespace RS_StandardComponents
             win.Activated += bar.WindowActivated;
             win.StateChanged += bar.StateChanged;
             bar.LocalWindow = win;
-            win.Closing += WindowClosing;
+            win.Closing += (a,o)=> {
+                try
+                {
+                    win.SavePlacement();  //This method is save the actual position of the window to file "WindowName.pos"
+                    win.Deactivated -= bar.WindowDeactivated;
+                    win.Activated -= bar.WindowActivated;
+                    win.StateChanged -= bar.StateChanged;
+                }
+                catch (Exception ee)
+                {
+                    Log.Error(ee, "Could not save window position or unsubscribe from state changes.");
+                }
+            };
         }
+                
+        
 
-        //This method is save the actual position of the window to file "WindowName.pos"
-        private static void WindowClosing(object window, CancelEventArgs ee)
+
+
+
+
+        
+        
+
+        private static void SetFreezeMode(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            try
-            {
-                ((Window)window).SavePlacement();
-            }
-            catch (Exception e)
-            {
-                Log.Error(e, "Could not save window position.");
-            }
+            if (!(e.NewValue is bool enableFreezeMode)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
+            ((TitlebarUserCtrl)d).PinButton.Visibility = enableFreezeMode ? Visibility.Visible : Visibility.Collapsed;
+            
         }
-
         private static void TitlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(e.NewValue is string s)) return;
+            if (!(e.NewValue is string s)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
             ((TitlebarUserCtrl)d).TitleText.Text = s;
         }
 
         private static void ClosePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(e.NewValue is bool b)) return;
+            if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
             ((TitlebarUserCtrl)d).CloseButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
         }
 
         private static void MinPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(e.NewValue is bool b)) return;
+            if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
             ((TitlebarUserCtrl)d).MinimizeButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
         }
 
         private static void MaxPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(e.NewValue is bool b)) return;
+            if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
             ((TitlebarUserCtrl)d).MaximizeButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)
         {
             BoundWindow.WindowState = WindowState.Minimized;
+        }
+        
+        private void PinWindow(object sender, RoutedEventArgs e)
+        {
+            TitleBar.Visibility = Visibility.Collapsed;
+            BoundWindow.ResizeMode = ResizeMode.NoResize;
+            UnpinButton.Visibility = Visibility.Visible;
+        }
+        private void UnpinWindow(object sender, RoutedEventArgs e)
+        {
+            TitleBar.Visibility = Visibility.Visible;
+            BoundWindow.ResizeMode = ResizeMode.CanResize;
+            UnpinButton.Visibility = Visibility.Collapsed;
         }
 
         //These mouse methods is used for normal window behaviour and still it's a borderless stylable window

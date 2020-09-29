@@ -98,24 +98,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ClosingTextQuestion" xml:space="preserve">
-    <value></value>
+    <value>Do you want to close the application?</value>
   </data>
   <data name="CancelClose" xml:space="preserve">
-    <value></value>
+    <value>Cancel</value>
   </data>
   <data name="AcceptClose" xml:space="preserve">
-    <value></value>
+    <value>Close</value>
   </data>
   <data name="MinimizeTT" xml:space="preserve">
-    <value></value>
+    <value>Minimize</value>
   </data>
   <data name="MaximizeTT" xml:space="preserve">
-    <value></value>
+    <value>Maximize</value>
   </data>
   <data name="CloseTT" xml:space="preserve">
-    <value></value>
+    <value>Close</value>
   </data>
   <data name="RestoreTT" xml:space="preserve">
-    <value></value>
+    <value>Restore</value>
+  </data>
+  <data name="PinTT" xml:space="preserve">
+    <value>Freeze window</value>
+  </data>
+  <data name="UnpinTT" xml:space="preserve">
+    <value>Unfreeze window</value>
   </data>
 </root>

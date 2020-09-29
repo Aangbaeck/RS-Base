@@ -138,4 +138,10 @@
   <data name="RestoreTT" xml:space="preserve">
     <value>Nollaa</value>
   </data>
+  <data name="UnpinTT" xml:space="preserve">
+    <value>Vapauta ikkuna</value>
+  </data>
+  <data name="PinTT" xml:space="preserve">
+    <value>Jäädytä ikkuna</value>
+  </data>
 </root>

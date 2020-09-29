@@ -13,7 +13,7 @@ namespace RS_Base.Views
             var files = Directory.GetFiles(directory, "*.log");
             if (files.Length > 0)
             {
-                var filePath = files[^1];  //^1 is the same as files.Length-1
+                var filePath = files[files.Length-1];  //^1 is the same as files.Length-1
                 if (File.Exists(filePath))
                 {
                     System.Diagnostics.Process.Start(filePath);

@@ -3,12 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:rsStandardComponents="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
+    xmlns:rsStandardComponents="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents" xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Width="800"
     Height="600"
     MinWidth="200"
     AllowsTransparency="True"
-    Background="{DynamicResource MaterialDesignPaper}"
+    Background="Transparent"
     DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
     KeyDown="wnd_KeyDown"
@@ -31,21 +31,24 @@
             </Binding.Source>
         </Binding>
     </Window.Icon>
+    <Window.Resources>
+        <sys:String x:Key="B">RS_Base.Views.Localization.Main</sys:String>
+    </Window.Resources>
 
-    <Grid>
-        <rsStandardComponents:TitlebarUserCtrl
+    <rsStandardComponents:TitlebarUserCtrl
             Title="RS-Base Example Project Template"
-            Panel.ZIndex="1"
+            Panel.ZIndex="1" EnableFreezeMode="True"
             BoundWindow="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
             CheckBeforeClose="True"
             EnableClosable="True"
             EnableMaximize="True"
             EnableMinimize="True"
-            Icon="AcademicCap" />
+            Icon="AcademicCap" >
 
-        <StackPanel Margin="0,30,0,0">
-            <!--  Add your stuff here!  -->
-            <TextBlock
+        <Grid>
+            <StackPanel Margin="0,30,0,0">
+                <!--  Add your stuff here!  -->
+                <TextBlock
                 Margin="20,20,20,50"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -54,81 +57,83 @@
                 Text="{Binding WelcomeTitle}"
                 TextWrapping="Wrap" />
 
-            <Button
+                <Button
                 Padding="5"
                 HorizontalAlignment="Center"
                 Command="{Binding ChangeTitleLocalCmd}"
-                Content="{Resx ChangeTitleLocal}" />
-            <Button
+                Content="{Resx Key=ChangeTitleLocal, ResxName={StaticResource B}}" />
+                <Button
                 Margin="10"
                 Padding="5"
                 HorizontalAlignment="Center"
                 Command="{Binding ChangeTitleDataServiceCmd}"
                 Content="Change title DataService" />
-            <Button
+                <Button
                 Margin="10"
                 Padding="5"
                 HorizontalAlignment="Center"
                 Command="{Binding OpenNewWindowCmd}"
                 Content="Open new window" />
-            <Button
+                <Button
                 Margin="0"
                 Padding="5"
                 HorizontalAlignment="Center"
                 Command="{Binding OpenWindowWithTabControl}"
                 Content="Open tab control window" />
-            <ToggleButton
+                <ToggleButton
                 Margin="0,20,0,0"
                 Command="{Binding ToggleBaseCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}"
                 IsChecked="{Binding S.Settings.IsLightTheme}" />
-            <TextBlock
+                <TextBlock
                 Margin="10"
                 HorizontalAlignment="Center"
                 Text="{rsStandardComponents:SwitchBinding S.Settings.IsLightTheme,
                                                           Light theme,
                                                           Dark theme}" />
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button
                     Margin="5"
                     Padding="5"
                     Command="{Binding ChangeLanguageCmd}"
                     CommandParameter="en-US"
-                    Content="{Resx English}" />
-                <Button
+                    Content="{Resx English, ResxName={StaticResource B}}" />
+                    <Button
                     Margin="5"
                     Padding="5"
                     Command="{Binding ChangeLanguageCmd}"
                     CommandParameter="sv-SE"
-                    Content="{Resx Swedish}" />
-                <Button
+                    Content="{Resx Swedish, ResxName={StaticResource B}}" />
+                    <Button
                     Margin="5"
                     Padding="5"
                     Command="{Binding ChangeLanguageCmd}"
                     CommandParameter="fi-FI"
-                    Content="{Resx Finnish}" />
+                    Content="{Resx Finnish, ResxName={StaticResource B}}" />
+
+                </StackPanel>
+
+
 
             </StackPanel>
-
-
-
-        </StackPanel>
-        <StackPanel VerticalAlignment="Bottom">
-            <Grid
+            <StackPanel VerticalAlignment="Bottom">
+                <Grid
                 Width="100"
                 Height="100"
                 Margin="0,20,0,0">
-                <rsStandardComponents:RemaSawcoLogo />
-                <Grid.InputBindings>
-                    <MouseBinding Command="{Binding OpenLogFile}" MouseAction="RightClick" />
-                </Grid.InputBindings>
-            </Grid>
-            <TextBlock
+                    <rsStandardComponents:RemaSawcoLogo />
+                    <Grid.InputBindings>
+                        <MouseBinding Command="{Binding OpenLogFile}" MouseAction="RightClick" />
+                    </Grid.InputBindings>
+                </Grid>
+                <TextBlock
                 Margin="10"
                 HorizontalAlignment="Center"
                 Opacity="0.2"
                 Text="*Right click logo to open log" />
-        </StackPanel>
+            </StackPanel>
 
-    </Grid>
+        </Grid>
+    </rsStandardComponents:TitlebarUserCtrl>
+    
 </Window>

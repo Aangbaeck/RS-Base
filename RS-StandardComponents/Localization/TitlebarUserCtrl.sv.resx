@@ -138,4 +138,10 @@
   <data name="RestoreTT" xml:space="preserve">
     <value>Återställ</value>
   </data>
+  <data name="PinTT" xml:space="preserve">
+    <value>Frys fönstret</value>
+  </data>
+  <data name="UnpinTT" xml:space="preserve">
+    <value>Frigör fönstret</value>
+  </data>
 </root>

@@ -1,14 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net472</TargetFrameworks>
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.1.2</Version>
+    <Version>2.2.0</Version>
     <Description>Containing the core components of RS-Base like converters, titlebar, logo, usercontrols and other nice stuff</Description>
     <Copyright>RemaSawco</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReleaseNotes>V2.2
+* Support for .Net Core 3.1 AND .Net Framework 4.7.2
+* Now the TitlebarUserCtrl is used as a ContentPresenter and wraps the content inside itself. Much better.
+* The TitlebarUserCtrl has a option of being hidden and locked in place with a "pin". It's called EnableFreezeMode.</PackageReleaseNotes>
+    <PackageIcon>DogeCoin.png</PackageIcon>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Aangbaeck/RS-Base</RepositoryUrl>
+    <PackageTags>wpf boilerplate template desktop applications</PackageTags>
+    <Company>RemaSawco</Company>
+    <Authors>Björn Ångbäck</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,9 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Serilog" Version="2.9.0" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +49,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\Etc\DogeCoin.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
