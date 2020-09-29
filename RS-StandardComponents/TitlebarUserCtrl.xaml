@@ -59,12 +59,31 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-
+                <Grid Grid.Row="1" Background="{DynamicResource MaterialDesignPaper}">
+                    <Button
+                        x:Name="UnpinButton"
+                        Width="30"
+                        Height="29"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Click="UnpinWindow"
+                        Opacity="0.5"
+                        Style="{DynamicResource MaterialDesignFlatButton}"
+                        ToolTip="{Resx UnpinTT}">
+                        <materialDesign:PackIcon
+                            Width="24"
+                            Height="17"
+                            Foreground="{DynamicResource MaterialDesignBody}"
+                            Kind="PinOff" />
+                    </Button>
+                    <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
+                </Grid>
                 <materialDesign:Card
                     x:Name="TitleBar"
-                    Grid.Row="0"
+                    Grid.Row="0"  
                     materialDesign:ShadowAssist.ShadowDepth="Depth2">
-                    <Grid
+                    <Grid 
                         Height="30"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
@@ -78,7 +97,7 @@
                         <ContentControl Grid.ColumnSpan="2">
                             <materialDesign:ColorZone
                                 VerticalAlignment="Stretch"
-                                materialDesign:ShadowAssist.ShadowDepth="Depth5"
+                                
                                 Background="{DynamicResource MaterialDesignCardBackground}" />
                         </ContentControl>
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
@@ -188,26 +207,7 @@
                     </Grid>
                 </materialDesign:Card>
 
-                <Grid Grid.Row="1" Background="{DynamicResource MaterialDesignPaper}">
-                    <Button
-                        x:Name="UnpinButton"
-                        Width="30"
-                        Height="29"
-                        Padding="0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Click="UnpinWindow"
-                        Opacity="0.5"
-                        Style="{DynamicResource MaterialDesignFlatButton}"
-                        ToolTip="{Resx UnpinTT}">
-                        <materialDesign:PackIcon
-                            Width="24"
-                            Height="17"
-                            Foreground="{DynamicResource MaterialDesignBody}"
-                            Kind="PinOff" />
-                    </Button>
-                    <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
-                </Grid>
+                
             </Grid>
 
             <Border
@@ -216,7 +216,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 BorderBrush="{StaticResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
-                BorderThickness="1"
+                BorderThickness="2"
                 CornerRadius="1"
                 IsHitTestVisible="False" />
         </Grid>

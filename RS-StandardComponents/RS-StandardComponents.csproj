@@ -5,7 +5,7 @@
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.2.1</Version>
+    <Version>2.2.2</Version>
     <Description>Containing the core components of RS-Base like converters, titlebar, logo, usercontrols and other nice stuff</Description>
     <Copyright>RemaSawco</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -14,7 +14,9 @@
 * Now the TitlebarUserCtrl is used as a ContentPresenter and wraps the content inside itself. Much better.
 * The TitlebarUserCtrl has a option of being hidden and locked in place with a "pin". It's called EnableFreezeMode.
 V2.2.1
-* Fixed some minor translation bugs</PackageReleaseNotes>
+* Fixed some minor translation bugs
+V2.2.2
+* Added shadowing and border thickness</PackageReleaseNotes>
     <PackageIcon>DogeCoin.png</PackageIcon>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/Aangbaeck/RS-Base</RepositoryUrl>
