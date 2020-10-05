@@ -66,7 +66,7 @@ Tips:
 ---
 ## Roadmap
 * Add mahapps icon package for even more icons! + Example!
-* Add nice looking gui stuff to the examples. And extend the example app a bit more with more comments.
+* Extend the example app more with a lot more comments.
 * Add automatic template creation when building project.
 ---
 
