@@ -1,6 +1,6 @@
 ![RS-Base](Etc/LogoRSBase.png) 
 
-> An awesome boilerplate template for building beautiful MVVM WPF .Net Core applications.
+> An awesome boilerplate template for building beautiful MVVM WPF .Net Core and Framework applications.
 > It comes preconfigured with MVVM-light, Serilog, Localization, MaterialDesignForXAML and a nice architectural structure.
 > Every release has a Project and an Item template for Visual Studio to easily get started.
 
@@ -15,7 +15,7 @@
 ## Setup
 
 ### Developer Setup
-You need to have .Net Core 3.1 and Visual Studio 2019 installed
+You need to have .Net Core 3.1, Framework 4.7.2 & Visual Studio 2019 installed
 
 When creating project templates - use the whole project "RS-Base Clean""
 When creating the item template for windows - use the EmptyWindowV.xaml under "RS-Base Example"
@@ -28,7 +28,7 @@ When creating the item template for windows - use the EmptyWindowV.xaml under "R
 
 When creating a new Project or Item in Visual Studiop these template will show up.
 
-You need to have .Net Core 3.1 installed.
+You need to have .Net Core 3.1 or Framework 4.7.2 installed.
 If the references gives you any troubles: Run the command "Update-Package -Reinstall" (without "") in the Package-Manager console
 
 The NuGet-package RS-StandardComponents is published on NuGet [Nuget Gallery](https://www.nuget.org/packages/RS-StandardComponents)
@@ -37,8 +37,6 @@ Tips:
 * Use [LogExpert](https://github.com/zarunbal/LogExpert) to read the logfiles. LogExpert can tail the logfiles very efficient.
 * Use [ResX Manager](https://github.com/dotnet/ResXResourceManager) for handling the Resource files. It's a very convenient tool. It's both availible as a standalone app and a extension to Visual Studio.
 * There is a compiled version of [MaterialDesignInXAML](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/releases) to be used as a cheat set to see what types of controls are availible
-
-REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Previews of the .NET Core SDK (Requiers restart)" to make the WPF designer to work in VS 2019.
 
 ---
 
@@ -67,8 +65,8 @@ REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Prev
 
 ---
 ## Roadmap
-* Add FontAwesome for even more icons! + Example!
-* Add nice looking gui stuff to the examples.
+* Add mahapps icon package for even more icons! + Example!
+* Extend the example app more with a lot more comments.
 * Add automatic template creation when building project.
 ---
 
