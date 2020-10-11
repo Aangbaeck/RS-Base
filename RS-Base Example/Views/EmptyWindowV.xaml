@@ -22,7 +22,7 @@
                     Width="256"
                     Height="256"
                     Foreground="WhiteSmoke"
-                    Kind="Pipe" />
+                    Kind="{Binding Icon, ElementName=ContentPropertyTitleBar}" />
             </Binding.Source>
         </Binding>
     </Window.Icon>
@@ -33,7 +33,7 @@
         <Grid>
             <rsStandardComponents:TitlebarUserCtrl
                 Title="SecondWindow"
-                Grid.RowSpan="2"
+                Grid.RowSpan="2" x:Name="ContentPropertyTitleBar"
                 BoundWindow="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                 CheckBeforeClose="True"
                 EnableClosable="True"

@@ -34,6 +34,7 @@ namespace RS_Base.Views
             SimpleIoc.Default.Register<MainVM>();
             SimpleIoc.Default.Register<SecondVM>();
             SimpleIoc.Default.Register<TabControlWindowVM>();
+            SimpleIoc.Default.Register<EmptyWindowVM>();
 
             //Setting language for whole application
             CultureManager.UICulture = new CultureInfo(SimpleIoc.Default.GetInstance<SettingsService>().Settings.Language);
@@ -48,6 +49,7 @@ namespace RS_Base.Views
         public MainVM MainVM => SimpleIoc.Default.GetInstance<MainVM>();
         public SecondVM SecondVM => SimpleIoc.Default.GetInstance<SecondVM>();
         public TabControlWindowVM TabControlWindowVM => SimpleIoc.Default.GetInstance<TabControlWindowVM>();
+        public EmptyWindowVM EmptyWindowVM => SimpleIoc.Default.GetInstance<EmptyWindowVM>();
 
         /// <summary>
         /// Cleans up all the resources.

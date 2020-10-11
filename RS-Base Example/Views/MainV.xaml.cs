@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
@@ -50,7 +51,9 @@ namespace RS_Base.Views
         }
 
         public SettingsService SettingsService { get; set; }
-        
+        public RelayCommand OpenNewWindowCmd => new RelayCommand(() => { OpenAnotherWindow(typeof(SecondV)); });
+        public RelayCommand OpenWindowWithTabControl => new RelayCommand(() => { OpenAnotherWindow(typeof(TabControlWindowV)); });
+        public RelayCommand OpenEmptyWindowCmd => new RelayCommand(() => { OpenAnotherWindow(typeof(EmptyWindowV)); });
 
         private void wnd_KeyDown(object sender, KeyEventArgs e)
         {
@@ -81,13 +84,13 @@ namespace RS_Base.Views
                 else
                     new TabControlWindowV() { Owner = this }.Show();
             }
-            //else if (typeof(AnotherV) == window)
-            //{
-            //    if (IsWindowOpen<AnotherV>())
-            //        Application.Current.Windows.OfType<AnotherV>().First().Activate(); //Attempts to bring the current window to the foreground
-            //    else
-            //        new AnotherV() { Owner = this }.Show();
-            //}
+            else if (typeof(EmptyWindowV) == window)
+            {
+                if (IsWindowOpen<EmptyWindowV>())
+                    Application.Current.Windows.OfType<EmptyWindowV>().First().Activate(); //Attempts to bring the current window to the foreground
+                else
+                    new EmptyWindowV() { Owner = this }.Show();
+            }
         }
 
         

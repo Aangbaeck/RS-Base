@@ -1,52 +1,65 @@
-﻿using System;
-using System.ComponentModel;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Infralution.Localization.Wpf;
+﻿using Infralution.Localization.Wpf;
 using MaterialDesignThemes.Wpf;
 using Serilog;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace RS_StandardComponents
 {
     /// <summary>
-    /// Interaction logic for TitlebarUserCtrl.xaml
+    /// Interaction logic for EmptyWindow.xaml
     /// </summary>
-    public partial class TitlebarUserCtrl
+    public partial class RSWindow : Window
     {
-        public static readonly DependencyProperty BoundCurrentWindowProperty =
-            DependencyProperty.Register("BoundWindow", typeof(Window), typeof(TitlebarUserCtrl),
-                new PropertyMetadata(PropertyChanged));
+        public RSWindow()
+        {
+            
+            InitializeComponent();
+            MaximizeButton.Visibility = Visibility.Hidden;
+            RestoreButton.Visibility = Visibility.Visible;
+            PinButton.Visibility = Visibility.Collapsed;
+            UnpinButton.Visibility = Visibility.Collapsed;
+            SetMaximizeRestoreIcons(this);
+        }
 
         public static readonly DependencyProperty MinimizableProperty = DependencyProperty.Register("EnableMinimize",
-            typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, MinPropertyChanged));
+            typeof(bool), typeof(RSWindow), new PropertyMetadata(true, MinPropertyChanged));
 
         public static readonly DependencyProperty MaximizableProperty = DependencyProperty.Register("EnableMaximize",
-            typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, MaxPropertyChanged));
+            typeof(bool), typeof(RSWindow), new PropertyMetadata(true, MaxPropertyChanged));
 
         public static readonly DependencyProperty ClosableProperty = DependencyProperty.Register("EnableClosable",
-            typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, ClosePropertyChanged));
+            typeof(bool), typeof(RSWindow), new PropertyMetadata(true, ClosePropertyChanged));
 
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string),
-            typeof(TitlebarUserCtrl), new PropertyMetadata(TitlePropertyChanged));
+        public static new readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string),
+            typeof(RSWindow), new PropertyMetadata(TitlePropertyChanged));
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon",
-            typeof(PackIconKind), typeof(TitlebarUserCtrl),
+        public static new readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon",
+            typeof(PackIconKind), typeof(RSWindow),
             new PropertyMetadata(PackIconKind.Cake, IconPropertyChanged));
 
         public static readonly DependencyProperty CheckBeforeCloseProperty =
-            DependencyProperty.Register("CheckBeforeClose", typeof(bool), typeof(TitlebarUserCtrl),
+            DependencyProperty.Register("CheckBeforeClose", typeof(bool), typeof(RSWindow),
                 new PropertyMetadata(false));
         public static readonly DependencyProperty EnableFreezeModeProperty =
-            DependencyProperty.Register("EnableFreezeMode", typeof(bool), typeof(TitlebarUserCtrl),
-                new PropertyMetadata(false,SetFreezeMode));
+            DependencyProperty.Register("EnableFreezeMode", typeof(bool), typeof(RSWindow),
+                new PropertyMetadata(false, SetFreezeMode));
 
-        
+
 
         public static new readonly DependencyProperty ContentProperty =
    DependencyProperty.Register("Content", typeof(object),
-    typeof(TitlebarUserCtrl), new UIPropertyMetadata(null));
+    typeof(RSWindow), new UIPropertyMetadata(null));
 
         public new object Content
         {
@@ -54,29 +67,7 @@ namespace RS_StandardComponents
             set => SetValue(ContentProperty, value);
         }
 
-
-        private Window _localWindow;
         private bool _mRestoreForDragMove;
-
-        public TitlebarUserCtrl()
-        {
-            InitializeComponent();
-            MaximizeButton.Visibility = Visibility.Hidden;
-            RestoreButton.Visibility = Visibility.Visible;
-            PinButton.Visibility = Visibility.Collapsed;
-            UnpinButton.Visibility = Visibility.Collapsed;
-        }
-        
-        public Window LocalWindow
-        {
-            get => _localWindow;
-            set
-            {
-                _localWindow = value;
-                BoundWindow?.LoadPlacement();
-                SetMaximizeRestoreIcons(BoundWindow);
-            }
-        }
 
         private void SetMaximizeRestoreIcons(Window boundWindow)
         {
@@ -92,13 +83,6 @@ namespace RS_StandardComponents
             }
         }
 
-        //private WINDOWPLACEMENT 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Window BoundWindow
-        {
-            get => (Window)GetValue(BoundCurrentWindowProperty);
-            set => SetValue(BoundCurrentWindowProperty, value);
-        }
 
         public bool EnableMinimize
         {
@@ -118,13 +102,16 @@ namespace RS_StandardComponents
             set => SetValue(ClosableProperty, value);
         }
 
-        public string Title
+        public new string Title
         {
             get => (string)GetValue(TitleProperty);
-            set => SetValue(TitleProperty, value);
+            set
+            {
+                SetValue(TitleProperty, value);
+            }
         }
 
-        public PackIconKind Icon
+        public new PackIconKind Icon
         {
             get => (PackIconKind)GetValue(IconProperty);
             set => SetValue(IconProperty, value);
@@ -142,118 +129,80 @@ namespace RS_StandardComponents
         }
 
 
-        private void StateChanged(object sender, EventArgs e)
-        {
-            if (sender is Window win)
-            {
-                if (win.WindowState == WindowState.Maximized)
-                {
-                    BoundWindow.SizeToContent = SizeToContent.Manual;
-                    BoundWindow.WindowState = WindowState.Maximized;
-                }
-                SetMaximizeRestoreIcons(win);
-            }
-        }
+
 
         private static void IconPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is PackIconKind icon)) return;
-            ((TitlebarUserCtrl)d).TitleIcon.Kind = icon;
+            ((RSWindow)d).TitleIcon.Kind = icon;
         }
 
-        private static void PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(e.NewValue is Window win)) return;
-            var bar = ((TitlebarUserCtrl)d);
-            win.Deactivated += bar.WindowDeactivated;
-            win.Activated += bar.WindowActivated;
-            win.StateChanged += bar.StateChanged;
-            bar.LocalWindow = win;
-            win.Closing += (a,o)=> {
-                try
-                {
-                    win.SavePlacement();  //This method is save the actual position of the window to file "WindowName.pos"
-                    win.Deactivated -= bar.WindowDeactivated;
-                    win.Activated -= bar.WindowActivated;
-                    win.StateChanged -= bar.StateChanged;
-                }
-                catch (Exception ee)
-                {
-                    Log.Error(ee, "Could not save window position or unsubscribe from state changes.");
-                }
-            };
-        }
-                
-        
 
 
 
 
 
-        
-        
+
+
+
+
+
 
         private static void SetFreezeMode(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool enableFreezeMode)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).PinButton.Visibility = enableFreezeMode ? Visibility.Visible : Visibility.Collapsed;
-            
+            ((RSWindow)d).PinButton.Visibility = enableFreezeMode ? Visibility.Visible : Visibility.Collapsed;
+
         }
         private static void TitlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is string s)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).TitleText.Text = s;
+            ((RSWindow)d).TitleText.Text = s;
         }
 
         private static void ClosePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).CloseButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
+            ((RSWindow)d).CloseButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
         }
 
         private static void MinPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).MinimizeButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
+            ((RSWindow)d).MinimizeButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
         }
 
         private static void MaxPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).MaximizeButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
+            ((RSWindow)d).MaximizeButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)
         {
-            BoundWindow.WindowState = WindowState.Minimized;
+            this.WindowState = WindowState.Minimized;
         }
-        
+
         private void PinWindow(object sender, RoutedEventArgs e)
         {
             TitleBar.Visibility = Visibility.Collapsed;
-            BoundWindow.ResizeMode = ResizeMode.NoResize;
+            this.ResizeMode = ResizeMode.NoResize;
             UnpinButton.Visibility = Visibility.Visible;
         }
         private void UnpinWindow(object sender, RoutedEventArgs e)
         {
             TitleBar.Visibility = Visibility.Visible;
-            BoundWindow.ResizeMode = ResizeMode.CanResize;
+            this.ResizeMode = ResizeMode.CanResize;
             UnpinButton.Visibility = Visibility.Collapsed;
         }
 
         //These mouse methods is used for normal window behaviour and still it's a borderless stylable window
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (BoundWindow == null)
-            {
-                Log.Error("No window is bound to the TitleBar usercontrol. Add this to the XAML: 'BoundWindow=\"{ Binding RelativeSource = { RelativeSource FindAncestor, AncestorType ={ x:Type Window}}}\"'");
-                return;
-            }
-
             if (e.ClickCount == 2)
             {
-                if (BoundWindow.ResizeMode != ResizeMode.CanResize &&
-                    BoundWindow.ResizeMode != ResizeMode.CanResizeWithGrip)
+                if (this.ResizeMode != ResizeMode.CanResize &&
+                    this.ResizeMode != ResizeMode.CanResizeWithGrip)
                 {
                     return;
                 }
@@ -261,23 +210,23 @@ namespace RS_StandardComponents
             }
             else
             {
-                _mRestoreForDragMove = BoundWindow.WindowState == WindowState.Maximized;
-                BoundWindow.DragMove();
+                _mRestoreForDragMove = this.WindowState == WindowState.Maximized;
+                this.DragMove();
             }
         }
 
         private void MaximizeRestore()
         {
-            if (BoundWindow.WindowState == WindowState.Maximized)
+            if (this.WindowState == WindowState.Maximized)
             {
-                BoundWindow.SizeToContent = SizeToContent.WidthAndHeight;
-                BoundWindow.WindowState = WindowState.Normal;
+
+                this.WindowState = WindowState.Normal;
                 MaximizeButton.ToolTip = ResxExtension.GetResourceValue("MaximizeTT", "RS_StandardComponents.Localization.TitlebarUserCtrl");
             }
-            else if (BoundWindow.WindowState == WindowState.Normal)
+            else if (this.WindowState == WindowState.Normal)
             {
-                BoundWindow.SizeToContent = SizeToContent.Manual;
-                BoundWindow.WindowState = WindowState.Maximized;
+                this.SizeToContent = SizeToContent.Manual;
+                this.WindowState = WindowState.Maximized;
                 MaximizeButton.ToolTip = ResxExtension.GetResourceValue("RestoreTT", "RS_StandardComponents.Localization.TitlebarUserCtrl");
             }
         }
@@ -292,11 +241,11 @@ namespace RS_StandardComponents
 
                     var point = PointToScreen(e.MouseDevice.GetPosition(this));
 
-                    BoundWindow.Left = point.X - (BoundWindow.RestoreBounds.Width * 0.5);
-                    BoundWindow.Top = point.Y;
-                    BoundWindow.WindowState = WindowState.Normal;
+                    this.Left = point.X - (this.RestoreBounds.Width * 0.5);
+                    this.Top = point.Y;
+                    this.WindowState = WindowState.Normal;
 
-                    BoundWindow.DragMove();
+                    this.DragMove();
                 }
             }
             catch (Exception ee)
@@ -339,7 +288,7 @@ namespace RS_StandardComponents
             {
                 try
                 {
-                    BoundWindow.Close(); //Close this window (Main)
+                    this.Close(); //Close this window (Main)
                 }
                 catch
                 {
@@ -353,12 +302,39 @@ namespace RS_StandardComponents
             if (eventArgs.Parameter != null && (string)eventArgs.Parameter != "True") return;
             try
             {
-                BoundWindow.Close(); //Close this window (Main)
+                this.Close(); //Close this window (Main)
             }
             catch
             {
                 Log.Error("Could not close window properly");
             }
+        }
+
+        
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (sender is Window win)
+            {
+                //if (win.WindowState == WindowState.Maximized)
+                //{
+                //    this.SizeToContent = SizeToContent.Manual;
+                //    this.WindowState = WindowState.Maximized;
+                //}
+                SetMaximizeRestoreIcons(win);
+            }
+        }
+
+        private void wnd_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.System && e.SystemKey == Key.F4)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Services.Tracker.Track(this);
         }
     }
 }

@@ -72,13 +72,22 @@
                 Margin="10"
                 Padding="5"
                 HorizontalAlignment="Center"
-                Command="{Binding OpenNewWindowCmd}"
+                Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=OpenNewWindowCmd}"
+                    
                 Content="Open new window" />
+                <Button
+                Margin="10"
+                Padding="5"
+                HorizontalAlignment="Center"
+                Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=OpenEmptyWindowCmd}"
+                    
+                Content="Open empty window" />
                 <Button
                 Margin="0"
                 Padding="5"
                 HorizontalAlignment="Center"
-                Command="{Binding OpenWindowWithTabControl}"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=OpenWindowWithTabControl}"
+                
                 Content="Open tab control window" />
                 <ToggleButton
                 Margin="0,20,0,0"

@@ -21,8 +21,7 @@ namespace RS_Base.Views
         public readonly DataService D;
         public RelayCommand ChangeTitleLocalCmd => new RelayCommand(ChangeTitleLocal);
         public RelayCommand ChangeTitleDataServiceCmd => new RelayCommand(ChangeTitleDataService);
-        public RelayCommand OpenNewWindowCmd => new RelayCommand(() => { Messenger.Default.Send(typeof(SecondV), MessengerID.MainWindowV); });
-        public RelayCommand OpenWindowWithTabControl => new RelayCommand(() => { Messenger.Default.Send(typeof(TabControlWindowV), MessengerID.MainWindowV); });
+        
         public RelayCommand<string> ChangeLanguageCmd => new RelayCommand<string>(lang =>
         {
             CultureManager.UICulture = new CultureInfo(lang);

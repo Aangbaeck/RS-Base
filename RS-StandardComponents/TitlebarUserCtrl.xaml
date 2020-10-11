@@ -5,7 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:RS_StandardComponents"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="300"
     d:DesignWidth="300"
     Language="{UICulture}"
@@ -27,8 +28,8 @@
                     <Button
                         Margin="0,8,8,0"
                         Command="materialDesign:DialogHost.CloseDialogCommand"
-                        Content="{Resx 
-                                       Key=AcceptClose, ResxName={StaticResource N}}"
+                        Content="{Resx Key=AcceptClose,
+                                       ResxName={StaticResource N}}"
                         IsDefault="True"
                         Style="{DynamicResource MaterialDesignFlatButton}">
                         <Button.CommandParameter>
@@ -38,8 +39,8 @@
                     <Button
                         Margin="0,8,8,0"
                         Command="materialDesign:DialogHost.CloseDialogCommand"
-                        Content="{Resx 
-                                       Key=CancelClose, ResxName={StaticResource N}}"
+                        Content="{Resx Key=CancelClose,
+                                       ResxName={StaticResource N}}"
                         IsCancel="True"
                         Style="{DynamicResource MaterialDesignFlatButton}">
                         <Button.CommandParameter>
@@ -70,7 +71,8 @@
                         Click="UnpinWindow"
                         Opacity="0.5"
                         Style="{DynamicResource MaterialDesignFlatButton}"
-                        ToolTip="{Resx UnpinTT}">
+                        ToolTip="{Resx Key=UnpinTT,
+                                       ResxName={StaticResource N}}">
                         <materialDesign:PackIcon
                             Width="24"
                             Height="17"
@@ -81,9 +83,9 @@
                 </Grid>
                 <materialDesign:Card
                     x:Name="TitleBar"
-                    Grid.Row="0"  
+                    Grid.Row="0"
                     materialDesign:ShadowAssist.ShadowDepth="Depth2">
-                    <Grid 
+                    <Grid
                         Height="30"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
@@ -95,10 +97,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <ContentControl Grid.ColumnSpan="2">
-                            <materialDesign:ColorZone
-                                VerticalAlignment="Stretch"
-                                
-                                Background="{DynamicResource MaterialDesignCardBackground}" />
+                            <materialDesign:ColorZone VerticalAlignment="Stretch" Background="{DynamicResource MaterialDesignCardBackground}" />
                         </ContentControl>
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                             <ContentControl
@@ -137,7 +136,8 @@
                                 Click="PinWindow"
                                 Opacity="0.5"
                                 Style="{DynamicResource MaterialDesignFlatButton}"
-                                ToolTip="{Resx PinTT}">
+                                ToolTip="{Resx Key=PinTT,
+                                               ResxName={StaticResource N}}">
                                 <materialDesign:PackIcon
                                     x:Name="PinIcon"
                                     Width="24"
@@ -151,7 +151,8 @@
                                 Padding="0"
                                 Click="MinimizeWindow"
                                 Style="{DynamicResource MaterialDesignFlatButton}"
-                                ToolTip="{Resx MinimizeTT}">
+                                ToolTip="{Resx Key=MinimizeTT,
+                                               ResxName={StaticResource N}}">
                                 <materialDesign:PackIcon
                                     Width="24"
                                     Height="17"
@@ -167,7 +168,8 @@
                                     Padding="0"
                                     Click="MaximizeRestoreWindow"
                                     Style="{DynamicResource MaterialDesignFlatButton}"
-                                    ToolTip="{Resx MaximizeTT}">
+                                    ToolTip="{Resx Key=MaximizeTT,
+                                                   ResxName={StaticResource N}}">
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="17"
@@ -180,7 +182,8 @@
                                     Padding="0"
                                     Click="MaximizeRestoreWindow"
                                     Style="{DynamicResource MaterialDesignFlatButton}"
-                                    ToolTip="{Resx RestoreTT}">
+                                    ToolTip="{Resx Key=RestoreTT,
+                                                   ResxName={StaticResource N}}">
                                     <materialDesign:PackIcon
                                         Width="24"
                                         Height="17"
@@ -194,7 +197,8 @@
                                 Padding="0"
                                 Click="CloseWindow"
                                 Style="{DynamicResource MaterialDesignFlatButton}"
-                                ToolTip="{Resx CloseTT}">
+                                ToolTip="{Resx Key=CloseTT,
+                                               ResxName={StaticResource N}}">
                                 <materialDesign:PackIcon
                                     Width="20"
                                     Height="20"
@@ -207,7 +211,7 @@
                     </Grid>
                 </materialDesign:Card>
 
-                
+
             </Grid>
 
             <Border
