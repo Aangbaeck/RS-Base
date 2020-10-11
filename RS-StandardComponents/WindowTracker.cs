@@ -19,14 +19,12 @@ namespace RS_StandardComponents
 
         static Services()
         {
-            // tell Jot how to track Window objects
-            Tracker.Configure<Window>()
-    .Id(w => w.Name +"_"+ RemoveInvalidCharactes(w.Title) + "_" + SystemParameters.PrimaryScreenWidth + "x" + SystemParameters.PrimaryScreenHeight) // <-- include the screen resolution in the id  //TODO cant get unique window ids
-    .Properties(w => new { w.Top, w.Width, w.Height, w.Left, w.WindowState })
-    .PersistOn(nameof(Window.Closing))
-
-    .StopTrackingOn(nameof(Window.Closing));
-
+            //tell Jot how to track Window objects
+            Tracker.Configure<TitlebarUserCtrl>()
+            .Id(w => w.Name + "_" + RemoveInvalidCharactes(w.Title) + "_" + SystemParameters.PrimaryScreenWidth + "x" + SystemParameters.PrimaryScreenHeight) // <-- include the screen resolution in the id  //TODO cant get unique window ids
+            .Properties(w => new { w.BoundWindow.Top, w.BoundWindow.Width, w.BoundWindow.Height, w.BoundWindow.Left, w.BoundWindow.WindowState })
+            .PersistOn(nameof(TitlebarUserCtrl.Closing))
+            .StopTrackingOn(nameof(TitlebarUserCtrl.Closing));
         }
 
         static string RemoveInvalidCharactes(string strIn)

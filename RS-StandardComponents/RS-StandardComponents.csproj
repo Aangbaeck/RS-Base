@@ -32,6 +32,8 @@ V2.2.2
 
   <ItemGroup>
     <Compile Remove="Common.cs" />
+    <Compile Remove="RSWindowBase.cs" />
+    <Compile Remove="WindowPlacement.cs" />
   </ItemGroup>
 
   <ItemGroup>

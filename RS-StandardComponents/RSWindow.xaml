@@ -4,21 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:rs_standardcomponents="clr-namespace:RS_StandardComponents"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    
     MinWidth="300"
     MinHeight="50"
-    Activated="WindowActivated"
-    AllowsTransparency="True"
+        AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
-    Deactivated="WindowDeactivated"
-    FontFamily="{materialDesign:MaterialDesignFont}"
-    KeyDown="wnd_KeyDown"
-    Loaded="OnLoaded"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+    
     Language="{UICulture}" 
     ShowInTaskbar="False"
-    StateChanged="Window_StateChanged"
+    
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    WindowStyle="None" Title="{Binding Text, ElementName=TitleText}">
+    WindowStyle="None" Title="{Binding Text, ElementName=Titlebar.Title}">
 
 
     <Window.Style>
@@ -44,7 +41,7 @@
             </Style.Triggers>
         </Style>
     </Window.Style>
-    <Window.Resources>
+    <!--<Window.Resources>
         <sys:String x:Key="B">RS_Base.Views.Localization.EmptyWindow</sys:String>
         <rs_standardcomponents:VisualToImageSourceConverter x:Key="iconConv" />
     </Window.Resources>
@@ -58,227 +55,20 @@
                     Kind="Pipe" />
             </Binding.Source>
         </Binding>
-    </Window.Icon>
+    </Window.Icon>-->
     <Grid>
         <Grid>
-            <Grid.Resources>
-                <sys:String x:Key="N">RS_StandardComponents.Localization.TitlebarUserCtrl</sys:String>
-            </Grid.Resources>
-            <materialDesign:DialogHost
-                x:Name="DialogHost"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                DialogClosing="OnDialogClosing"
-                DialogTheme="Inherit">
-                <materialDesign:DialogHost.DialogContent>
-                    <StackPanel Margin="16">
-                        <TextBlock HorizontalAlignment="Center" Text="{Resx Key=ClosingTextQuestion, ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl}" />
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <Button
-                                Margin="0,8,8,0"
-                                Command="materialDesign:DialogHost.CloseDialogCommand"
-                                Content="{Resx Key=AcceptClose,
-                                               ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl}"
-                                IsDefault="True"
-                                Style="{DynamicResource MaterialDesignFlatButton}">
-                                <Button.CommandParameter>
-                                    True
-                                </Button.CommandParameter>
-                            </Button>
-                            <Button
-                                Margin="0,8,8,0"
-                                Command="materialDesign:DialogHost.CloseDialogCommand"
-                                Content="{Resx Key=CancelClose,
-                                               ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl}"
-                                IsCancel="True"
-                                Style="{DynamicResource MaterialDesignFlatButton}">
-                                <Button.CommandParameter>
-                                    <!--<system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">-->
-                                    False
-                                    <!--</system:Boolean>-->
-                                </Button.CommandParameter>
 
-                            </Button>
-                        </StackPanel>
-                    </StackPanel>
-                </materialDesign:DialogHost.DialogContent>
-                <Grid>
-
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid
-                            x:Name="ContentGrid"
-                            Grid.Row="1"
-                            Background="{DynamicResource MaterialDesignPaper}">
-
-                            <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" />
-                            <Button
-                                x:Name="UnpinButton"
-                                Width="30"
-                                Height="29"
-                                Padding="0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
-                                Click="UnpinWindow"
-                                Opacity="0.5"
-                                Style="{DynamicResource MaterialDesignFlatButton}"
-                                ToolTip="{Resx Key=UnpinTT,
-                                               ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl}">
-                                <materialDesign:PackIcon
-                                    Width="24"
-                                    Height="17"
-                                    Foreground="{DynamicResource MaterialDesignBody}"
-                                    Kind="PinOff" />
-                            </Button>
-                        </Grid>
-                        <materialDesign:Card
-                            x:Name="TitleBar"
-                            Grid.Row="0"
-                            materialDesign:ShadowAssist.ShadowDepth="Depth2">
-                            <Grid
-                                Height="30"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Top"
-                                MouseLeftButtonDown="OnMouseLeftButtonDown"
-                                MouseLeftButtonUp="OnMouseLeftButtonUp"
-                                MouseMove="OnMouseMove">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <ContentControl Grid.ColumnSpan="2">
-                                    <materialDesign:ColorZone VerticalAlignment="Stretch" Background="{DynamicResource MaterialDesignCardBackground}" />
-                                </ContentControl>
-                                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                    <ContentControl
-                                        Background="Transparent"
-                                        IsHitTestVisible="True"
-                                        MouseDoubleClick="CloseWindow">
-                                        <Grid>
-                                            <materialDesign:PackIcon
-                                                x:Name="TitleIcon"
-                                                Width="30"
-                                                Margin="0"
-                                                VerticalAlignment="Center"
-                                                Background="Transparent"
-                                                Kind="CameraIris" />
-                                            <Rectangle Fill="Transparent" />
-                                        </Grid>
-                                    </ContentControl>
-                                    <TextBlock
-                                        x:Name="TitleText"
-                                        Margin="4,1,0,0"
-                                        VerticalAlignment="Center"
-                                        Focusable="False"
-                                        FontSize="13"
-                                        FontWeight="Normal"
-                                        Text="Example title" />
-                                </StackPanel>
-                                <StackPanel
-                                    Grid.Column="1"
-                                    Margin="0,0,0,0"
-                                    HorizontalAlignment="Right"
-                                    Orientation="Horizontal">
-                                    <Button
-                                        x:Name="PinButton"
-                                        Width="30"
-                                        Padding="0"
-                                        Click="PinWindow"
-                                        Opacity="0.5"
-                                        Style="{DynamicResource MaterialDesignFlatButton}"
-                                        ToolTip="{Resx Key=PinTT,
-                                                       ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl}">
-                                        <materialDesign:PackIcon
-                                            x:Name="PinIcon"
-                                            Width="24"
-                                            Height="17"
-                                            Foreground="{DynamicResource MaterialDesignBody}"
-                                            Kind="Pin" />
-                                    </Button>
-                                    <Button
-                                        x:Name="MinimizeButton"
-                                        Width="30"
-                                        Padding="0"
-                                        Click="MinimizeWindow"
-                                        Style="{DynamicResource MaterialDesignFlatButton}"
-                                        ToolTip="{Resx Key=MinimizeTT,
-                                                       ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl}">
-                                        <materialDesign:PackIcon
-                                            Width="24"
-                                            Height="17"
-                                            Margin="0,11,0,0"
-                                            Foreground="{DynamicResource MaterialDesignBody}"
-                                            Kind="WindowMinimize" />
-                                    </Button>
-
-                                    <Grid>
-                                        <Button
-                                            x:Name="MaximizeButton"
-                                            Width="30"
-                                            Padding="0"
-                                            Click="MaximizeRestoreWindow"
-                                            Style="{DynamicResource MaterialDesignFlatButton}"
-                                            ToolTip="{Resx Key=MaximizeTT,
-                                                           ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl}">
-                                            <materialDesign:PackIcon
-                                                Width="24"
-                                                Height="17"
-                                                Foreground="{DynamicResource MaterialDesignBody}"
-                                                Kind="WindowMaximize" />
-                                        </Button>
-                                        <Button
-                                            x:Name="RestoreButton"
-                                            Width="30"
-                                            Padding="0"
-                                            Click="MaximizeRestoreWindow"
-                                            Style="{DynamicResource MaterialDesignFlatButton}"
-                                            ToolTip="{Resx Key=RestoreTT,
-                                                           ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl}">
-                                            <materialDesign:PackIcon
-                                                Width="24"
-                                                Height="17"
-                                                Foreground="{DynamicResource MaterialDesignBody}"
-                                                Kind="WindowRestore" />
-                                        </Button>
-                                    </Grid>
-                                    <Button
-                                        x:Name="CloseButton"
-                                        Width="30"
-                                        Padding="0"
-                                        Click="CloseWindow"
-                                        Style="{DynamicResource MaterialDesignFlatButton}"
-                                        ToolTip="{Resx Key=CloseTT,
-                                                       ResxName=RS_StandardComponents.Localization.TitlebarUserCtrl}">
-                                        <materialDesign:PackIcon
-                                            Width="20"
-                                            Height="20"
-                                            Foreground="{DynamicResource MaterialDesignBody}"
-                                            Kind="Close" />
-
-                                    </Button>
-                                </StackPanel>
-
-                            </Grid>
-                        </materialDesign:Card>
-
-
-                    </Grid>
-
-                    <Border
-                        x:Name="Border"
-                        Grid.ColumnSpan="2"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        BorderBrush="{StaticResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
-                        BorderThickness="2"
-                        CornerRadius="1"
-                        IsHitTestVisible="False" />
-                </Grid>
-            </materialDesign:DialogHost>
-
+            <rs_standardcomponents:TitlebarUserCtrl
+            Title="Untitled" x:Name="Titlebar" x:FieldModifier="public"
+            Panel.ZIndex="1" EnableFreezeMode="False"
+            BoundWindow="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+            CheckBeforeClose="False"
+            EnableClosable="True"
+            EnableMaximize="True"
+            EnableMinimize="True" 
+            Icon="AcademicCap" >
+            </rs_standardcomponents:TitlebarUserCtrl>
         </Grid>
         <!--  Border edge  -->
 

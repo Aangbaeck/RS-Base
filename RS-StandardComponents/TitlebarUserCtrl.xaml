@@ -161,17 +161,17 @@
                                     Kind="WindowMinimize" />
                             </Button>
 
-                            <Grid>
+                            <Grid x:Name="MaxRestoreGrid">
                                 <Button
                                     x:Name="MaximizeButton"
-                                    Width="30"
+                                    Width="30" 
                                     Padding="0"
                                     Click="MaximizeRestoreWindow"
                                     Style="{DynamicResource MaterialDesignFlatButton}"
                                     ToolTip="{Resx Key=MaximizeTT,
                                                    ResxName={StaticResource N}}">
                                     <materialDesign:PackIcon
-                                        Width="24"
+                                        Width="24" 
                                         Height="17"
                                         Foreground="{DynamicResource MaterialDesignBody}"
                                         Kind="WindowMaximize" />

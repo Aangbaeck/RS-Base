@@ -40,9 +40,9 @@ namespace RS_StandardComponents
                 new PropertyMetadata(false));
         public static readonly DependencyProperty EnableFreezeModeProperty =
             DependencyProperty.Register("EnableFreezeMode", typeof(bool), typeof(TitlebarUserCtrl),
-                new PropertyMetadata(false,SetFreezeMode));
+                new PropertyMetadata(false, SetFreezeMode));
 
-        
+
 
         public static new readonly DependencyProperty ContentProperty =
    DependencyProperty.Register("Content", typeof(object),
@@ -66,14 +66,14 @@ namespace RS_StandardComponents
             PinButton.Visibility = Visibility.Collapsed;
             UnpinButton.Visibility = Visibility.Collapsed;
         }
-        
+
         public Window LocalWindow
         {
             get => _localWindow;
             set
             {
                 _localWindow = value;
-                BoundWindow?.LoadPlacement();
+                Services.Tracker.Track(this);
                 SetMaximizeRestoreIcons(BoundWindow);
             }
         }
@@ -160,6 +160,11 @@ namespace RS_StandardComponents
             if (!(e.NewValue is PackIconKind icon)) return;
             ((TitlebarUserCtrl)d).TitleIcon.Kind = icon;
         }
+        public static event EventHandler Closing;
+        private void OnEvent()
+        {
+            Closing?.Invoke(this, EventArgs.Empty);
+        }
 
         private static void PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -169,10 +174,11 @@ namespace RS_StandardComponents
             win.Activated += bar.WindowActivated;
             win.StateChanged += bar.StateChanged;
             bar.LocalWindow = win;
-            win.Closing += (a,o)=> {
+            win.Closing += (a, o) =>
+            {
                 try
                 {
-                    win.SavePlacement();  //This method is save the actual position of the window to file "WindowName.pos"
+                    Closing?.Invoke(bar, EventArgs.Empty);
                     win.Deactivated -= bar.WindowDeactivated;
                     win.Activated -= bar.WindowActivated;
                     win.StateChanged -= bar.StateChanged;
@@ -183,21 +189,12 @@ namespace RS_StandardComponents
                 }
             };
         }
-                
-        
-
-
-
-
-
-        
-        
 
         private static void SetFreezeMode(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool enableFreezeMode)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
             ((TitlebarUserCtrl)d).PinButton.Visibility = enableFreezeMode ? Visibility.Visible : Visibility.Collapsed;
-            
+
         }
         private static void TitlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -220,14 +217,15 @@ namespace RS_StandardComponents
         private static void MaxPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).MaximizeButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
+            ((TitlebarUserCtrl)d).MaxRestoreGrid.Visibility = b ? Visibility.Visible : Visibility.Hidden;
+            
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)
         {
             BoundWindow.WindowState = WindowState.Minimized;
         }
-        
+
         private void PinWindow(object sender, RoutedEventArgs e)
         {
             TitleBar.Visibility = Visibility.Collapsed;
@@ -270,15 +268,13 @@ namespace RS_StandardComponents
         {
             if (BoundWindow.WindowState == WindowState.Maximized)
             {
-                BoundWindow.SizeToContent = SizeToContent.WidthAndHeight;
+                //BoundWindow.SizeToContent = SizeToContent.WidthAndHeight;
                 BoundWindow.WindowState = WindowState.Normal;
-                MaximizeButton.ToolTip = ResxExtension.GetResourceValue("MaximizeTT", "RS_StandardComponents.Localization.TitlebarUserCtrl");
             }
             else if (BoundWindow.WindowState == WindowState.Normal)
             {
                 BoundWindow.SizeToContent = SizeToContent.Manual;
                 BoundWindow.WindowState = WindowState.Maximized;
-                MaximizeButton.ToolTip = ResxExtension.GetResourceValue("RestoreTT", "RS_StandardComponents.Localization.TitlebarUserCtrl");
             }
         }
 
