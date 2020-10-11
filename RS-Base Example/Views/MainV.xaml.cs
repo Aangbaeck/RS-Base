@@ -129,12 +129,11 @@ namespace RS_Base.Views
                     {
                         //ignore
                     }
-
                 }
             }
             catch
             {
-                Log.Error("Could not read window positions setting.");
+                Log.Error("Could not read setting WindowsToOpenAtStart.");
             }
         }
 
