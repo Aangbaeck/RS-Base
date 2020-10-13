@@ -94,8 +94,8 @@ namespace RS_Base.Views
                 {
                     var win = new RSWindow();
                     win.Titlebar.Title = "Testing";
-                    win.Titlebar.Content = new System.Windows.Controls.Button() { Width = 100, Height = 100 };
-                    
+                    win.Titlebar.Content = new System.Windows.Controls.Button() {  };
+                    win.Titlebar.EnableFreezeMode = true;
                     win.Owner = this;
                     win.Show();
                 }

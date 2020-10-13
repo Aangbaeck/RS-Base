@@ -26,19 +26,5 @@ namespace RS_StandardComponents
             InitializeComponent();
 
         }
-        public static readonly DependencyProperty BoundCurrentTitlebarProperty =
-            DependencyProperty.Register("BoundTitlebar", typeof(TitlebarUserCtrl), typeof(Window),
-                new PropertyMetadata(PropertyChanged));
-        public TitlebarUserCtrl BoundTitlebar
-        {
-            get => (TitlebarUserCtrl)GetValue(BoundCurrentTitlebarProperty);
-            set => SetValue(BoundCurrentTitlebarProperty, value);
-        }
-        private static void PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(e.NewValue is TitlebarUserCtrl bar)) return;
-            var win = ((RSWindow)d);
-            win.BoundTitlebar = bar;            
-        }
     }
 }

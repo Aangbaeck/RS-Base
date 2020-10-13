@@ -61,6 +61,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1" Background="{DynamicResource MaterialDesignPaper}">
+                    <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
                     <Button
                         x:Name="UnpinButton"
                         Width="30"
@@ -79,7 +80,6 @@
                             Foreground="{DynamicResource MaterialDesignBody}"
                             Kind="PinOff" />
                     </Button>
-                    <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
                 </Grid>
                 <materialDesign:Card
                     x:Name="TitleBar"

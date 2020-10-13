@@ -4,18 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:rs_standardcomponents="clr-namespace:RS_StandardComponents"
-    
+    Title="{Binding Text, ElementName=Titlebar.Title}"
     MinWidth="300"
     MinHeight="50"
-        AllowsTransparency="True"
+    AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{materialDesign:MaterialDesignFont}"
-    
-    Language="{UICulture}" 
+    FontFamily="{materialDesign:MaterialDesignFont}"
+    Language="{UICulture}"
     ShowInTaskbar="False"
-    
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    WindowStyle="None" Title="{Binding Text, ElementName=Titlebar.Title}">
+    WindowStyle="None">
 
 
     <Window.Style>
@@ -41,36 +39,22 @@
             </Style.Triggers>
         </Style>
     </Window.Style>
-    <!--<Window.Resources>
-        <sys:String x:Key="B">RS_Base.Views.Localization.EmptyWindow</sys:String>
-        <rs_standardcomponents:VisualToImageSourceConverter x:Key="iconConv" />
-    </Window.Resources>
-    <Window.Icon>
-        <Binding Converter="{StaticResource iconConv}">
-            <Binding.Source>
-                <materialDesign:PackIcon
-                    Width="256"
-                    Height="256"
-                    Foreground="WhiteSmoke"
-                    Kind="Pipe" />
-            </Binding.Source>
-        </Binding>
-    </Window.Icon>-->
     <Grid>
         <Grid>
 
             <rs_standardcomponents:TitlebarUserCtrl
-            Title="Untitled" x:Name="Titlebar" x:FieldModifier="public"
-            Panel.ZIndex="1" EnableFreezeMode="False"
-            BoundWindow="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-            CheckBeforeClose="False"
-            EnableClosable="True"
-            EnableMaximize="True"
-            EnableMinimize="True" 
-            Icon="AcademicCap" >
-            </rs_standardcomponents:TitlebarUserCtrl>
+                x:Name="Titlebar"
+                Title="Untitled"
+                Panel.ZIndex="1"
+                x:FieldModifier="public"
+                BoundWindow="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                CheckBeforeClose="False"
+                EnableClosable="True"
+                EnableFreezeMode="False"
+                EnableMaximize="True"
+                EnableMinimize="True"
+                Icon="AcademicCap" />
         </Grid>
-        <!--  Border edge  -->
 
     </Grid>
 </Window>
