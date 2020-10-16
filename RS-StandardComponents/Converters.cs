@@ -352,7 +352,7 @@ namespace RS_StandardComponents
         {
             Initialize();
         }
-
+        
         public SwitchBindingExtension(string path, object valueIfTrue, object valueIfFalse) : base(path)
         {
             Initialize();

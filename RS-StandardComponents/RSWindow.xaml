@@ -5,16 +5,29 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:rs_standardcomponents="clr-namespace:RS_StandardComponents"
     Title="{Binding Text, ElementName=Titlebar.Title}"
-    MinWidth="300"
-    MinHeight="50"
+    MinWidth="10"
+    MinHeight="10"
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{materialDesign:MaterialDesignFont}"
     Language="{UICulture}"
-    ShowInTaskbar="False"
+    ShowInTaskbar="True"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStyle="None">
-
+    <Window.Resources>
+        <rs_standardcomponents:VisualToImageSourceConverter x:Key="VisualToImageSourceConverter" />
+    </Window.Resources>
+    <Window.Icon>
+        <Binding Converter="{StaticResource VisualToImageSourceConverter}">
+            <Binding.Source>
+                <materialDesign:PackIcon
+                    Width="256"
+                    Height="256"
+                    Foreground="WhiteSmoke"
+                    Kind="{Binding Icon, ElementName=Titlebar}" />
+            </Binding.Source>
+        </Binding>
+    </Window.Icon>
 
     <Window.Style>
         <Style TargetType="{x:Type Window}">

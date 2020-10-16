@@ -41,6 +41,9 @@ namespace RS_StandardComponents
         public static readonly DependencyProperty EnableFreezeModeProperty =
             DependencyProperty.Register("EnableFreezeMode", typeof(bool), typeof(TitlebarUserCtrl),
                 new PropertyMetadata(false, SetFreezeMode));
+        public static readonly DependencyProperty IsFreezedProperty =
+            DependencyProperty.Register("IsFreezed", typeof(bool), typeof(TitlebarUserCtrl),
+                new PropertyMetadata(false, SetIsFreezed));
 
 
 
@@ -73,7 +76,6 @@ namespace RS_StandardComponents
             set
             {
                 _localWindow = value;
-                Services.Tracker.Track(this);
                 SetMaximizeRestoreIcons(BoundWindow);
             }
         }
@@ -140,6 +142,11 @@ namespace RS_StandardComponents
             get => (bool)GetValue(EnableFreezeModeProperty);
             set => SetValue(EnableFreezeModeProperty, value);
         }
+        public bool IsFreezed
+        {
+            get => (bool)GetValue(IsFreezedProperty);
+            set => SetValue(IsFreezedProperty, value);
+        }
 
 
         private void StateChanged(object sender, EventArgs e)
@@ -161,10 +168,6 @@ namespace RS_StandardComponents
             ((TitlebarUserCtrl)d).TitleIcon.Kind = icon;
         }
         public static event EventHandler Closing;
-        private void OnEvent()
-        {
-            Closing?.Invoke(this, EventArgs.Empty);
-        }
 
         private static void PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -189,11 +192,29 @@ namespace RS_StandardComponents
                 }
             };
         }
-
+        private static void SetIsFreezed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(e.NewValue is bool isFreesed)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
+            if (isFreesed)
+            {
+                ((TitlebarUserCtrl)d).TitleBar.Visibility = Visibility.Collapsed;
+                ((TitlebarUserCtrl)d).BoundWindow.ResizeMode = ResizeMode.NoResize;
+            }
+            else
+            {
+                ((TitlebarUserCtrl)d).TitleBar.Visibility = Visibility.Visible;
+                ((TitlebarUserCtrl)d).BoundWindow.ResizeMode = ResizeMode.CanResize;
+            }
+        }
         private static void SetFreezeMode(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool enableFreezeMode)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).PinButton.Visibility = enableFreezeMode ? Visibility.Visible : Visibility.Collapsed;
+            {
+                if(((TitlebarUserCtrl)d).Visibility == Visibility.Visible)
+                    ((TitlebarUserCtrl)d).PinButton.Visibility = enableFreezeMode ? Visibility.Visible : Visibility.Collapsed;
+                if (((TitlebarUserCtrl)d).Visibility == Visibility.Collapsed)
+                    ((TitlebarUserCtrl)d).UnpinButton.Visibility = enableFreezeMode ? Visibility.Visible : Visibility.Collapsed;
+            }
 
         }
         private static void TitlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -218,7 +239,7 @@ namespace RS_StandardComponents
         {
             if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
             ((TitlebarUserCtrl)d).MaxRestoreGrid.Visibility = b ? Visibility.Visible : Visibility.Hidden;
-            
+
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)
