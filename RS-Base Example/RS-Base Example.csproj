@@ -55,15 +55,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Infralution.Localization.Wpf">
-      <HintPath>..\Infralution.Localization.Wpf.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Views\Localization\Main.en.resx">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\Localization\Main.resx">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

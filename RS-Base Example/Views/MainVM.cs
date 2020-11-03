@@ -24,7 +24,7 @@ namespace RS_Base.Views
         
         public RelayCommand<string> ChangeLanguageCmd => new RelayCommand<string>(lang =>
         {
-            CultureManager.UICulture = new CultureInfo(lang);
+                        CultureManager.UICulture = new CultureInfo(lang);
             S.Settings.Language = lang;
             S.SaveSettings();
         });

@@ -68,10 +68,7 @@ namespace RS_StandardComponents
                     }
                     UICultureExtension.UpdateAllTargets();
                     ResxExtension.UpdateAllTargets();
-                    if (UICultureChanged != null)
-                    {
-                        UICultureChanged(null, EventArgs.Empty);
-                    }
+                    UICultureChanged?.Invoke(null, EventArgs.Empty);
                 }
             }
         }

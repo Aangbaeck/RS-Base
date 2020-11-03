@@ -1,8 +1,7 @@
 ﻿using System.Globalization;
 using GalaSoft.MvvmLight.Ioc;
-using Infralution.Localization.Wpf;
 using RS_Base.Net.Model;
-
+using RS_StandardComponents;
 
 namespace RS_Base.Views
 {

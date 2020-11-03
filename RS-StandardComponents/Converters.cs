@@ -356,15 +356,16 @@ namespace RS_StandardComponents
         public SwitchBindingExtension(string path, object valueIfTrue, object valueIfFalse) : base(path)
         {
             Initialize();
-            var method = valueIfTrue.GetType().GetMethod("GetValueXAML");
-            if (method != null)
-                ValueIfTrue = method.Invoke(valueIfTrue, new object[0]);
-            else ValueIfTrue = valueIfTrue;
-
-            method = valueIfFalse.GetType().GetMethod("GetValueXAML");
-            if (method != null)
-                ValueIfFalse = method.Invoke(valueIfFalse, new object[0]);
-            else ValueIfFalse = valueIfFalse;
+            //var resX = valueIfTrue as Infralution.Localization.Wpf.ResxExtension;
+            //if (resX != null)
+            //    ValueIfTrue = ResxExtension.GetValueManual
+            //else ValueIfTrue = valueIfTrue;
+            ValueIfTrue = valueIfTrue;
+            //method = valueIfFalse.GetType().GetMethod("GetValueXAML");
+            //if (method != null)
+            //    ValueIfFalse = method.Invoke(valueIfFalse, new object[0]);
+            //else ValueIfFalse = valueIfFalse;
+            ValueIfFalse = valueIfFalse;
 
         }
 

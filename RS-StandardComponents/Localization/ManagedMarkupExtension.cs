@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Markup;
 using System.Reflection;
 using System.Windows;
 using System.ComponentModel;
+using System.Globalization;
+using System.Diagnostics;
 
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "RS_StandardComponents")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2007/xaml/presentation", "RS_StandardComponents")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2008/xaml/presentation", "RS_StandardComponents")]
+
 namespace RS_StandardComponents
 {
     /// <summary>
@@ -48,7 +52,7 @@ namespace RS_StandardComponents
         {
             manager.RegisterExtension(this);
         }
-
+        
         /// <summary>
         /// Return the value for this instance of the Markup Extension
         /// </summary>
@@ -56,6 +60,7 @@ namespace RS_StandardComponents
         /// <returns>The value of the element</returns>
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
+            // register the target and property so we can update them
             RegisterTarget(serviceProvider);
             object result = this;
 
@@ -145,7 +150,7 @@ namespace RS_StandardComponents
         /// </summary>
         public bool IsTargetAlive
         {
-            get 
+            get
             {
                 // for normal elements the _targetObjects.Count will always be 1
                 // for templates the Count may be zero if this method is called
@@ -156,15 +161,15 @@ namespace RS_StandardComponents
                 //
                 if (_targetObjects.Count == 0)
                     return true;
-                
+
                 // otherwise just check whether the referenced target(s) are alive
                 //
                 foreach (WeakReference reference in _targetObjects)
                 {
                     if (reference.IsAlive) return true;
                 }
-                return false; 
-            } 
+                return false;
+            }
         }
 
         /// <summary>
@@ -228,7 +233,7 @@ namespace RS_StandardComponents
                 return result;
             }
         }
- 
+
         /// <summary>
         /// Return the value associated with the key from the resource manager
         /// </summary>

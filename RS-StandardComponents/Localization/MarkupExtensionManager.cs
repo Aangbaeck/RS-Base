@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Markup;
+using System.Reflection;
+using System.Windows;
+using System.ComponentModel;
+using System.Globalization;
+using System.Diagnostics;
 
 
 namespace RS_StandardComponents
@@ -11,9 +19,9 @@ namespace RS_StandardComponents
     /// This class provides a single point for updating all markup targets that use the given Markup 
     /// Extension managed by this class.   
     /// </remarks>
-    public class MarkupExtensionManager 
+    public class MarkupExtensionManager
     {
-       
+
         #region Member Variables
 
         /// <summary>

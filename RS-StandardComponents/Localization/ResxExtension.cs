@@ -479,7 +479,7 @@ namespace RS_StandardComponents
             // register the target and property so we can update them
             //
             RegisterTarget(serviceProvider);
-
+            
             // Show the icon in the notification tray to allow changing culture at design time
             //
             //if (this.IsInDesignMode)
@@ -591,7 +591,18 @@ namespace RS_StandardComponents
         #endregion
 
         #region Local Methods
-
+        public static bool isInDesignMode
+        {
+            get
+            {
+                System.Diagnostics.Process process = System.Diagnostics.Process.GetCurrentProcess();
+                //MessageBox.Show(process.ProcessName);  //Uncomment this for figuring out what's wrong
+                bool res = process.ProcessName == "WpfSurface";
+                process.Dispose();
+                return res;
+            }
+        }
+        public static string LastCultureDesigner;
         /// <summary>
         /// Class constructor
         /// </summary>
@@ -601,7 +612,21 @@ namespace RS_StandardComponents
             // assemblies to a cache location.  Unfortunately it doesn't shadow copy the satellite 
             // assemblies - so we have to resolve these ourselves if we want to have support for
             // design time switching of language
-            //
+            // 
+
+            if (isInDesignMode && LastCultureDesigner != KeyboardLayout.GetCurrentKeyboardLayout().Name)
+            {
+                LastCultureDesigner = KeyboardLayout.GetCurrentKeyboardLayout().Name;
+                MessageBox.Show(LastCultureDesigner);
+                CultureManager.UICulture = KeyboardLayout.GetCurrentKeyboardLayout();
+                MessageBox.Show("börjar här?");
+            }
+            //if (IsInDesignMode )
+            //{
+            //    LastCultureDesigner = KeyboardLayout.GetCurrentKeyboardLayout().Name;
+            //    MessageBox.Show(KeyboardLayout.GetCurrentKeyboardLayout().Name);
+            //    CultureManager.UICulture = KeyboardLayout.GetCurrentKeyboardLayout();
+            //}
             if (AppDomain.CurrentDomain.FriendlyName == "XDesProc.exe")
             {
                 _assemblyProbingPaths = new List<string>();
@@ -1042,6 +1067,7 @@ namespace RS_StandardComponents
         /// <param name="target">The target to update</param>
         protected override void UpdateTarget(object target)
         {
+
             // binding of child extensions is done by the parent
             //
             if (IsMultiBindingChild) return;
@@ -1213,6 +1239,7 @@ namespace RS_StandardComponents
         {
             if (DesignerProperties.GetIsInDesignMode(element))
             {
+
                 foreach (ResxExtension ext in MarkupManager.ActiveExtensions)
                 {
                     if (ext.IsTarget(element))

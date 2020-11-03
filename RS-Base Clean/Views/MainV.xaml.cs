@@ -15,7 +15,7 @@ using Serilog;
 
 namespace RS_Base.Views
 {
-    public partial class MainV 
+    public partial class MainV
     {
         public MainV()
         {
@@ -31,7 +31,7 @@ namespace RS_Base.Views
             Closing += (s, e) =>
             {
                 Log.Information("CLOSING APPLICATION...");
-                this.SavePlacement();  //Saves this windows position
+
                 var listOfWindowsToOpenNextTime = new List<Type>();
                 var windows = Application.Current.Windows;  //Close every window individually to save their position
                 foreach (Window window in windows)
@@ -62,7 +62,6 @@ namespace RS_Base.Views
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-            this.LoadPlacement();  //Sets the last position of the window
         }
 
         private void OpenAnotherWindow(Type window)
@@ -83,7 +82,7 @@ namespace RS_Base.Views
             //}
         }
 
-        
+
         /// <summary>
         /// This method will check for custom windows as well by specifying T to window type
         /// </summary>
@@ -93,7 +92,7 @@ namespace RS_Base.Views
                 ? Application.Current.Windows.OfType<T>().Any()
                 : Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
         }
-        
+
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             try
@@ -105,11 +104,11 @@ namespace RS_Base.Views
                     {
                         OpenAnotherWindow(w);
                     }
-                    catch 
+                    catch
                     {
                         //ignore
                     }
-                    
+
                 }
             }
             catch
@@ -117,7 +116,7 @@ namespace RS_Base.Views
                 Log.Error("Could not read window positions setting.");
             }
         }
-        
+
         /// <summary>
         /// This often finds weird threading errors in the UI.
         /// </summary>
