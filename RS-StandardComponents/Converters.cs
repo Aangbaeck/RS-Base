@@ -352,12 +352,20 @@ namespace RS_StandardComponents
         {
             Initialize();
         }
-        
+
         public SwitchBindingExtension(string path, object valueIfTrue, object valueIfFalse) : base(path)
         {
             Initialize();
-            ValueIfTrue = valueIfTrue;
-            ValueIfFalse = valueIfFalse;
+            var method = valueIfTrue.GetType().GetMethod("GetValueXAML");
+            if (method != null)
+                ValueIfTrue = method.Invoke(valueIfTrue, new object[0]);
+            else ValueIfTrue = valueIfTrue;
+
+            method = valueIfFalse.GetType().GetMethod("GetValueXAML");
+            if (method != null)
+                ValueIfFalse = method.Invoke(valueIfFalse, new object[0]);
+            else ValueIfFalse = valueIfFalse;
+
         }
 
         private void Initialize()

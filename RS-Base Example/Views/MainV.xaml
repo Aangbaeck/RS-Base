@@ -37,7 +37,8 @@
 
     <rsStandardComponents:TitlebarUserCtrl
             Title="RS-Base Example Project Template"
-            Panel.ZIndex="1" EnableFreezeMode="True"
+            Panel.ZIndex="1" IsPinned="False"
+            EnablePinMode="False"
             BoundWindow="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
             CheckBeforeClose="True"
             EnableClosable="True"

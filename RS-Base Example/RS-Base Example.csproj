@@ -17,9 +17,14 @@
     <PackageLicenseFile></PackageLicenseFile>
     <PackageProjectUrl>https://github.com/Aangbaeck/RS-Base</PackageProjectUrl>
     <Authors>Björn Ångbäck</Authors>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 

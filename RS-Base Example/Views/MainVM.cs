@@ -6,12 +6,12 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Infralution.Localization.Wpf;
 using MaterialDesignThemes.Wpf;
 using RS_Base.Models;
 using RS_Base.Net.Helper;
 using RS_Base.Net.Model;
 using RS_Base.Services;
+using RS_StandardComponents;
 using Serilog;
 
 namespace RS_Base.Views
@@ -65,7 +65,7 @@ namespace RS_Base.Views
         private void ChangeTitleLocal()
         {
             //To change strings with localized text in back end we could use
-            WelcomeTitle = ResxExtension.GetResourceValue("ChangeLanguageInBackEndString", "RS_Base.Views.Localization.Main");
+            WelcomeTitle = ResxExtension.GetValueManual<string>("ChangeLanguageInBackEndString", "RS_Base.Views.Localization.Main");
             WelcomeTitle = "Hallabaloo!";
         }
 

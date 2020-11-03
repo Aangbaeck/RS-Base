@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-using Infralution.Localization.Wpf;
 using RS_Base.Net;
 using RS_Base.Net.Helper;
 using RS_Base.Services;
+using RS_Base.Views;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Core;
@@ -51,6 +51,12 @@ namespace RS_Base
         {
             // Log the exception, display it, etc
             Log.Error((e.ExceptionObject as Exception), "CurrentDomain_UnhandledException!!!");
+        }
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            new ViewModelLocator();
+            new MainV().Show();
         }
     }
     public static class StealthConsoleSinkExtensions

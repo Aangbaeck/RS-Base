@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Infralution.Localization.Wpf;
 using MaterialDesignThemes.Wpf;
 using Serilog;
 
@@ -17,7 +17,7 @@ namespace RS_StandardComponents
     {
         public static readonly DependencyProperty BoundCurrentWindowProperty =
             DependencyProperty.Register("BoundWindow", typeof(Window), typeof(TitlebarUserCtrl),
-                new PropertyMetadata(PropertyChanged));
+                new PropertyMetadata(NewWindowAdded));
 
         public static readonly DependencyProperty MinimizableProperty = DependencyProperty.Register("EnableMinimize",
             typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, MinPropertyChanged));
@@ -38,12 +38,12 @@ namespace RS_StandardComponents
         public static readonly DependencyProperty CheckBeforeCloseProperty =
             DependencyProperty.Register("CheckBeforeClose", typeof(bool), typeof(TitlebarUserCtrl),
                 new PropertyMetadata(false));
-        public static readonly DependencyProperty EnableFreezeModeProperty =
-            DependencyProperty.Register("EnableFreezeMode", typeof(bool), typeof(TitlebarUserCtrl),
-                new PropertyMetadata(false, SetFreezeMode));
-        public static readonly DependencyProperty IsFreezedProperty =
-            DependencyProperty.Register("IsFreezed", typeof(bool), typeof(TitlebarUserCtrl),
-                new PropertyMetadata(false, SetIsFreezed));
+        public static readonly DependencyProperty EnablePinModeProperty =
+            DependencyProperty.Register("EnablePinMode", typeof(bool), typeof(TitlebarUserCtrl),
+                new PropertyMetadata(false, SetPinMode));
+        public static readonly DependencyProperty IsPinnedProperty =
+            DependencyProperty.Register("IsPinned", typeof(bool), typeof(TitlebarUserCtrl),
+                new PropertyMetadata(false, SetIsPinned));
 
 
 
@@ -64,7 +64,7 @@ namespace RS_StandardComponents
         public TitlebarUserCtrl()
         {
             InitializeComponent();
-            MaximizeButton.Visibility = Visibility.Hidden;
+            MaximizeButton.Visibility = Visibility.Collapsed;
             RestoreButton.Visibility = Visibility.Visible;
             PinButton.Visibility = Visibility.Collapsed;
             UnpinButton.Visibility = Visibility.Collapsed;
@@ -84,13 +84,13 @@ namespace RS_StandardComponents
         {
             if (boundWindow?.WindowState == WindowState.Maximized)
             {
-                MaximizeButton.Visibility = Visibility.Hidden;
+                MaximizeButton.Visibility = Visibility.Collapsed;
                 RestoreButton.Visibility = Visibility.Visible;
             }
             else
             {
                 MaximizeButton.Visibility = Visibility.Visible;
-                RestoreButton.Visibility = Visibility.Hidden;
+                RestoreButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -102,18 +102,26 @@ namespace RS_StandardComponents
             set => SetValue(BoundCurrentWindowProperty, value);
         }
 
+
+        /// <summary>
+        /// Hide or show minimize button titlebar
+        /// </summary>
         public bool EnableMinimize
         {
             get => (bool)GetValue(MinimizableProperty);
             set => SetValue(MinimizableProperty, value);
         }
-
+        /// <summary>
+        /// Hide or show maximize button titlebar
+        /// </summary>
         public bool EnableMaximize
         {
             get => (bool)GetValue(MaximizableProperty);
             set => SetValue(MaximizableProperty, value);
         }
-
+        /// <summary>
+        /// Hide or show close button titlebar
+        /// </summary>
         public bool EnableClosable
         {
             get => (bool)GetValue(ClosableProperty);
@@ -131,21 +139,23 @@ namespace RS_StandardComponents
             get => (PackIconKind)GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
-
+        /// <summary>
+        /// show popup question before closing
+        /// </summary>
         public bool CheckBeforeClose
         {
             get => (bool)GetValue(CheckBeforeCloseProperty);
             set => SetValue(CheckBeforeCloseProperty, value);
         }
-        public bool EnableFreezeMode
+        public bool EnablePinMode
         {
-            get => (bool)GetValue(EnableFreezeModeProperty);
-            set => SetValue(EnableFreezeModeProperty, value);
+            get => (bool)GetValue(EnablePinModeProperty);
+            set => SetValue(EnablePinModeProperty, value);
         }
-        public bool IsFreezed
+        public bool IsPinned
         {
-            get => (bool)GetValue(IsFreezedProperty);
-            set => SetValue(IsFreezedProperty, value);
+            get => (bool)GetValue(IsPinnedProperty);
+            set => SetValue(IsPinnedProperty, value);
         }
 
 
@@ -169,7 +179,7 @@ namespace RS_StandardComponents
         }
         public static event EventHandler Closing;
 
-        private static void PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void NewWindowAdded(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is Window win)) return;
             var bar = ((TitlebarUserCtrl)d);
@@ -177,6 +187,7 @@ namespace RS_StandardComponents
             win.Activated += bar.WindowActivated;
             win.StateChanged += bar.StateChanged;
             bar.LocalWindow = win;
+            SetIsPinnedCached(bar, win);
             win.Closing += (a, o) =>
             {
                 try
@@ -192,28 +203,55 @@ namespace RS_StandardComponents
                 }
             };
         }
-        private static void SetIsFreezed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+        private static void SetIsPinnedCached(TitlebarUserCtrl bar, Window win)
         {
-            if (!(e.NewValue is bool isFreesed)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            if (isFreesed)
+            if (bar.isPinnedCache)
+            {
+                win.ResizeMode = ResizeMode.NoResize;
+            }
+            else
+            {
+                win.ResizeMode = ResizeMode.CanResize;
+            }
+        }
+
+        private bool isPinnedCache;
+        private static void SetIsPinned(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(e.NewValue is bool isPinned)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
+            ((TitlebarUserCtrl)d).isPinnedCache = isPinned;
+            if (isPinned)
             {
                 ((TitlebarUserCtrl)d).TitleBar.Visibility = Visibility.Collapsed;
-                ((TitlebarUserCtrl)d).BoundWindow.ResizeMode = ResizeMode.NoResize;
+                if (((TitlebarUserCtrl)d).BoundWindow != null)  //if we cant do it right now do it in the SetIsPinnedCached instead
+                    ((TitlebarUserCtrl)d).BoundWindow.ResizeMode = ResizeMode.NoResize;
+                
+
             }
             else
             {
                 ((TitlebarUserCtrl)d).TitleBar.Visibility = Visibility.Visible;
-                ((TitlebarUserCtrl)d).BoundWindow.ResizeMode = ResizeMode.CanResize;
+                if (((TitlebarUserCtrl)d).BoundWindow != null) //if we cant do it right now do it in the SetIsPinnedCached instead
+                    ((TitlebarUserCtrl)d).BoundWindow.ResizeMode = ResizeMode.CanResize;
             }
         }
-        private static void SetFreezeMode(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void SetPinMode(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(e.NewValue is bool enableFreezeMode)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
+            if (!(e.NewValue is bool enablePinMode)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
             {
-                if(((TitlebarUserCtrl)d).Visibility == Visibility.Visible)
-                    ((TitlebarUserCtrl)d).PinButton.Visibility = enableFreezeMode ? Visibility.Visible : Visibility.Collapsed;
-                if (((TitlebarUserCtrl)d).Visibility == Visibility.Collapsed)
-                    ((TitlebarUserCtrl)d).UnpinButton.Visibility = enableFreezeMode ? Visibility.Visible : Visibility.Collapsed;
+                if (enablePinMode)
+                {
+                    if (((TitlebarUserCtrl)d).TitleBar.Visibility == Visibility.Visible)
+                        ((TitlebarUserCtrl)d).PinButton.Visibility = enablePinMode ? Visibility.Visible : Visibility.Collapsed;
+                    if (((TitlebarUserCtrl)d).TitleBar.Visibility == Visibility.Collapsed)
+                        ((TitlebarUserCtrl)d).UnpinButton.Visibility = enablePinMode ? Visibility.Visible : Visibility.Collapsed;
+                }
+                else
+                {
+                    ((TitlebarUserCtrl)d).PinButton.Visibility = Visibility.Collapsed;
+                    ((TitlebarUserCtrl)d).UnpinButton.Visibility = Visibility.Collapsed;
+                }
             }
 
         }
@@ -226,19 +264,19 @@ namespace RS_StandardComponents
         private static void ClosePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).CloseButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
+            ((TitlebarUserCtrl)d).CloseButton.Visibility = b ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void MinPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).MinimizeButton.Visibility = b ? Visibility.Visible : Visibility.Hidden;
+            ((TitlebarUserCtrl)d).MinimizeButton.Visibility = b ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private static void MaxPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).MaxRestoreGrid.Visibility = b ? Visibility.Visible : Visibility.Hidden;
+            ((TitlebarUserCtrl)d).MaxRestoreGrid.Visibility = b ? Visibility.Visible : Visibility.Collapsed;
 
         }
 
@@ -252,12 +290,16 @@ namespace RS_StandardComponents
             TitleBar.Visibility = Visibility.Collapsed;
             BoundWindow.ResizeMode = ResizeMode.NoResize;
             UnpinButton.Visibility = Visibility.Visible;
+            IsPinned = true;
         }
         private void UnpinWindow(object sender, RoutedEventArgs e)
         {
             TitleBar.Visibility = Visibility.Visible;
             BoundWindow.ResizeMode = ResizeMode.CanResize;
             UnpinButton.Visibility = Visibility.Collapsed;
+            if (EnablePinMode)
+                PinButton.Visibility = Visibility.Visible;
+            IsPinned = false;
         }
 
         //These mouse methods is used for normal window behaviour and still it's a borderless stylable window
@@ -367,7 +409,8 @@ namespace RS_StandardComponents
 
         private void OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
         {
-            if (eventArgs.Parameter != null && (string)eventArgs.Parameter != "True") return;
+            if (eventArgs.Parameter == null || eventArgs.Parameter.ToString() != "True") return;
+            
             try
             {
                 BoundWindow.Close(); //Close this window (Main)
