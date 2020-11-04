@@ -9,7 +9,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="300"
     d:DesignWidth="300"
-    Language="{local:UICulture}"
+    
     mc:Ignorable="d">
     <UserControl.Resources>
         <sys:String x:Key="N">RS_StandardComponents.TitlebarUserCtrl</sys:String>

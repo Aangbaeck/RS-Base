@@ -25,7 +25,6 @@ namespace RS_StandardComponents
                     Thread.CurrentThread.CurrentUICulture = value;
                     Thread.CurrentThread.CurrentCulture = value.IsNeutralCulture ? CultureInfo.CreateSpecificCulture(value.Name) : value;
 
-                    UICultureExtension.UpdateAllTargets();
                     ResxExtension.MarkupManager.UpdateAllTargets();
                 }
             }

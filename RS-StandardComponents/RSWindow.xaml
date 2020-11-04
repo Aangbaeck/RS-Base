@@ -10,8 +10,7 @@
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{materialDesign:MaterialDesignFont}"
-    Language="{local:UICulture}"
-    ShowInTaskbar="True"
+        ShowInTaskbar="True"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStyle="None">
     <Window.Resources>

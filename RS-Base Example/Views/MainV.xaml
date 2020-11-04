@@ -12,7 +12,6 @@
     DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
     KeyDown="wnd_KeyDown"
-    Language="{UICulture}"
     Loaded="OnLoaded"
     ResizeMode="CanResize"
     Style="{StaticResource WindowStyle}"
