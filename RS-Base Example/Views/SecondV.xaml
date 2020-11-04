@@ -16,11 +16,7 @@
     <Window.Icon>
         <Binding Converter="{StaticResource ConvertMaterialDesignIconToIcon}">
             <Binding.Source>
-                <materialDesign:PackIcon
-                    Width="256"
-                    Height="256"
-                    Foreground="WhiteSmoke"
-                    Kind="Pipe" />
+                <materialDesign:PackIcon Width="256" Height="256" Foreground="WhiteSmoke" Kind="Pipe" />
             </Binding.Source>
         </Binding>
     </Window.Icon>
@@ -39,26 +35,12 @@
 
                 <!--  REMOVE THIS GRID AND PUT YOUR STUFF HERE!!!!  -->
 
-                <Grid
-                    Height="200"
-                    MinWidth="300"
-                    Margin="20,0">
+                <Grid Height="200" MinWidth="300" Margin="20 0">
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock
-                            FontSize="25"
-                            Text="{Binding D.Title}"
-                            TextAlignment="Center" />
+                        <TextBlock Text="{Binding D.Title}" FontSize="25" TextAlignment="Center" />
 
-                        <TextBlock
-                            Margin="0,20,0,0"
-                            FontSize="25"
-                            Text="Property name: "
-                            TextAlignment="Center" />
-                        <TextBlock
-                            FontSize="25"
-                            FontStyle="Italic"
-                            Text="{Binding PropertyName}"
-                            TextAlignment="Center" />
+                        <TextBlock Text="Property name: " Margin="0 20 0 0" FontSize="25" TextAlignment="Center" />
+                        <TextBlock Text="{Binding PropertyName}" FontSize="25" FontStyle="Italic" TextAlignment="Center" />
                     </StackPanel>
                 </Grid>
                 <!--  DO IT!!  -->
@@ -66,11 +48,11 @@
 
 
                 <Button
+                    Content="Close"
                     Margin="10"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Click="CloseClick"
-                    Content="Close"
                     Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
 
             </StackPanel>

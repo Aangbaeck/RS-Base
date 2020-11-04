@@ -15,7 +15,6 @@
     Language="{UICulture}"
     Loaded="OnLoaded"
     ResizeMode="CanResize"
-    ResxExtension.DefaultResxName="RS_Base.Views.Localization.Main"
     Style="{StaticResource WindowStyle}"
     TextElement.FontSize="16"
     TextElement.FontWeight="Medium"
@@ -124,11 +123,7 @@
                     Command="{Binding ChangeLanguageCmd}"
                     CommandParameter="fi-FI"
                     Content="{Resx Finnish, ResxName={StaticResource B}}" />
-
                 </StackPanel>
-
-
-
             </StackPanel>
             <StackPanel VerticalAlignment="Bottom">
                 <Grid

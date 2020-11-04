@@ -15,17 +15,12 @@ namespace RS_StandardComponents
     [MarkupExtensionReturnType(typeof(XmlLanguage))]
     public class UICultureExtension : ManagedMarkupExtension
     {
-        /// <summary>
-        /// List of active extensions
-        /// </summary>
-        private static MarkupExtensionManager _markupManager = new MarkupExtensionManager(2);
 
         /// <summary>
         /// Creates an instance of the extension to set the language property for an
         /// element to the current <see cref="CultureManager.UICulture"/> property value
         /// </summary>
-        public UICultureExtension()
-            : base(_markupManager)
+        public UICultureExtension() : base(MarkupManager)
         {
         }
 
@@ -44,17 +39,14 @@ namespace RS_StandardComponents
         /// <summary>
         /// Return the MarkupManager for this extension
         /// </summary>
-        public static MarkupExtensionManager MarkupManager
-        {
-            get { return _markupManager; }
-        }
+        public static MarkupExtensionManager MarkupManager { get; } = new MarkupExtensionManager(2);
 
         /// <summary>
         /// Use the Markup Manager to update all targets
         /// </summary>
         public static void UpdateAllTargets()
         {
-            _markupManager.UpdateAllTargets();
+            MarkupManager.UpdateAllTargets();
         }
 
     }

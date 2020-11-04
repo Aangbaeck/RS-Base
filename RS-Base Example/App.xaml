@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:rsStandardComponents="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
     xmlns:views="clr-namespace:RS_Base.Net.Views"
-    xmlns:views1="clr-namespace:RS_Base.Views" Startup="Application_Startup"
-    >
+    xmlns:views1="clr-namespace:RS_Base.Views"
+    Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <!--  This is to make Matieral design work  -->
@@ -23,11 +23,7 @@
             <Style x:Key="WindowStyle" TargetType="{x:Type Window}">
                 <Setter Property="WindowChrome.WindowChrome">
                     <Setter.Value>
-                        <WindowChrome
-                            CaptionHeight="1"
-                            CornerRadius="0"
-                            GlassFrameThickness="0"
-                            ResizeBorderThickness="6" />
+                        <WindowChrome CaptionHeight="1" CornerRadius="0" GlassFrameThickness="0" ResizeBorderThickness="6" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="WindowStyle">
@@ -46,27 +42,12 @@
             <!--  Global View Model Locator for MVVM-Light  -->
             <views1:ViewModelLocator x:Key="Locator" />
             <rsStandardComponents:VisualToImageSourceConverter x:Key="ConvertMaterialDesignIconToIcon" />
-            <rsStandardComponents:BoolToBrushConverter
-                x:Key="ConnectedColorConverter"
-                FalseValue="Crimson"
-                TrueValue="ForestGreen" />
-            <rsStandardComponents:BoolToObjectConverter
-                x:Key="IconMaximizeConverter"
-                FalseValue="WindowMaximize"
-                TrueValue="WindowRestore" />
-            <rsStandardComponents:BoolToStringConverter
-                x:Key="StringMaximizeConverter"
-                FalseValue="Maximize"
-                TrueValue="Restore" />
-            <rsStandardComponents:BoolToBrushConverter
-                x:Key="ExampleConverter"
-                FalseValue="Aqua"
-                TrueValue="DodgerBlue" />
+            <rsStandardComponents:BoolToBrushConverter x:Key="ConnectedColorConverter" FalseValue="Crimson" TrueValue="ForestGreen" />
+            <rsStandardComponents:BoolToObjectConverter x:Key="IconMaximizeConverter" FalseValue="WindowMaximize" TrueValue="WindowRestore" />
+            <rsStandardComponents:BoolToStringConverter x:Key="StringMaximizeConverter" FalseValue="Maximize" TrueValue="Restore" />
+            <rsStandardComponents:BoolToBrushConverter x:Key="ExampleConverter" FalseValue="Aqua" TrueValue="DodgerBlue" />
             <rsStandardComponents:IndexBooleanConverter x:Key="IndexConverter" />
-            <rsStandardComponents:BoolToVisibilityConverter
-                x:Key="CollapsedConverter"
-                FalseValue="Collapsed"
-                TrueValue="Visible" />
+            <rsStandardComponents:BoolToVisibilityConverter x:Key="CollapsedConverter" FalseValue="Collapsed" TrueValue="Visible" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
