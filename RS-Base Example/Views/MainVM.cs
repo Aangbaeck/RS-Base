@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MaterialDesignThemes.Wpf;
-using RS_Base.Models;
 using RS_Base.Net.Helper;
 using RS_Base.Net.Model;
 using RS_Base.Services;
@@ -21,10 +18,10 @@ namespace RS_Base.Views
         public readonly DataService D;
         public RelayCommand ChangeTitleLocalCmd => new RelayCommand(ChangeTitleLocal);
         public RelayCommand ChangeTitleDataServiceCmd => new RelayCommand(ChangeTitleDataService);
-        
+
         public RelayCommand<string> ChangeLanguageCmd => new RelayCommand<string>(lang =>
         {
-                        CultureManager.UICulture = new CultureInfo(lang);
+            CultureManager.UICulture = new CultureInfo(lang);
             S.Settings.Language = lang;
             S.SaveSettings();
         });
@@ -52,7 +49,7 @@ namespace RS_Base.Views
             }
             catch (Exception e)
             {
-                
+
                 Log.Error(e, "Could not open log file...");
             }
         });
@@ -70,7 +67,7 @@ namespace RS_Base.Views
         }
 
         private string _welcomeTitle;
-        
+
         public string WelcomeTitle
         {
             get { return _welcomeTitle; }

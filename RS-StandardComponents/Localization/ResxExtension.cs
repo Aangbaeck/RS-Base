@@ -44,26 +44,27 @@ namespace RS_StandardComponents
         public ResxExtension() : base(MarkupManager)
         {
         }
-
-        /// <summary>
-        /// Create a new instance of the markup extension
-        /// </summary>
-        /// <param name="key">The key used to get the value from the resources</param>
-        public ResxExtension(string key) : base(MarkupManager)
+        public ResxExtension(object key) : base(MarkupManager)
         {
-            this.Key = key;
+            this.Key = key.ToString();
+        }
+
+        public ResxExtension(object key, object resXName) : base(MarkupManager)
+        {
+            this.Key = key.ToString();
+            this.ResxName = resXName.ToString();
         }
 
         /// <summary>
         /// The fully qualified name of the embedded resx (without .resources) to get
         /// the resource from
         /// </summary>
-        public string ResxName { get; set; }
+        public object ResxName { get; set; }
 
         /// <summary>
         /// The name of the resource key
         /// </summary>
-        public string Key { get; set; }
+        public object Key { get; set; }
 
         /// <summary>
         /// The default value to use if the resource can't be found
@@ -73,7 +74,7 @@ namespace RS_StandardComponents
         /// values because it allows the page to be displayed even if
         /// the resource can't be loaded
         /// </remarks>
-        public string DefaultValue { get; set; }
+        public object DefaultValue { get; set; }
 
         /// <summary>
         /// Return the value for this instance of the Markup Extension
@@ -85,7 +86,7 @@ namespace RS_StandardComponents
             // register the target and property so we can update them
             RegisterTarget(serviceProvider);
 
-            if (string.IsNullOrEmpty(Key))
+            if (string.IsNullOrEmpty(Key.ToString()))
                 throw new ArgumentException("You must set the resource Key");
 
             object result;
@@ -116,8 +117,8 @@ namespace RS_StandardComponents
                 return res;
             }
         }
-        public static string LastCultureDesigner;
-        public static bool RunOnce = false;
+        private static string LastCultureDesigner;
+        private static bool RunOnce = false;
 
         /// <summary>
         /// Class constructor
@@ -155,19 +156,19 @@ namespace RS_StandardComponents
         {
             if (string.IsNullOrEmpty(resourceKey)) return null;
             object result = null;
-            if (!string.IsNullOrEmpty(ResxName))
+            if (!string.IsNullOrEmpty(ResxName.ToString()))
             {
                 try
                 {
                     if (GetResource != null)
                     {
-                        result = GetResource(ResxName, resourceKey, CultureManager.UICulture);
+                        result = GetResource(ResxName.ToString(), resourceKey, CultureManager.UICulture);
                     }
                     if (result == null)
                     {
                         if (_resourceManager == null)
                         {
-                            _resourceManager = GetResourceManager(ResxName);
+                            _resourceManager = GetResourceManager(ResxName.ToString());
                         }
                         if (_resourceManager != null)
                         {
@@ -272,11 +273,11 @@ namespace RS_StandardComponents
         /// <returns>The value from the resources if possible otherwise the default value</returns>
         protected override object GetValue()
         {
-            object result = GetLocalizedResource(Key);
+            object result = GetLocalizedResource(Key.ToString());
             var sResult = result as String;
             if (result == null || sResult == "")
             {
-                result = GetDefaultValue(Key);
+                result = GetDefaultValue(Key.ToString());
             }
             return result;
         }
@@ -376,7 +377,7 @@ namespace RS_StandardComponents
                     try
                     {
                         TypeConverter tc = TypeDescriptor.GetConverter(targetType);
-                        result = tc.ConvertFromInvariantString(DefaultValue);
+                        result = tc.ConvertFromInvariantString(DefaultValue.ToString());
                     }
                     catch
                     {

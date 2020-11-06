@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Test" xml:space="preserve">
-    <value>Testi</value>
+  <data name="ChangeTitleLocal" xml:space="preserve">
+    <value>Change title local</value>
+    
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+    
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>Swenglish</value>
+    
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>Finnish</value>
+    
+  </data>
+  <data name="ChangeLanguageInBackEndString" xml:space="preserve">
+    <value>Change language in back end</value>
+    
+    
   </data>
 </root>

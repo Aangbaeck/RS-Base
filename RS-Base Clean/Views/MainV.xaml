@@ -29,7 +29,7 @@
         </Binding>
     </Window.Icon>
     <Window.Resources>
-        <sys:String x:Key="B">RS_StandardComponents.Localization.TitlebarUserCtrl</sys:String>
+        <sys:String x:Key="N">RS_Base.Views.Localization.Main</sys:String>
     </Window.Resources>
 
     <Grid>
@@ -51,6 +51,7 @@
                     Width="100"
                     Height="100"
                     Margin="0,20,0,0">
+                        <TextBlock Text="{Resx Key=Test,ResxName={StaticResource N}}"></TextBlock>
                         <rsStandardComponents:RemaSawcoLogo />
                     </Grid>
                 </StackPanel>

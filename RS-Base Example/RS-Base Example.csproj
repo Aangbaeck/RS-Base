@@ -55,7 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\Localization\Main.resx">
+    <EmbeddedResource Update="Views\Localization\Main.en.resx">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Localization\Main.sv.resx">

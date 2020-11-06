@@ -37,7 +37,7 @@ namespace RS_Base.Views
             
 
             //Setting language for whole application
-            //CultureManager.UICulture = new CultureInfo(SimpleIoc.Default.GetInstance<SettingsService>().Settings.Language);
+            CultureManager.UICulture = new CultureInfo(SimpleIoc.Default.GetInstance<SettingsService>().Settings.Language);
         }
 
         /// <summary>

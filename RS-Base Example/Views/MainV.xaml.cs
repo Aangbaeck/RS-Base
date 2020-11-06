@@ -16,10 +16,11 @@ using Serilog;
 
 namespace RS_Base.Views
 {
-    public partial class MainV
+    public partial class MainV : Window
     {
         public MainV()
         {
+            
             Application.Current.DispatcherUnhandledException += ThreadStuffUI;
             SimpleIoc.Default.Register<SettingsService>();
             SettingsService = SimpleIoc.Default.GetInstance<SettingsService>();
@@ -28,23 +29,10 @@ namespace RS_Base.Views
 
             Log.Information("STARTING APPLICATION...");
             InitializeComponent();
-            Messenger.Default.Register<Type>(this, MessengerID.MainWindowV, OpenAnotherWindow);
+            
             Closing += (s, e) =>
             {
                 Log.Information("CLOSING APPLICATION...");
-                //this.SavePlacement();  //Saves this windows position
-                var listOfWindowsToOpenNextTime = new List<Type>();
-                var windows = Application.Current.Windows;  //Close every window individually to save their position
-                foreach (Window window in windows)
-                {
-                    var t = window.GetType();
-                    if (window == this || t.Name == "AdornerLayerWindow") continue;  //We will close this window below
-                    listOfWindowsToOpenNextTime.Add(window.GetType());
-                    window.Close();
-                }
-
-                var startWindows = JsonConvert.SerializeObject(listOfWindowsToOpenNextTime);
-                SettingsService.Settings.WindowsToOpenAtStart = startWindows;
                 SettingsService.SaveSettings();
                 ViewModelLocator.Cleanup();
             };

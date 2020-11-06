@@ -1,7 +1,9 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace RS_StandardComponents
 {
@@ -22,10 +24,15 @@ namespace RS_StandardComponents
             {
                 if (value != UICulture)
                 {
-                    Thread.CurrentThread.CurrentUICulture = value;
-                    Thread.CurrentThread.CurrentCulture = value.IsNeutralCulture ? CultureInfo.CreateSpecificCulture(value.Name) : value;
+                    Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() =>
+                        {
+                            Thread.CurrentThread.CurrentUICulture = value;
+                            Thread.CurrentThread.CurrentCulture = value.IsNeutralCulture ? CultureInfo.CreateSpecificCulture(value.Name) : value;
 
-                    ResxExtension.MarkupManager.UpdateAllTargets();
+                            ResxExtension.MarkupManager.UpdateAllTargets();
+                        }));
                 }
             }
         }
