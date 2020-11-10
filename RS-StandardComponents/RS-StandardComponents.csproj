@@ -54,10 +54,10 @@ V2.2.2
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\Etc\DogeCoin.png">
+    <Resource Include="..\Etc\DogeCoin.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
-    </None>
+    </Resource>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
