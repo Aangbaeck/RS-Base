@@ -57,8 +57,8 @@ namespace RS_Base
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            new ViewModelLocator();
-            new MainV().Show();
+            var vmLoc = new ViewModelLocator();
+            vmLoc.WindowManager.CreateMainWindow();
         }
     }
     public static class StealthConsoleSinkExtensions

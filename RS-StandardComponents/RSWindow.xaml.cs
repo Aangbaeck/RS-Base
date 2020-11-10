@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using MaterialDesignThemes.Wpf;
+using System.Windows;
 
 namespace RS_StandardComponents
 {
@@ -7,6 +8,13 @@ namespace RS_StandardComponents
     /// </summary>
     public partial class RSWindow : Window
     {
+        public void SetIcon(PackIconKind icon)
+        {
+            Titlebar.Icon = icon;
+            this.Icon = VisualToImageSourceConverter.ConvertInCode(new PackIcon() { Kind = icon, Width=1000, Height=1000, });
+
+        }
+
         public RSWindow()
         {
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window no go underneath the bottom taskbar
@@ -37,6 +45,6 @@ namespace RS_StandardComponents
         {
             return Title;
         }
-        
+
     }
 }

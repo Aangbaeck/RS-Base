@@ -26,6 +26,20 @@ namespace RS_StandardComponents
 
     public class VisualToImageSourceConverter : IValueConverter
     {
+        public static ImageSource ConvertInCode(MaterialDesignThemes.Wpf.PackIcon icon)
+        {
+            if (icon is FrameworkElement visual)
+            {
+                visual.Measure(new Size(visual.Width, visual.Height));
+                visual.Arrange(new Rect(0, 0, visual.Width, visual.Height));
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)visual.Width, (int)visual.Height, 96, 96, PixelFormats.Pbgra32);
+                rtb.Render(visual);
+                return rtb;
+            }
+            return null;
+        }
+
+        
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is FrameworkElement visual)

@@ -10,7 +10,7 @@
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{materialDesign:MaterialDesignFont}"
-        ShowInTaskbar="True"
+    ShowInTaskbar="True"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStyle="None">
     <Window.Resources>
@@ -19,7 +19,7 @@
     <Window.Icon>
         <Binding Converter="{StaticResource VisualToImageSourceConverter}">
             <Binding.Source>
-                <materialDesign:PackIcon Width="256" Height="256" Foreground="WhiteSmoke" Kind="{Binding Icon, ElementName=Titlebar}" />
+                <materialDesign:PackIcon Width="256" Height="256" Foreground="{DynamicResource MaterialDesignDarkBackground}" Kind="{Binding Icon, ElementName=Titlebar}" />
             </Binding.Source>
         </Binding>
     </Window.Icon>

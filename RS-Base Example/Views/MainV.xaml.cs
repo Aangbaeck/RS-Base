@@ -16,34 +16,31 @@ using Serilog;
 
 namespace RS_Base.Views
 {
-    public partial class MainV : Window
+    public partial class MainV 
     {
         public MainV()
         {
             
             Application.Current.DispatcherUnhandledException += ThreadStuffUI;
-            SimpleIoc.Default.Register<SettingsService>();
-            SettingsService = SimpleIoc.Default.GetInstance<SettingsService>();
-            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window no go underneath the bottom taskbar
+                        
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window not go underneath the bottom taskbar
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
 
             Log.Information("STARTING APPLICATION...");
             InitializeComponent();
-            
-            Closing += (s, e) =>
-            {
-                Log.Information("CLOSING APPLICATION...");
-                SettingsService.SaveSettings();
-                ViewModelLocator.Cleanup();
-            };
         }
 
-        public SettingsService SettingsService { get; set; }
-        public RelayCommand OpenNewWindowCmd => new RelayCommand(() => { OpenAnotherWindow(typeof(SecondV)); });
-        public RelayCommand OpenWindowWithTabControl => new RelayCommand(() => { OpenAnotherWindow(typeof(TabControlWindowV)); });
-        public RelayCommand OpenRSWindowCmd => new RelayCommand(() => { OpenAnotherWindow(typeof(RSWindow)); });
-
-        
+        private readonly string ResXPath = "Client.Views.Main";
+        private static ViewModelLocator VMLocator => (Application.Current.TryFindResource("Locator") as ViewModelLocator);
+        private void CloseApplication(object sender, RoutedEventArgs e)
+        {
+            var myWindow = Window.GetWindow(this);
+            myWindow.Close();
+        }
+        private void OpenSecondWindow(object sender, RoutedEventArgs e)
+        {
+            VMLocator.WindowManager.OpenWindowButLoadOldSettings("Second window", typeof(SecondV));
+        }
 
         private void wnd_KeyDown(object sender, KeyEventArgs e)
         {
@@ -52,79 +49,7 @@ namespace RS_Base.Views
                 e.Handled = true;
             }
         }
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-            //this.LoadPlacement();  //Sets the last position of the window
-        }
-
-        private void OpenAnotherWindow(Type window)
-        {
-            if (typeof(SecondV) == window)
-            {
-                if (IsWindowOpen<SecondV>())  //If window is already open, why open another?
-                    Application.Current.Windows.OfType<SecondV>().First().Activate(); //Attempts to bring the current window to the foreground
-                else
-                    new SecondV() { Owner = this }.Show();
-            }
-            if (typeof(TabControlWindowV) == window)
-            {
-                if (IsWindowOpen<TabControlWindowV>())  //If window is already open, why open another?
-                    Application.Current.Windows.OfType<TabControlWindowV>().First().Activate(); //Attempts to bring the current window to the foreground
-                else
-                    new TabControlWindowV() { Owner = this }.Show();
-            }
-            else if (typeof(RSWindow) == window)
-            {
-                if (IsWindowOpen<RSWindow>())
-                    Application.Current.Windows.OfType<RSWindow>().First().Activate(); //Attempts to bring the current window to the foreground
-                else
-                {
-                    var win = new RSWindow();
-                    win.Titlebar.Title = "Testing";
-                    win.Titlebar.Content = new System.Windows.Controls.Button() {  };
-                    win.Titlebar.EnablePinMode = true;
-                    win.Owner = this;
-                    win.Show();
-                }
-            }
-            
-        }
-
-
-        /// <summary>
-        /// This method will check for custom windows as well by specifying T to window type
-        /// </summary>
-        public static bool IsWindowOpen<T>(string name = "") where T : Window
-        {
-            return string.IsNullOrEmpty(name)
-                ? Application.Current.Windows.OfType<T>().Any()
-                : Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var startWindows = JsonConvert.DeserializeObject<List<Type>>(SettingsService.Settings.WindowsToOpenAtStart);
-                foreach (var w in startWindows)
-                {
-                    try
-                    {
-                        OpenAnotherWindow(w);
-                    }
-                    catch
-                    {
-                        //ignore
-                    }
-                }
-            }
-            catch
-            {
-                Log.Error("Could not read setting WindowsToOpenAtStart.");
-            }
-        }
-
+        
         /// <summary>
         /// This often finds weird threading errors in the UI.
         /// </summary>
@@ -132,11 +57,5 @@ namespace RS_Base.Views
         {
             Log.Error(e.Exception, "Some UI Error!");
         }
-
-
-
-
-
-
     }
 }

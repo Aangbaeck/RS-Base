@@ -12,20 +12,8 @@ namespace RS_Base.Net.Views
         public SecondVM(DataService d)
         {
             D = d;
-            D.PropertyChanged += DataUpdatedInDataService;
+            
         }
-
-        private void DataUpdatedInDataService(object sender, PropertyChangedEventArgs e)
-        {
-            PropertyName = e.PropertyName;
-        }
-
         public DataService D { get; set; }
-
-        public string PropertyName
-        {
-            get { return _propertyName; }
-            set { _propertyName = value; RaisePropertyChanged(); }
-        }
     }
 }

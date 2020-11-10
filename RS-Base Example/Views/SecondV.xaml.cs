@@ -5,7 +5,7 @@ namespace RS_Base.Views
     /// <summary>
     /// Description for TheSecondWindowV.
     /// </summary>
-    public partial class SecondV : Window
+    public partial class SecondV 
     {
         /// <summary>
         /// Initializes a new instance of the TheSecondWindowV class.
@@ -14,13 +14,10 @@ namespace RS_Base.Views
         {
             InitializeComponent();
         }
+
         private void CloseClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Window.GetWindow(this).Close();  //Closes parent window.
         }
-        
-        
-
-        
     }
 }

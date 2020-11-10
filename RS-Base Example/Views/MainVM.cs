@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Windows.Input;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using MaterialDesignThemes.Wpf;
 using RS_Base.Net.Helper;
 using RS_Base.Net.Model;
+
 using RS_Base.Services;
 using RS_StandardComponents;
 using Serilog;
+using System.Drawing;
 
 namespace RS_Base.Views
 {
@@ -53,11 +59,70 @@ namespace RS_Base.Views
                 Log.Error(e, "Could not open log file...");
             }
         });
+        public BitmapImage ImageSource
+        {
+            get
+            {
+                return imageSource;
+            }
+            set
+            {
+                imageSource = value;
+                RaisePropertyChanged();
+            }
+        }
         private void ChangeTitleDataService()
         {
             D.Title = "Changed for every window: " + DateTime.Now.ToLongTimeString();
             WelcomeTitle = D.Title;
+            ImageSource = ConvertToImageSource(new PackIcon() { Kind = PackIconKind.AccessTime, Width = 1024, Height = 1024,Foreground=new SolidColorBrush(Colors.White) },System.Drawing.Color.AliceBlue);
+            
         }
+        public BitmapImage ConvertToImageSource(FrameworkElement visual, System.Drawing.Color color)
+        {
+            int width = (int)visual.Width;
+            int height = (int)visual.Height;
+
+            // Render to a bitmap
+            var bitmapSource = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            bitmapSource.Render(visual);
+            
+            // Convert to System.Drawing.Bitmap
+            var pixels = new int[width * height];
+            bitmapSource.CopyPixels(pixels, 4096, 0);
+            var bitmap = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
+                    bitmap.SetPixel(x, y, color);
+
+            // Save to .ico format
+            var stream = new MemoryStream();
+            System.Drawing.Icon.FromHandle(bitmap.GetHicon()).Save(stream);
+
+            //// Convert saved file into .cur format
+            //stream.Seek(2, SeekOrigin.Begin);
+            //stream.WriteByte(2);
+            //stream.Seek(10, SeekOrigin.Begin);
+            //stream.WriteByte((byte)(int)(hotSpot.X * width));
+            //stream.WriteByte((byte)(int)(hotSpot.Y * height));
+            //stream.Seek(0, SeekOrigin.Begin);
+
+            //// Construct Cursor
+            //return new Cursor(stream);
+            return Convert(bitmap);
+        }
+        public BitmapImage Convert(Bitmap src)
+        {
+            MemoryStream ms = new MemoryStream();
+            ((System.Drawing.Bitmap)src).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            ms.Seek(0, SeekOrigin.Begin);
+            image.StreamSource = ms;
+            image.EndInit();
+            return image;
+        }
+        
 
         private void ChangeTitleLocal()
         {
@@ -67,6 +132,7 @@ namespace RS_Base.Views
         }
 
         private string _welcomeTitle;
+        private BitmapImage imageSource;
 
         public string WelcomeTitle
         {

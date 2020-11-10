@@ -18,42 +18,24 @@ using RS_StandardComponents;
 
 namespace RS_Base.Views
 {
-    /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
-    /// <para>
-    /// See http://www.mvvmlight.net
-    /// </para>
-    /// </summary>
     public class ViewModelLocator
     {
         static ViewModelLocator()
         {
             SimpleIoc.Default.Register<DataService>();
+            SimpleIoc.Default.Register<WindowManager>();
             SimpleIoc.Default.Register<SettingsService>();
             SimpleIoc.Default.Register<MainVM>();
             SimpleIoc.Default.Register<SecondVM>();
-            SimpleIoc.Default.Register<TabControlWindowVM>();
-            
 
             //Setting language for whole application
             CultureManager.UICulture = new CultureInfo(SimpleIoc.Default.GetInstance<SettingsService>().Settings.Language);
         }
-
-        /// <summary>
-        /// Gets the Main property.
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
         public MainVM MainVM => SimpleIoc.Default.GetInstance<MainVM>();
         public SecondVM SecondVM => SimpleIoc.Default.GetInstance<SecondVM>();
-        public TabControlWindowVM TabControlWindowVM => SimpleIoc.Default.GetInstance<TabControlWindowVM>();
-        
+        public WindowManager WindowManager => SimpleIoc.Default.GetInstance<WindowManager>();
 
-        /// <summary>
-        /// Cleans up all the resources.
-        /// </summary>
+        //This can be used to clean up when windows closes (if necessary). Preferably from the WindowManager.
         public static void Cleanup()
         {
             SimpleIoc.Default.GetInstance<MainVM>().Cleanup();

@@ -41,8 +41,7 @@
 
             <!--  Global View Model Locator for MVVM-Light  -->
             <views1:ViewModelLocator x:Key="Locator" />
-            <rsStandardComponents:VisualToImageSourceConverter x:Key="ConvertMaterialDesignIconToIcon" />
-            <rsStandardComponents:BoolToBrushConverter x:Key="ConnectedColorConverter" FalseValue="Crimson" TrueValue="ForestGreen" />
+                        <rsStandardComponents:BoolToBrushConverter x:Key="ConnectedColorConverter" FalseValue="Crimson" TrueValue="ForestGreen" />
             <rsStandardComponents:BoolToObjectConverter x:Key="IconMaximizeConverter" FalseValue="WindowMaximize" TrueValue="WindowRestore" />
             <rsStandardComponents:BoolToStringConverter x:Key="StringMaximizeConverter" FalseValue="Maximize" TrueValue="Restore" />
             <rsStandardComponents:BoolToBrushConverter x:Key="ExampleConverter" FalseValue="Aqua" TrueValue="DodgerBlue" />
