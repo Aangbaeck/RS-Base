@@ -4,63 +4,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:RS_StandardComponents"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    Title="{Binding Text, ElementName=Titlebar.Title}"
-    MinWidth="10"
-    MinHeight="10"
-    AllowsTransparency="True"
+    
+    
+    
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="{materialDesign:MaterialDesignFont}"
-    ShowInTaskbar="True"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    WindowStyle="None">
-    <Window.Resources>
-        <local:VisualToImageSourceConverter x:Key="VisualToImageSourceConverter" />
-    </Window.Resources>
-    <Window.Icon>
-        <Binding Converter="{StaticResource VisualToImageSourceConverter}">
-            <Binding.Source>
-                <materialDesign:PackIcon Width="256" Height="256" Foreground="{DynamicResource MaterialDesignDarkBackground}" Kind="{Binding Icon, ElementName=Titlebar}" />
-            </Binding.Source>
-        </Binding>
-    </Window.Icon>
+    >
 
-    <Window.Style>
-        <Style TargetType="{x:Type Window}">
-            <Setter Property="WindowChrome.WindowChrome">
-                <Setter.Value>
-                    <WindowChrome CaptionHeight="1" CornerRadius="0" GlassFrameThickness="0" ResizeBorderThickness="6" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="WindowStyle">
-                <Setter.Value>
-                    None
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="WindowState" Value="Maximized">
-                    <Setter Property="BorderThickness" Value="6" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Style>
-    <Grid>
-        <Grid>
-
-            <local:TitlebarUserCtrl
-                x:Name="Titlebar"
-                Title="Untitled"
-                Panel.ZIndex="1"
-                x:FieldModifier="public"
-                BoundWindow="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                CheckBeforeClose="False"
-                EnableClosable="True"
-                EnableMaximize="True"
-                EnableMinimize="True"
-                EnablePinMode="False"
-                Icon="AcademicCap" />
-        </Grid>
-
+    <Grid x:Name="MainGrid">
+        <local:TitlebarUserCtrl
+            x:Name="Titlebar"
+            Title="Untitled"
+            Panel.ZIndex="1"
+            x:FieldModifier="public"
+            BoundWindow="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+            CheckBeforeClose="False"
+            EnableClosable="True"
+            EnableMaximize="True"
+            EnableMinimize="True"
+            EnablePinMode="False"
+            Icon="AcademicCap" />
     </Grid>
+
+
 </Window>
 
 

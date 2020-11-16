@@ -182,7 +182,20 @@ namespace RS_StandardComponents
             }
             return result;
         }
-
+        /// <summary>
+        /// Return the value for the markup extension
+        /// </summary>
+        /// <returns>The value from the resources if possible otherwise the default value</returns>
+        /// <summary>
+        /// Return the localized value with the key from the resource.
+        /// </summary>
+        /// <param name="key">The key too look for in the resource file</param>
+        /// <param name="resxName">The path to the resource file (including the file name). Example: [namespace].Folder.SubFolder.ResourceFileName (dont include language code or file extension)</param>
+        /// <returns>Returns the object in the resouce file. If string is empty or not found it will return Key.</returns>
+        public static string GetValueManual(string key, string resxName)
+        {
+            return GetValueManual<string>(key, resxName, out string _);
+        }
         /// <summary>
         /// Return the value for the markup extension
         /// </summary>

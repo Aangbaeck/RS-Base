@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:rsStandardComponents="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
+    xmlns:rs="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
     xmlns:sys1="clr-namespace:System;assembly=System.Runtime"
     Width="800"
     Height="800"
@@ -23,9 +23,9 @@
         <sys1:String x:Key="B">RS_Base.Views.Localization.Main</sys1:String>
     </UserControl.Resources>
 
-    
 
-        <Grid>
+
+    <Grid >
 
             <StackPanel Margin="0 30 0 0">
                 <!--  Add your stuff here!  -->
@@ -42,15 +42,17 @@
                 <Button Command="{Binding ChangeTitleDataServiceCmd}" Content="Change title DataService" Margin="10" Padding="5" HorizontalAlignment="Center" />
                 <Button Click="OpenSecondWindow" Content="Open new window" Margin="10" Padding="5" HorizontalAlignment="Center" />
                 <ToggleButton Command="{Binding ToggleBaseCommand}" Margin="0 20 0 0" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" IsChecked="{Binding S.Settings.IsLightTheme}" />
-                <TextBlock Text="{rsStandardComponents:SwitchBinding S.Settings.IsLightTheme, Light theme, Dark theme}" Margin="10" HorizontalAlignment="Center" />
+            <TextBlock Text="{rs:SwitchBinding S.Settings.IsLightTheme, Light theme, Dark theme}" Margin="10" HorizontalAlignment="Center" />
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <Button Command="{Binding ChangeLanguageCmd}" Content="{Resx English, {StaticResource B}}" Margin="5" Padding="5" CommandParameter="en-US" />
                     <Button Command="{Binding ChangeLanguageCmd}" Content="{Resx Swedish, ResxName={StaticResource B}}" Margin="5" Padding="5" CommandParameter="sv-SE" />
                     <Button Command="{Binding ChangeLanguageCmd}" Content="{Resx Key=Finnish, ResxName={StaticResource B}}" Margin="5" Padding="5" CommandParameter="fi-FI" />
                     <Button Command="{Binding ChangeLanguageCmd}" Content="{Resx Key=Hashtags, ResxName={StaticResource B}}" Margin="5" Padding="5" CommandParameter="eo" />
                 </StackPanel>
-            <Image Source="{Binding ImageSource}" Width="500" Height="500"></Image>
-            </StackPanel>
+            
+            <Slider HorizontalAlignment="Center" Width="500" Value="{Binding ZoomFactor}" Style="{StaticResource MaterialDesignDiscreteSlider}" TickFrequency="0.05" Maximum="3" Minimum="0.3"></Slider>
+            <TextBlock Text="Zoom" HorizontalAlignment="Center"></TextBlock>
+        </StackPanel>
             <StackPanel VerticalAlignment="Bottom">
                 <Grid Width="100" Height="100" Margin="0 20 0 0">
                     <Image Source="/RS-StandardComponents;component/DogeCoin.png" />

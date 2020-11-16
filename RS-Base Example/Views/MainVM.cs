@@ -37,7 +37,17 @@ namespace RS_Base.Views
             S.Settings.IsLightTheme = o;
             S.SaveSettings();
         });
-
+        public double ZoomFactor
+        {
+            get
+            {
+                return WM.ZoomFactor;
+            }
+            set
+            {
+                WM.ZoomFactor = value;
+            }
+        }
         public RelayCommand OpenLogFile => new RelayCommand(() =>
         {
             try
@@ -75,8 +85,8 @@ namespace RS_Base.Views
         {
             D.Title = "Changed for every window: " + DateTime.Now.ToLongTimeString();
             WelcomeTitle = D.Title;
-            ImageSource = ConvertToImageSource(new PackIcon() { Kind = PackIconKind.AccessTime, Width = 1024, Height = 1024,Foreground=new SolidColorBrush(Colors.White) },System.Drawing.Color.AliceBlue);
-            
+            ImageSource = ConvertToImageSource(new PackIcon() { Kind = PackIconKind.AccessTime, Width = 1024, Height = 1024, Foreground = new SolidColorBrush(Colors.White) }, System.Drawing.Color.AliceBlue);
+
         }
         public BitmapImage ConvertToImageSource(FrameworkElement visual, System.Drawing.Color color)
         {
@@ -86,7 +96,7 @@ namespace RS_Base.Views
             // Render to a bitmap
             var bitmapSource = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
             bitmapSource.Render(visual);
-            
+
             // Convert to System.Drawing.Bitmap
             var pixels = new int[width * height];
             bitmapSource.CopyPixels(pixels, 4096, 0);
@@ -122,7 +132,7 @@ namespace RS_Base.Views
             image.EndInit();
             return image;
         }
-        
+
 
         private void ChangeTitleLocal()
         {
@@ -161,8 +171,9 @@ namespace RS_Base.Views
         /// <summary>
         /// Initializes a new instance of the MainViewModel class. IOC
         /// </summary>
-        public MainVM(DataService d, SettingsService s)
+        public MainVM(DataService d, SettingsService s, WindowManager wm)
         {
+            WM = wm;
             S = s;
             D = d;  //Here you can control that the DataService is correct
             WelcomeTitle = D.Title;  //Setting the initial values from DataService
@@ -172,6 +183,8 @@ namespace RS_Base.Views
 
 
         }
+
+        private WindowManager WM { get; set; }
 
         public SettingsService S { get; set; }
 

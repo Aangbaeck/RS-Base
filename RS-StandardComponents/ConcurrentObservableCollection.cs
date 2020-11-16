@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Threading;
@@ -52,6 +53,17 @@ namespace RS_StandardComponents
             }
 
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
+            sync.ReleaseWriterLock();
+        }
+
+        public void RemoveAll(Predicate<T> match)
+        {
+            sync.AcquireWriterLock(Timeout.Infinite);
+            if (match == null)
+            {
+                throw new ArgumentNullException("match");
+            }
+            collection.Where(entity => match(entity)).ToList().ForEach(entity => collection.Remove(entity));
             sync.ReleaseWriterLock();
         }
 
