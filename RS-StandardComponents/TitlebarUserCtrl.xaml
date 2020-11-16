@@ -47,7 +47,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="1" Background="{DynamicResource MaterialDesignPaper}">
+                <Grid Grid.Row="1" >
                     <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
                     <Button
                         x:Name="UnpinButton"

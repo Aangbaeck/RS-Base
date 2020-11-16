@@ -1,6 +1,8 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Shell;
@@ -23,6 +25,10 @@ namespace RS_StandardComponents
 
         public RSWindow()
         {
+            this.SetResourceReference(Control.BackgroundProperty, "MaterialDesignPaper");
+            this.SetResourceReference(FontFamilyProperty, "materialDesign:MaterialDesignFont");
+            this.SetResourceReference(TextElement.ForegroundProperty, "MaterialDesignBody");
+            //Background = (Brush)FindResource("MaterialDesignPaper");
             WindowStyle = WindowStyle.None;
             AllowsTransparency = true;
             MinWidth = 10;
@@ -33,9 +39,31 @@ namespace RS_StandardComponents
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             WindowStyle = WindowStyle.None;
             StateChanged += RSWindow_StateChanged;
+            Titlebar = new TitlebarUserCtrl()
+            {
+                Title = "Untitled",
+
+                CheckBeforeClose = false,
+                EnableClosable = true,
+                EnableMaximize = true,
+                EnableMinimize = true,
+                EnablePinMode = false,
+                Icon = PackIconKind.Fire
+            };
+            base.Content = Titlebar;
             InitializeComponent();
         }
-
+        public new object Content
+        {
+            get
+            {
+                return Titlebar.Content;
+            }
+            set
+            {
+                Titlebar.Content = value;
+            }
+        }
         private void RSWindow_StateChanged(object sender, EventArgs e)
         {
             //Checking the taskbar height
@@ -73,6 +101,7 @@ namespace RS_StandardComponents
         public static readonly DependencyProperty ZoomFactorProperty = DependencyProperty.Register("ZoomFactor",
     typeof(double), typeof(RSWindow),
     new PropertyMetadata(1.0, ZoomFactorPropertyChanged));
+        private object content;
 
         public double ZoomFactor
         {
@@ -80,12 +109,13 @@ namespace RS_StandardComponents
             set => SetValue(ZoomFactorProperty, value);
         }
         public double TaskBarHeigt { get; private set; }
+        public TitlebarUserCtrl Titlebar { get; }
 
         private static void ZoomFactorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is double zoomFactor)) return;
-            ((RSWindow)d).MainGrid.LayoutTransform = new ScaleTransform(zoomFactor, zoomFactor);
-            ((RSWindow)d).MainGrid.UpdateLayout();
+            ((RSWindow)d).Titlebar.LayoutTransform = new ScaleTransform(zoomFactor, zoomFactor);
+            ((RSWindow)d).Titlebar.UpdateLayout();
         }
 
         public void SetContent(object userctrl)

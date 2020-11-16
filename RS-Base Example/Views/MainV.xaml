@@ -9,7 +9,7 @@
     Height="800"
     MinWidth="200"
     
-    Background="{DynamicResource MaterialDesignPaper}"
+    
     DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
     KeyDown="wnd_KeyDown"
