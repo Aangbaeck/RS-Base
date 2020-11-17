@@ -33,11 +33,8 @@ namespace RS_StandardComponents
             AllowsTransparency = true;
             MinWidth = 10;
             WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(0, 0, 0, 0), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
-            MaxHeight = SystemParameters.WorkArea.Size.Height + 12 + 2;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
+            
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
-            SizeToContent = SizeToContent.WidthAndHeight;
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            WindowStyle = WindowStyle.None;
             StateChanged += RSWindow_StateChanged;
             Titlebar = new TitlebarUserCtrl()
             {
@@ -52,6 +49,7 @@ namespace RS_StandardComponents
             };
             base.Content = Titlebar;
             Titlebar.BoundWindow = this;
+            RSWindow_StateChanged(null, null);
         }
 
 
@@ -80,9 +78,15 @@ namespace RS_StandardComponents
             TaskBarHeigt = (data.rc.bottom - data.rc.top);
 
             if (WindowState == WindowState.Maximized)
+            {
+                MaxHeight = SystemParameters.WorkArea.Size.Height + 12 + 2;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
                 BorderThickness = new Thickness(6, 6, 6, 6); //I don't understand but it's always half the taskbar height.
+            }
             else
+            {
+                MaxHeight = SystemParameters.WorkArea.Size.Height;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
                 BorderThickness = new Thickness(0, 0, 0, 0);
+            }
         }
 
         private const int ABM_GETTASKBARPOS = 5;

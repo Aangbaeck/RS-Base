@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 
 namespace RS_Base.Views
 {
@@ -23,6 +24,10 @@ namespace RS_Base.Views
             var win = new RSView();
             win.Content = new MainV();
             MainWindow = win;
+            win.Left = 0;
+            win.Top = 0;
+            win.Height = SystemParameters.MaximizedPrimaryScreenHeight;
+            win.SizeToContent = SizeToContent.WidthAndHeight;
             win.Show();
             WindowList.Add(win.Title, win);
         }
@@ -34,10 +39,12 @@ namespace RS_Base.Views
         {
             get
             {
+                
                 return zoomFactor;
             }
             set
             {
+                
                 zoomFactor = value;
                 foreach (var win in WindowList)
                     win.Value.ZoomFactor = zoomFactor;
