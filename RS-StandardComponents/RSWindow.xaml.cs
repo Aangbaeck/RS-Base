@@ -32,9 +32,9 @@ namespace RS_StandardComponents
             AllowsTransparency = true;
             MinWidth = 10;
             WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(0, 0, 0, 0), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
-            MaxHeight = SystemParameters.WorkArea.Size.Height + 12 + 2;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             WindowStyle = WindowStyle.None;
+            MaxHeight = SystemParameters.WorkArea.Size.Height + 12 + 2;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
             StateChanged += RSWindow_StateChanged;
             Titlebar = new TitlebarUserCtrl()
             {
@@ -72,12 +72,10 @@ namespace RS_StandardComponents
 
             if (WindowState == WindowState.Maximized)
             {
-                MaxHeight = SystemParameters.WorkArea.Size.Height + 12 + 2;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
                 BorderThickness = new Thickness(6, 6, 6, 6); //I don't understand but it's always half the taskbar height.
             }
             else
             {
-                MaxHeight = SystemParameters.WorkArea.Size.Height;  
                 BorderThickness = new Thickness(0, 0, 0, 0);
             }
         }
