@@ -84,7 +84,7 @@ namespace RS_StandardComponents
             }
             else
             {
-                MaxHeight = SystemParameters.WorkArea.Size.Height;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
+                MaxHeight = SystemParameters.WorkArea.Size.Height; 
                 BorderThickness = new Thickness(0, 0, 0, 0);
             }
         }
