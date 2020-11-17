@@ -1,12 +1,8 @@
-﻿<Window x:Class="RS_Base.Views.SecondWindow"
+﻿<RSView x:Class="RS_Base.Views.SecondWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RS_Base.Views"
-        mc:Ignorable="d"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         Title="SecondWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock Text="Hej"></TextBlock>
+        <TextBlock Text="Då"></TextBlock>
     </Grid>
-</Window>
+</RSView>

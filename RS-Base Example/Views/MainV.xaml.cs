@@ -41,7 +41,7 @@ namespace RS_Base.Views
         }
         private void OpenSecondWindow(object sender, RoutedEventArgs e)
         {
-            var w = new TestWindow();
+            var w = new SecondWindow();
             w.Show();
             //VMLocator.WindowManager.OpenWindowButLoadOldSettings("Second window", typeof(SecondV));
         }

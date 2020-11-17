@@ -5,11 +5,16 @@
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.4.0</Version>
+    <Version>2.5.0</Version>
     <Description>Containing the core components of RS-Base like converters, titlebar, logo, usercontrols and other nice stuff</Description>
     <Copyright>RemaSawco</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageReleaseNotes>V2.4
+    <PackageReleaseNotes>V2.5
+*Window maxheight is now correct.
+*Starting to build a Code-behind-window that can be used used in the designer called RSView.
+*Zoomfactor is now included in RSWindow
+
+V2.4
 *Fixed alot of bugs.
 *Localization is now included in the library.
 *Switch binding has been combined with localization.

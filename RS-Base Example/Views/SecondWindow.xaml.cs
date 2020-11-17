@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RS_StandardComponents;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -15,7 +16,7 @@ namespace RS_Base.Views
     /// <summary>
     /// Interaction logic for SecondWindow.xaml
     /// </summary>
-    public partial class SecondWindow : Window
+    public partial class SecondWindow : RSView
     {
         public SecondWindow()
         {

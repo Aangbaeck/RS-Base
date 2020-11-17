@@ -15,20 +15,19 @@ namespace RS_Base.Views
         private double zoomFactor = 1.0;
 
         public bool AllWindowsAreEditable { get; private set; }
-        public RSWindow MainWindow { get; private set; }
+        public RSView MainWindow { get; private set; }
 
         public void CreateMainWindow()
         {
 
-            var win = new RSWindow();
-            win.SetContent(new MainV());
+            var win = new RSView();
+            win.Content = new MainV();
             MainWindow = win;
-            win.Topmost = true;
             win.Show();
             WindowList.Add(win.Title, win);
         }
         
-        private Dictionary<string, RSWindow> WindowList { get; } = new Dictionary<string, RSWindow>();
+        private Dictionary<string, RSView> WindowList { get; } = new Dictionary<string, RSView>();
         private string WPath => Directory.CreateDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "//" + "WindowPositions//").FullName;
 
         public double ZoomFactor
