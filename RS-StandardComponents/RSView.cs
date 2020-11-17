@@ -36,6 +36,7 @@ namespace RS_StandardComponents
             
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             StateChanged += RSWindow_StateChanged;
+            MaxHeight = SystemParameters.WorkArea.Size.Height + 12 + 2;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
             Titlebar = new TitlebarUserCtrl()
             {
                 Title = "Untitled",
@@ -79,12 +80,10 @@ namespace RS_StandardComponents
 
             if (WindowState == WindowState.Maximized)
             {
-                MaxHeight = SystemParameters.WorkArea.Size.Height + 12 + 2;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
                 BorderThickness = new Thickness(6, 6, 6, 6); //I don't understand but it's always half the taskbar height.
             }
             else
             {
-                MaxHeight = SystemParameters.WorkArea.Size.Height; 
                 BorderThickness = new Thickness(0, 0, 0, 0);
             }
         }
