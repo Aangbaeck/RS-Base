@@ -18,81 +18,66 @@ using System.Windows.Shapes;
 namespace RS_StandardComponents
 {
     /// <summary>
-    /// Interaction logic for Snacky.xaml
+    /// Heavily inspired by material designs Snackbar but much simpler and without wierd positioning, padding and messagequeue. Can be easily extended too.
     /// </summary>
     public partial class Snacky
     {
         public Snacky()
         {
             InitializeComponent();
+            RecalculateSize();
         }
-        public static readonly DependencyProperty MessageProperty = DependencyProperty.Register(nameof(Message), typeof(object), typeof(Snacky), new PropertyMetadata("Testing"/*default(object)*/, NotifyContentPropertyChanged));
+       
+        //Make the framework (re)calculate the size of the element. In the beginning the actual size is 0,0. This method remedies this.
+        private void RecalculateSize()
+        {
+            Root.Measure(new Size(double.MaxValue, double.MaxValue));
+            Size visualSize = Root.DesiredSize;
+            Root.Arrange(new Rect(new Point(0, 0), visualSize));
+            Root.UpdateLayout();
+        }
 
-        private static void NotifyContentPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static readonly DependencyProperty MessageProperty = DependencyProperty.Register(nameof(Message), typeof(object), typeof(Snacky), new PropertyMetadata(default(object), NotifyMessagePropertyChanged));
+        private static void NotifyMessagePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d != null && e != null)
             {
-                ((Snacky)d).TheContentControl.Content = e.NewValue;
+                ((Snacky)d).MessageControl.Content = e.NewValue;
             }
         }
-
         public object Message
         {
             get => GetValue(MessageProperty);
             set => SetValue(MessageProperty, value);
         }
-        public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(Snacky), new PropertyMetadata(default(bool), NotifyActivePropertyChanged));
+        public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(Snacky), new PropertyMetadata(false, NotifyActivePropertyChanged));
         private static void NotifyActivePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is bool s)) { Console.WriteLine($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
             if (d != null)
-            {
-                if(s)
                 {
-                    DoubleAnimation animation = new DoubleAnimation(0,1, new TimeSpan(0,0,0,0,300));
-                    ((Snacky)d).Root.BeginAnimation(StackPanel.TagProperty, animation);
+                var height = ((Snacky)d).Root.ActualHeight;
+                
+                if (s)
+                {
+                    DoubleAnimation animation = new DoubleAnimation(0, height, TimeSpan.FromSeconds(0.3));
+                    SineEase easingFunction = new SineEase();
+                    easingFunction.EasingMode = EasingMode.EaseOut;
+                    animation.EasingFunction = easingFunction;
+                    ((Snacky)d).Root.BeginAnimation(StackPanel.HeightProperty, animation);
+
+                    DoubleAnimation animationContentPresenter = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.225));
+                    animationContentPresenter.EasingFunction = easingFunction;
+                    ((Snacky)d).MessageControl.BeginAnimation(StackPanel.OpacityProperty, animationContentPresenter);
                 }
-         //           < Storyboard x: Key = "ActivateStoryboard" Duration = "0:0:0.3" >
-    
-         //       < DoubleAnimation Storyboard.TargetName = "Root" Storyboard.TargetProperty = "Tag" From = "0" To = "1" Duration = "0:0:0.3" >
-             
-         //                    < DoubleAnimation.EasingFunction >
-             
-         //                        < SineEase EasingMode = "EaseOut" />
-              
-         //                     </ DoubleAnimation.EasingFunction >
-              
-         //                 </ DoubleAnimation >
-              
-         //                 < DoubleAnimation Storyboard.TargetName = "ContentPresenter" Storyboard.TargetProperty = "Opacity" To = "0" BeginTime = "0" Duration = "0" />
-                       
-         //                          < DoubleAnimation Storyboard.TargetName = "ContentPresenter" Storyboard.TargetProperty = "Opacity" From = "0" To = "1" BeginTime = "0:0:0.075"
-         //                                    Duration = "0:0:0.225" >
-         //       < DoubleAnimation.EasingFunction >
-         //           < SineEase EasingMode = "EaseOut" />
- 
-         //        </ DoubleAnimation.EasingFunction >
- 
-         //    </ DoubleAnimation >
- 
-         //</ Storyboard >
- 
-                    else
-                        { 
-                        }
-         //< Storyboard x: Key = "DeactivateStoryboard" Duration = "0:0:0.3" >
-     
-         //        < DoubleAnimation Storyboard.TargetName = "Root" Storyboard.TargetProperty = "Tag" From = "1" To = "0" Duration = "0:0:0.3" >
-              
-         //                     < DoubleAnimation.EasingFunction >
-              
-         //                         < SineEase EasingMode = "EaseOut" />
-               
-         //                      </ DoubleAnimation.EasingFunction >
-               
-         //                  </ DoubleAnimation >
-               
-         //              </ Storyboard >
+                else
+                {
+                    DoubleAnimation animation = new DoubleAnimation(height, 0, TimeSpan.FromSeconds(0.3));
+                    SineEase easingFunction = new SineEase();
+                    easingFunction.EasingMode = EasingMode.EaseOut;
+                    animation.EasingFunction = easingFunction;
+                    ((Snacky)d).Root.BeginAnimation(StackPanel.HeightProperty, animation);
+                }
             }
         }
 
@@ -101,6 +86,6 @@ namespace RS_StandardComponents
             get => (bool)GetValue(IsActiveProperty);
             set => SetValue(IsActiveProperty, value);
         }
-        
+
     }
 }
