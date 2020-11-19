@@ -37,7 +37,7 @@ V2.2.2
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
@@ -47,9 +47,6 @@ V2.2.2
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="System.Management" Version="4.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
   </ItemGroup>
 
   <ItemGroup>
