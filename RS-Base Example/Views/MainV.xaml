@@ -62,7 +62,9 @@
                 </Grid>
                 <TextBlock Text="*Right click logo to open log" Margin="10" HorizontalAlignment="Center" Opacity="0.2" />
             </StackPanel>
-        <Snacky VerticalAlignment="Bottom" Height="100" IsActive="True" Background="AliceBlue" Message="test"></Snacky>
+        <Snacky VerticalAlignment="Bottom" Background="Green"  IsActive="True" Message="Hej"  Margin="10 0"  HorizontalAlignment="Stretch"  >
+            
+        </Snacky>
         </Grid>
     
 

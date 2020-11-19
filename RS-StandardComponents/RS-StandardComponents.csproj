@@ -5,11 +5,14 @@
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.5.2</Version>
+    <Version>2.6.2</Version>
     <Description>Containing the core components of RS-Base like converters, titlebar, logo, usercontrols and other nice stuff</Description>
     <Copyright>RemaSawco</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageReleaseNotes>V2.5
+    <PackageReleaseNotes>V2.6
+*Added Snacky. A Snackbar without the weirdness that material design has in it's own.
+
+V2.5
 *Window maxheight is now correct.
 *Starting to build a Code-behind-window that can be used used in the designer called RSView.
 *Zoomfactor is now included in RSWindow
