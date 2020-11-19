@@ -6,12 +6,12 @@
     xmlns:local="clr-namespace:RS_StandardComponents"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+     xmlns:sys1="clr-namespace:System;assembly=System.Runtime"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <sys:String x:Key="N">RS_StandardComponents.TitlebarUserCtrl</sys:String>
+        <sys1:String x:Key="N">RS_StandardComponents.TitlebarUserCtrl</sys1:String>
     </UserControl.Resources>
     <materialDesign:DialogHost
         x:Name="DialogHost"
@@ -48,7 +48,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1" >
-                    <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
+                    <ContentControl Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
                     <Button
                         x:Name="UnpinButton"
                         Width="30"
