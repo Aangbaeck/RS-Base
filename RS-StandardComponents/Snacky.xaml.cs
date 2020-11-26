@@ -79,6 +79,7 @@ namespace RS_StandardComponents
                     ((Snacky)d).Root.BeginAnimation(StackPanel.HeightProperty, animation);
                 }
             }
+            ((Snacky)d).UpdateLayout();
         }
 
         public bool IsActive

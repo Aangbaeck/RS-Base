@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<RSView
     x:Class="RS_Base.Views.MainV"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,15 +13,15 @@
     DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
     KeyDown="wnd_KeyDown"
-      
+      Icon="Helicopter"
     
     TextElement.FontSize="16"
     TextElement.FontWeight="Medium"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}">
     
-    <UserControl.Resources>
+    <RSView.Resources>
         <sys1:String x:Key="B">RS_Base.Views.Localization.Main</sys1:String>
-    </UserControl.Resources>
+    </RSView.Resources>
 
 
 
@@ -62,10 +62,14 @@
                 </Grid>
                 <TextBlock Text="*Right click logo to open log" Margin="10" HorizontalAlignment="Center" Opacity="0.2" />
             </StackPanel>
-        <Snacky VerticalAlignment="Bottom" Background="Green"  IsActive="True" Message="Hej"  Margin="10 0"  HorizontalAlignment="Stretch"  >
-            
-        </Snacky>
+        <Snacky   IsActive="True" VerticalAlignment="Bottom"  Margin="10 0"    >
+            <Snacky.Message>
+                <Border BorderThickness="2" BorderBrush="DarkRed">
+                    <TextBlock Background="Green" VerticalAlignment="Center" Text="Hej"></TextBlock>
+                </Border>
+            </Snacky.Message>
+        </Snacky >
         </Grid>
     
 
-</UserControl>
+</RSView>

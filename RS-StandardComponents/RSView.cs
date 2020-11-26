@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -20,7 +21,56 @@ namespace RS_StandardComponents
         public void SetIcon(PackIconKind icon)
         {
             Titlebar.Icon = icon;
-            this.Icon = VisualToImageSourceConverter.ConvertInCode(new PackIcon() { Kind = icon, Width = 1000, Height = 1000, });
+
+            // Make a new source.
+            ImageSource myDataObject = VisualToImageSourceConverter.ConvertInCode(new PackIcon() { Kind = icon, Width = 256, Height = 256, Foreground = new SolidColorBrush(Colors.WhiteSmoke) });
+            Binding myBinding = new Binding("IconProperty");
+            myBinding.Source = myDataObject;
+            //// Bind the new data source to the myText TextBlock control's Text dependency property.
+            base.SetBinding(Window.IconProperty, myBinding);
+            
+            //base.SetValue(Window.IconProperty, VisualToImageSourceConverter.ConvertInCode(new PackIcon() { Kind = icon, Width = 512, Height = 512, Foreground = new SolidColorBrush(Colors.WhiteSmoke) }));
+            //var icvfcon = base.Icon;
+
+            //Root.Measure(new Size(double.MaxValue, double.MaxValue));
+            //Size visualSize = Root.DesiredSize;
+            //Root.Arrange(new Rect(new Point(0, 0), visualSize));
+            //Root.UpdateLayout();
+            base.UpdateLayout();
+        }
+
+        //Implement this!! It works on Window.
+        //    <Window.Icon>
+        //    <Binding Converter = "{StaticResource ConvertMaterialDesignIconToIcon}" >
+        //        < Binding.Source >
+        //            < materialDesign:PackIcon
+        //                 Width = "256"
+        //                Height="256"
+        //                Foreground="WhiteSmoke"
+        //                Kind="TestTube" />
+        //        </Binding.Source>
+        //    </Binding>
+        //</Window.Icon>
+
+
+
+        public new PackIconKind Icon
+        {
+            get { return (PackIconKind)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        public static new readonly DependencyProperty IconProperty =
+            DependencyProperty.Register("Icon", typeof(PackIconKind), typeof(RSView), new PropertyMetadata(PackIconKind.TestTube,SetIconCallBack));
+
+        private static void SetIconCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(e.NewValue is PackIconKind icon)) return;
+            if (d != null)
+            {
+                ((RSView)d).SetIcon(icon);
+            }
         }
 
         public RSView()
@@ -33,7 +83,7 @@ namespace RS_StandardComponents
             AllowsTransparency = true;
             MinWidth = 10;
             WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(0, 0, 0, 0), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
-            
+
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             StateChanged += RSWindow_StateChanged;
             MaxHeight = SystemParameters.WorkArea.Size.Height + 12 + 2;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
@@ -51,6 +101,8 @@ namespace RS_StandardComponents
             base.Content = Titlebar;
             Titlebar.BoundWindow = this;
             RSWindow_StateChanged(null, null);
+
+            JotService.Tracker.Track(this);
         }
 
 
@@ -66,8 +118,7 @@ namespace RS_StandardComponents
         private static void SetContentPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((RSView)d).Titlebar.Content = e.NewValue;
-            //((RSView)d).Titlebar.BoundWindow = ((RSView)d);
-            //((RSView)d).Titlebar.UpdateLayout();
+            
         }
 
         private void RSWindow_StateChanged(object sender, EventArgs e)

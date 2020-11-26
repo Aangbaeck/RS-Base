@@ -21,13 +21,8 @@ namespace RS_Base.Views
         public void CreateMainWindow()
         {
 
-            var win = new RSView();
-            win.Content = new MainV();
-            MainWindow = win;
-            win.Left = 0;
-            win.Top = 0;
-            win.Height = SystemParameters.MaximizedPrimaryScreenHeight;
-            win.SizeToContent = SizeToContent.WidthAndHeight;
+            var win = new MainV();
+            
             win.Show();
             WindowList.Add(win.Title, win);
         }

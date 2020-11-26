@@ -34,7 +34,7 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <ContentControl x:Name="MessageControl" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <ContentControl x:Name="MessageControl" />
         </Border>
     </StackPanel>
 </UserControl>

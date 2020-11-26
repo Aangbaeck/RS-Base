@@ -5,7 +5,7 @@
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.6.2</Version>
+    <Version>2.6.3</Version>
     <Description>Containing the core components of RS-Base like converters, titlebar, logo, usercontrols and other nice stuff</Description>
     <Copyright>RemaSawco</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
