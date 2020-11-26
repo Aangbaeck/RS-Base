@@ -38,11 +38,11 @@
                     FontWeight="Bold"
                     TextWrapping="Wrap" />
 
-                <Button Command="{Binding ChangeTitleLocalCmd}" Content="{Resx ChangeTitleLocal, {StaticResource B}}" Padding="5" HorizontalAlignment="Center" />
+            <Button Command="{Binding ChangeTitleLocalCmd}" Content="{Resx ChangeTitleLocal, {StaticResource B}}" Padding="5" HorizontalAlignment="Center" />
                 <Button Command="{Binding ChangeTitleDataServiceCmd}" Content="Change title DataService" Margin="10" Padding="5" HorizontalAlignment="Center" />
                 <Button Click="OpenSecondWindow" Content="Open new window" Margin="10" Padding="5" HorizontalAlignment="Center" />
                 <ToggleButton Command="{Binding ToggleBaseCommand}" Margin="0 20 0 0" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" IsChecked="{Binding S.Settings.IsLightTheme}" />
-            <TextBlock Text="{rs:SwitchBinding S.Settings.IsLightTheme, Light theme, Dark theme}" Margin="10" HorizontalAlignment="Center" />
+            <TextBlock Text="{rs:SwitchBinding S.Settings.IsLightTheme, {Resx ChangeTitleLocal, {StaticResource B}}, Dark theme}" Margin="10" HorizontalAlignment="Center" />
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <Button Command="{Binding ChangeLanguageCmd}" Content="{Resx English, {StaticResource B}}" Margin="5" Padding="5" CommandParameter="en-US" />
                     <Button Command="{Binding ChangeLanguageCmd}" Content="{Resx Swedish, ResxName={StaticResource B}}" Margin="5" Padding="5" CommandParameter="sv-SE" />

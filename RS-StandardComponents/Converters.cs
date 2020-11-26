@@ -95,131 +95,8 @@ namespace RS_StandardComponents
             FalseValue = true;
         }
     }
-    public class IntLessThanToBoolConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            int result;
-            Int32.TryParse((string)parameter, out result);
-            return ((int)value > result);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class IntLessOrEqualToVisibilityConverter : IValueConverter
-    {
-        public int Value { get; set; }
-        public Visibility VisibilityWhenLessOrEqual { get; set; } = Visibility.Collapsed;
-        public Visibility DefaultVisibility { get; set; } = Visibility.Visible;
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (System.Convert.ToInt32(value) <= Value)
-                return VisibilityWhenLessOrEqual;
-
-            return DefaultVisibility;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class IntMultiplicationConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return null;
-
-            int intvalue = System.Convert.ToInt32(value);
-
-            int intmulti = System.Convert.ToInt32(parameter);
-
-
-            return intvalue * intmulti;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class IntAddConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return null;
-            int intValue = System.Convert.ToInt32(value);
-            int intAdd = System.Convert.ToInt32(parameter);
-            return intValue + intAdd;
-        }
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) { throw new NotImplementedException(); }
-    }
-    public class DoubleAddConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return null;
-            double doubleValue = System.Convert.ToDouble(value);
-            double doubleAdd = System.Convert.ToDouble(parameter);
-            return doubleValue + doubleAdd;
-        }
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) { throw new NotImplementedException(); }
-    }
-    public class DoubleStaticAddValueConverter : IValueConverter
-    {
-        public double AddValue { get; set; }
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value != null) return (double)value + AddValue;
-            return 0.0;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class IntStaticAddValueConverter : IValueConverter
-    {
-        public int AddValue { get; set; }
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value != null) return (int)value + AddValue;
-            return 0;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class DoubleMultiplicationConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return null;
-
-            double dvalue = System.Convert.ToDouble(value);
-            double dmulti = System.Convert.ToDouble(parameter);
-
-            return dvalue * dmulti;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    
+    
 
     public class DecimalCommaConverter : IValueConverter
     {
@@ -317,38 +194,8 @@ namespace RS_StandardComponents
             return value;
         }
     }
-    public class CollectionReverseConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return ((IEnumerable<object>)value)?.Reverse();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class IndexBooleanConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null || parameter == null)
-                return false;
-            else
-                return (int)value == System.Convert.ToInt32(parameter);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null || parameter == null)
-                return null;
-            else if ((bool)value)
-                return System.Convert.ToInt32(parameter);
-            else
-                return DependencyProperty.UnsetValue;
-        }
-    }
+    
+    
     /// <summary>
     /// Use this class as a markup extension in wpf to write strings instead of bool values
     /// <TextBlock Text="{my:SwitchBinding MyBoolValue, Yes, No}" />
@@ -366,17 +213,20 @@ namespace RS_StandardComponents
         {
             Initialize();
         }
-        public SwitchBindingExtension(Binding binding, object valueIfTrue, object valueIfFalse) : base(binding.Path.Path)
-        {
-            Initialize();
-        }
+        //public SwitchBindingExtension(Binding binding, object valueIfTrue, object valueIfFalse) : base(binding.Path.Path)
+        //{
+        //    Initialize();
+        //}
+
+        https://stackoverflow.com/questions/2082615/pass-method-as-parameter-using-c-sharp
         public SwitchBindingExtension(string path, object valueIfTrue, object valueIfFalse) : base(path)
         {
             Initialize();
             var resX = valueIfTrue as ResxExtension;
             if (resX != null)
             {
-                ValueIfTrue = ResxExtension.GetValueManual<string>(resX.Key.ToString(), resX.ResxName.ToString());
+                ValueIfTrue = new Func<ResxExtension, string>(ReturnLocalizedString);
+                //return ResxExtension.GetValueManual<string>(resX.Key.ToString(), resX.ResxName.ToString())
             }
             else
             {
@@ -387,11 +237,22 @@ namespace RS_StandardComponents
             if (resX != null)
             {
                 ValueIfFalse = ResxExtension.GetValueManual<string>(resX.Key.ToString(), resX.ResxName.ToString());
+                
             }
             else
             {
                 ValueIfFalse = valueIfFalse;
             }
+        }
+
+        private string ReturnLocalizedString(ResxExtension resX)
+        {
+            return ResxExtension.GetValueManual<string>(resX.Key.ToString(), resX.ResxName.ToString());
+        }
+        private object RunTheMethod(Func<object,object> myMethodName)
+        {
+            
+            return myMethodName("My String");
         }
 
         private void Initialize()
@@ -421,7 +282,9 @@ namespace RS_StandardComponents
                 try
                 {
                     bool b = System.Convert.ToBoolean(value);
-                    return b ? _switch.ValueIfTrue : _switch.ValueIfFalse;
+                    var trueValue = _switch.ValueIfTrue.;
+                    var falseValue = _switch.ValueIfFalse;
+                    return b ? trueValue : falseValue;
                 }
                 catch
                 {

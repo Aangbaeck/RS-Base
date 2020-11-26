@@ -36,7 +36,7 @@ namespace RS_StandardComponents
             //Size visualSize = Root.DesiredSize;
             //Root.Arrange(new Rect(new Point(0, 0), visualSize));
             //Root.UpdateLayout();
-            base.UpdateLayout();
+            //base.UpdateLayout();
         }
 
         //Implement this!! It works on Window.
