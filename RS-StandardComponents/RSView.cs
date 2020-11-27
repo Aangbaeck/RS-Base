@@ -100,8 +100,13 @@ namespace RS_StandardComponents
                 ((RSView)d).SetIcon(icon);
             }
         }
-        public void Load()
+        public void Initialize()
         {
+            System.Uri resourceLocater = new System.Uri("/RS-StandardComponents;component/rswindow2.xaml", System.UriKind.Relative);
+
+#line 1 "..\..\..\RSWindow.xaml"
+            System.Windows.Application.LoadComponent(this, resourceLocater);
+
             //if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
         }
         
@@ -126,6 +131,8 @@ namespace RS_StandardComponents
             RSWindow_StateChanged(null, null);
 
             JotService.Tracker.Track(this);
+            MessageBox.Show("Test");
+            
         }
 
 
