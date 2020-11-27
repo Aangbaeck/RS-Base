@@ -26,20 +26,20 @@ namespace RS_StandardComponents
 
     public class VisualToImageSourceConverter : IValueConverter
     {
-        public static ImageSource ConvertInCode(MaterialDesignThemes.Wpf.PackIcon icon)
+        public static ImageSource ConvertInCode(object icon)
         {
             if (icon is FrameworkElement visual)
             {
-                visual.Measure(new Size(visual.Width, visual.Height));
-                visual.Arrange(new Rect(0, 0, visual.Width, visual.Height));
-                RenderTargetBitmap rtb = new RenderTargetBitmap((int)visual.Width, (int)visual.Height, 96, 96, PixelFormats.Pbgra32);
+                visual.Measure(new Size(visual.ActualWidth, visual.ActualHeight));
+                visual.Arrange(new Rect(0, 0, visual.ActualWidth, visual.ActualHeight));
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)visual.ActualWidth, (int)visual.ActualHeight, 96, 96, PixelFormats.Pbgra32);
                 rtb.Render(visual);
                 return rtb;
             }
             return null;
         }
 
-        
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is FrameworkElement visual)
@@ -95,8 +95,8 @@ namespace RS_StandardComponents
             FalseValue = true;
         }
     }
-    
-    
+
+
 
     public class DecimalCommaConverter : IValueConverter
     {
@@ -194,8 +194,8 @@ namespace RS_StandardComponents
             return value;
         }
     }
-    
-    
+
+
     /// <summary>
     /// Use this class as a markup extension in wpf to write strings instead of bool values
     /// <TextBlock Text="{my:SwitchBinding MyBoolValue, Yes, No}" />
@@ -213,46 +213,11 @@ namespace RS_StandardComponents
         {
             Initialize();
         }
-        //public SwitchBindingExtension(Binding binding, object valueIfTrue, object valueIfFalse) : base(binding.Path.Path)
-        //{
-        //    Initialize();
-        //}
-
-        https://stackoverflow.com/questions/2082615/pass-method-as-parameter-using-c-sharp
         public SwitchBindingExtension(string path, object valueIfTrue, object valueIfFalse) : base(path)
         {
             Initialize();
-            var resX = valueIfTrue as ResxExtension;
-            if (resX != null)
-            {
-                ValueIfTrue = new Func<ResxExtension, string>(ReturnLocalizedString);
-                //return ResxExtension.GetValueManual<string>(resX.Key.ToString(), resX.ResxName.ToString())
-            }
-            else
-            {
-                ValueIfTrue = valueIfTrue;
-            }
-            
-            resX = valueIfFalse as ResxExtension;
-            if (resX != null)
-            {
-                ValueIfFalse = ResxExtension.GetValueManual<string>(resX.Key.ToString(), resX.ResxName.ToString());
-                
-            }
-            else
-            {
-                ValueIfFalse = valueIfFalse;
-            }
-        }
-
-        private string ReturnLocalizedString(ResxExtension resX)
-        {
-            return ResxExtension.GetValueManual<string>(resX.Key.ToString(), resX.ResxName.ToString());
-        }
-        private object RunTheMethod(Func<object,object> myMethodName)
-        {
-            
-            return myMethodName("My String");
+            ValueIfTrue = valueIfTrue;
+            ValueIfFalse = valueIfFalse;
         }
 
         private void Initialize()
@@ -282,8 +247,12 @@ namespace RS_StandardComponents
                 try
                 {
                     bool b = System.Convert.ToBoolean(value);
-                    var trueValue = _switch.ValueIfTrue.;
+                    var trueValue = _switch.ValueIfTrue;
                     var falseValue = _switch.ValueIfFalse;
+                    var resXTrue = trueValue as ResxExtension;
+                    if (resXTrue != null) { trueValue = ResxExtension.GetValueManual<string>(resXTrue.Key.ToString(), resXTrue.ResxName.ToString()); }
+                    var resXFalse = falseValue as ResxExtension;
+                    if (resXFalse != null) { falseValue = ResxExtension.GetValueManual<string>(resXFalse.Key.ToString(), resXFalse.ResxName.ToString()); }
                     return b ? trueValue : falseValue;
                 }
                 catch

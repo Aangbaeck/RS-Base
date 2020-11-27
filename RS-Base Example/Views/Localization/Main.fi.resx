@@ -130,6 +130,9 @@
     <value>Keksiä</value>
   </data>
   <data name="ChangeLanguageInBackEndString" xml:space="preserve">
-    <value>ChangeLanguageInBackEndString</value>
+    <value>Chängi backgroundi</value>
+  </data>
+  <data name="IsLightTheme" xml:space="preserve">
+    <value>Lighti Theminen</value>
   </data>
 </root>

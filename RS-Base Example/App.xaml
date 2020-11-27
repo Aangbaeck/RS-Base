@@ -20,13 +20,13 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!--  This style is the make the windows borderless but still resizable  -->
-            
+
 
 
             <!--  Global View Model Locator for MVVM-Light  -->
             <views1:ViewModelLocator x:Key="Locator" />
             <rsStandardComponents:VisualToImageSourceConverter x:Key="ConvertMaterialDesignIconToIcon" />
-                     
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

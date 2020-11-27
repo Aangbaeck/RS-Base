@@ -1,11 +1,13 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shell;
 
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "RS_StandardComponents")]
@@ -18,28 +20,23 @@ namespace RS_StandardComponents
     /// </summary>
     public partial class RSView : Window
     {
-        public void SetIcon(PackIconKind icon)
+        private void SetIcon(PackIconKind icon)
         {
             Titlebar.Icon = icon;
 
-            // Make a new source.
-            ImageSource myDataObject = VisualToImageSourceConverter.ConvertInCode(new PackIcon() { Kind = icon, Width = 256, Height = 256, Foreground = new SolidColorBrush(Colors.WhiteSmoke) });
-            Binding myBinding = new Binding("IconProperty");
-            myBinding.Source = myDataObject;
-            //// Bind the new data source to the myText TextBlock control's Text dependency property.
-            base.SetBinding(Window.IconProperty, myBinding);
-            
-            //base.SetValue(Window.IconProperty, VisualToImageSourceConverter.ConvertInCode(new PackIcon() { Kind = icon, Width = 512, Height = 512, Foreground = new SolidColorBrush(Colors.WhiteSmoke) }));
-            //var icvfcon = base.Icon;
+            var usrCtrl = new Grid();
+            var border = new Border() { Background = new SolidColorBrush(WindowIconBackgroundColor), CornerRadius = new CornerRadius(50) };
+            var packIcon = new PackIcon() { Kind = icon, Width = 226, Height = 226, Foreground = new SolidColorBrush(WindowIconForegroundColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
 
-            //Root.Measure(new Size(double.MaxValue, double.MaxValue));
-            //Size visualSize = Root.DesiredSize;
-            //Root.Arrange(new Rect(new Point(0, 0), visualSize));
-            //Root.UpdateLayout();
-            //base.UpdateLayout();
+            usrCtrl.Children.Add(border);
+            usrCtrl.Children.Add(packIcon);
+            usrCtrl.Measure(new Size(256, 256));
+            usrCtrl.Arrange(new Rect(new Size(256, 256)));
+            usrCtrl.UpdateLayout();
+            ImageSource image = VisualToImageSourceConverter.ConvertInCode(usrCtrl);
+            base.Icon = image;
         }
-
-        //Implement this!! It works on Window.
+        //This works on Window.
         //    <Window.Icon>
         //    <Binding Converter = "{StaticResource ConvertMaterialDesignIconToIcon}" >
         //        < Binding.Source >
@@ -52,6 +49,37 @@ namespace RS_StandardComponents
         //    </Binding>
         //</Window.Icon>
 
+        private void UpdateIcon() => SetIcon(Icon);
+
+        public Color WindowIconForegroundColor
+        {
+            get { return (Color)GetValue(WindowIconForegroundColorProperty); }
+            set { SetValue(WindowIconForegroundColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for WindowIconForegroundColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WindowIconForegroundColorProperty =
+            DependencyProperty.Register("WindowIconForegroundColor", typeof(Color), typeof(RSView), new PropertyMetadata(Colors.White, ChangedColorCallback));
+
+        private static void ChangedColorCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(e.NewValue is Color color)) return;
+            ((RSView)d).UpdateIcon();
+        }
+
+        public Color WindowIconBackgroundColor
+        {
+            get { return (Color)GetValue(WindowIconBackgroundColorProperty); }
+            set { SetValue(WindowIconBackgroundColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for WindowIconBackgroundColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WindowIconBackgroundColorProperty =
+            DependencyProperty.Register("WindowIconBackgroundColor", typeof(Color), typeof(RSView), new PropertyMetadata(Colors.Transparent, ChangedColorCallback));
+
+
+
+
 
 
         public new PackIconKind Icon
@@ -62,7 +90,7 @@ namespace RS_StandardComponents
 
         // Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         public static new readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(PackIconKind), typeof(RSView), new PropertyMetadata(PackIconKind.TestTube,SetIconCallBack));
+            DependencyProperty.Register("Icon", typeof(PackIconKind), typeof(RSView), new PropertyMetadata(PackIconKind.TestTube, SetIconCallBack));
 
         private static void SetIconCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -72,6 +100,11 @@ namespace RS_StandardComponents
                 ((RSView)d).SetIcon(icon);
             }
         }
+        public void Load()
+        {
+            //if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+        }
+        
 
         public RSView()
         {
@@ -83,21 +116,11 @@ namespace RS_StandardComponents
             AllowsTransparency = true;
             MinWidth = 10;
             WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(0, 0, 0, 0), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
-
+            
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             StateChanged += RSWindow_StateChanged;
-            MaxHeight = SystemParameters.WorkArea.Size.Height + 12 + 2;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
-            Titlebar = new TitlebarUserCtrl()
-            {
-                Title = "Untitled",
-
-                CheckBeforeClose = false,
-                EnableClosable = true,
-                EnableMaximize = true,
-                EnableMinimize = true,
-                EnablePinMode = false,
-                Icon = PackIconKind.Fire
-            };
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 2/* SystemParameters.WorkArea.Size.Height*//* + 12*//* + 2*/;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
+            Titlebar = new TitlebarUserCtrl();
             base.Content = Titlebar;
             Titlebar.BoundWindow = this;
             RSWindow_StateChanged(null, null);
@@ -106,20 +129,51 @@ namespace RS_StandardComponents
         }
 
 
+
+        public bool CheckBeforeClose
+        {
+            get { return (bool)GetValue(CheckBeforeCloseProperty); }
+            set { SetValue(CheckBeforeCloseProperty, value); }
+        }
+        public static readonly DependencyProperty CheckBeforeCloseProperty = DependencyProperty.Register("CheckBeforeClose", typeof(bool), typeof(RSView), new PropertyMetadata(false, (d, e) => { if (e.NewValue is bool b) ((RSView)d).Titlebar.CheckBeforeClose = b; }));
+        public bool EnableClosable
+        {
+            get { return (bool)GetValue(EnableClosableProperty); }
+            set { SetValue(EnableClosableProperty, value); }
+        }
+        public static readonly DependencyProperty EnableClosableProperty = DependencyProperty.Register("EnableClosable", typeof(bool), typeof(RSView), new PropertyMetadata(true, (d, e) => { if (e.NewValue is bool b) ((RSView)d).Titlebar.EnableClosable = b; }));
+
+        public bool EnableMaximize
+        {
+            get { return (bool)GetValue(EnableMaximizeProperty); }
+            set { SetValue(EnableMaximizeProperty, value); }
+        }
+        public static readonly DependencyProperty EnableMaximizeProperty = DependencyProperty.Register("EnableMaximize", typeof(bool), typeof(RSView), new PropertyMetadata(true, (d, e) => { if (e.NewValue is bool b) ((RSView)d).Titlebar.EnableMaximize = b; }));
+        public bool EnableMinimize
+        {
+            get { return (bool)GetValue(EnableMinimizeProperty); }
+            set { SetValue(EnableMinimizeProperty, value); }
+        }
+        public static readonly DependencyProperty EnableMinimizeProperty = DependencyProperty.Register("EnableMinimize", typeof(bool), typeof(RSView), new PropertyMetadata(true, (d, e) => { if (e.NewValue is bool b) ((RSView)d).Titlebar.EnableMinimize = b; }));
+        public bool EnablePinMode
+        {
+            get { return (bool)GetValue(EnablePinModeProperty); }
+            set { SetValue(EnablePinModeProperty, value); }
+        }
+        public static readonly DependencyProperty EnablePinModeProperty = DependencyProperty.Register("EnablePinMode", typeof(bool), typeof(RSView), new PropertyMetadata(false, (d, e) => { if (e.NewValue is bool b) ((RSView)d).Titlebar.EnablePinMode = b; }));
+
+
+
         public new object Content
         {
             get { return (object)GetValue(ContentProperty); }
             set { SetValue(ContentProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Content.  This enables animation, styling, binding, etc...
-        public static new readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(RSView), new PropertyMetadata(null, SetContentPropertyChanged));
 
-        private static void SetContentPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((RSView)d).Titlebar.Content = e.NewValue;
-            
-        }
+        public static new readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(RSView), new PropertyMetadata(null, (d,e)=> { ((RSView)d).Titlebar.Content = e.NewValue; }));
+
+        
 
         private void RSWindow_StateChanged(object sender, EventArgs e)
         {
@@ -128,7 +182,7 @@ namespace RS_StandardComponents
             data.cbSize = System.Runtime.InteropServices.Marshal.SizeOf(data);
             SHAppBarMessage(ABM_GETTASKBARPOS, ref data);
             TaskBarHeigt = (data.rc.bottom - data.rc.top);
-
+            var max = this.MaxHeight;
             if (WindowState == WindowState.Maximized)
             {
                 BorderThickness = new Thickness(6, 6, 6, 6); //I don't understand but it's always half the taskbar height.
@@ -178,22 +232,49 @@ namespace RS_StandardComponents
             ((RSView)d).Titlebar.UpdateLayout();
         }
 
-        public void SetContent(object userctrl)
+
+
+
+
+
+
+
+
+
+        public new string Title
         {
-            Titlebar.Content = userctrl;
-            Titlebar.BoundWindow = this;
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+        // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+        public static new readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register("Title", typeof(string), typeof(RSView), new PropertyMetadata("", SetTitle));
+
+        private static void SetTitle(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(e.NewValue is string title)) return;
+            ((RSView)d).Titlebar.Title = title;
+            ((RSView)d).Title = title;
         }
 
-        public void SetTitle(string title)
+
+
+
+        public new object DataContext
         {
-            Titlebar.Title = title;
-            Title = title;
+            get { return (object)GetValue(DataContextProperty); }
+            set { SetValue(DataContextProperty, value); }
         }
 
-        public void SetDataContext(object context)
+        // Using a DependencyProperty as the backing store for DataContext.  This enables animation, styling, binding, etc...
+        public static new readonly DependencyProperty DataContextProperty =
+            DependencyProperty.Register("DataContext", typeof(object), typeof(RSView), new PropertyMetadata(default(object), DataContextChanged));
+
+        private static void DataContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Titlebar.DataContext = context;
+            ((RSView)d).Titlebar.DataContext = e.NewValue;
         }
+
         public object GetDataContext()
         {
             return Titlebar.DataContext;

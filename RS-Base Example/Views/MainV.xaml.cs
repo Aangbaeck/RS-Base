@@ -23,8 +23,8 @@ namespace RS_Base.Views
 
             Application.Current.DispatcherUnhandledException += ThreadStuffUI;
 
-            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window not go underneath the bottom taskbar
-            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+            //MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window not go underneath the bottom taskbar
+            //MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
 
             Log.Information("STARTING APPLICATION...");
             InitializeComponent();

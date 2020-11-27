@@ -138,4 +138,7 @@
     
     
   </data>
+  <data name="IsLightTheme" xml:space="preserve">
+    <value>Light theme</value>
+  </data>
 </root>

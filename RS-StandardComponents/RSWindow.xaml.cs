@@ -20,7 +20,6 @@ namespace RS_StandardComponents
         public void SetIcon(PackIconKind icon)
         {
             Titlebar.Icon = icon;
-            this.Icon = VisualToImageSourceConverter.ConvertInCode(new PackIcon() { Kind = icon, Width = 1000, Height = 1000, });
         }
 
         public RSWindow()

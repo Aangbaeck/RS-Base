@@ -132,4 +132,7 @@
   <data name="ChangeLanguageInBackEndString" xml:space="preserve">
     <value />
   </data>
+  <data name="IsLightTheme" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

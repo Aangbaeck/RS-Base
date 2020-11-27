@@ -18,6 +18,7 @@
     <PackageProjectUrl>https://github.com/Aangbaeck/RS-Base</PackageProjectUrl>
     <Authors>Björn Ångbäck</Authors>
     <Platforms>AnyCPU;x86</Platforms>
+    <ApplicationIcon>DogeCoin.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
