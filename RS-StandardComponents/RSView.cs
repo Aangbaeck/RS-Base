@@ -56,8 +56,6 @@ namespace RS_StandardComponents
             get { return (Color)GetValue(WindowIconForegroundColorProperty); }
             set { SetValue(WindowIconForegroundColorProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for WindowIconForegroundColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty WindowIconForegroundColorProperty =
             DependencyProperty.Register("WindowIconForegroundColor", typeof(Color), typeof(RSView), new PropertyMetadata(Colors.White, ChangedColorCallback));
 
@@ -73,7 +71,6 @@ namespace RS_StandardComponents
             set { SetValue(WindowIconBackgroundColorProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for WindowIconBackgroundColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty WindowIconBackgroundColorProperty =
             DependencyProperty.Register("WindowIconBackgroundColor", typeof(Color), typeof(RSView), new PropertyMetadata(Colors.Transparent, ChangedColorCallback));
 
@@ -87,8 +84,7 @@ namespace RS_StandardComponents
             get { return (PackIconKind)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        
         public static new readonly DependencyProperty IconProperty =
             DependencyProperty.Register("Icon", typeof(PackIconKind), typeof(RSView), new PropertyMetadata(PackIconKind.TestTube, SetIconCallBack));
 
@@ -100,15 +96,7 @@ namespace RS_StandardComponents
                 ((RSView)d).SetIcon(icon);
             }
         }
-        public void Initialize()
-        {
-            System.Uri resourceLocater = new System.Uri("/RS-StandardComponents;component/rswindow2.xaml", System.UriKind.Relative);
-
-#line 1 "..\..\..\RSWindow.xaml"
-            System.Windows.Application.LoadComponent(this, resourceLocater);
-
-            //if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
-        }
+        
         
 
         public RSView()
@@ -120,8 +108,8 @@ namespace RS_StandardComponents
             WindowStyle = WindowStyle.None;
             AllowsTransparency = true;
             MinWidth = 10;
-            WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(0, 0, 0, 0), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
             
+            WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(6, 6, 6, 6), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             StateChanged += RSWindow_StateChanged;
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 2/* SystemParameters.WorkArea.Size.Height*//* + 12*//* + 2*/;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
@@ -129,13 +117,18 @@ namespace RS_StandardComponents
             base.Content = Titlebar;
             Titlebar.BoundWindow = this;
             RSWindow_StateChanged(null, null);
-
-            JotService.Tracker.Track(this);
-            MessageBox.Show("Test");
+            UpdateLayout();
             
+            JotService.Tracker.Track(this);
         }
 
-
+        public new void Show()
+        {
+            var theStateThatWasActuallySet = WindowState;
+            WindowState = WindowState.Normal;  //We should always start with normal, otherwise the border when maximised become f***ed up
+            base.Show();
+            WindowState = theStateThatWasActuallySet;
+        }
 
         public bool CheckBeforeClose
         {
@@ -277,7 +270,7 @@ namespace RS_StandardComponents
         public static new readonly DependencyProperty DataContextProperty =
             DependencyProperty.Register("DataContext", typeof(object), typeof(RSView), new PropertyMetadata(default(object), DataContextChanged));
 
-        private static void DataContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static new void DataContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((RSView)d).Titlebar.DataContext = e.NewValue;
         }

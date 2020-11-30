@@ -25,7 +25,7 @@ namespace RS_Base.Views
 
             //MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window not go underneath the bottom taskbar
             //MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
-
+            
             Log.Information("STARTING APPLICATION...");
             InitializeComponent();
         }

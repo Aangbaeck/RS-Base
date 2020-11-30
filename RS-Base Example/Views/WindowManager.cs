@@ -22,8 +22,9 @@ namespace RS_Base.Views
         {
 
             var win = new MainV();
-            
+            win.WindowState = WindowState.Maximized;
             win.Show();
+            win.UpdateLayout();
             WindowList.Add(win.Title, win);
         }
         
