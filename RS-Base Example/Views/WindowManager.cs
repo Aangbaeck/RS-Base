@@ -20,14 +20,13 @@ namespace RS_Base.Views
 
         public void CreateMainWindow()
         {
-
             var win = new MainV();
             win.WindowState = WindowState.Maximized;
             win.Show();
             win.UpdateLayout();
             WindowList.Add(win.Title, win);
         }
-        
+
         private Dictionary<string, RSView> WindowList { get; } = new Dictionary<string, RSView>();
         private string WPath => Directory.CreateDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "//" + "WindowPositions//").FullName;
 
@@ -35,12 +34,12 @@ namespace RS_Base.Views
         {
             get
             {
-                
+
                 return zoomFactor;
             }
             set
             {
-                
+
                 zoomFactor = value;
                 foreach (var win in WindowList)
                     win.Value.ZoomFactor = zoomFactor;
@@ -48,7 +47,7 @@ namespace RS_Base.Views
         }
 
         private string FilePath(string title) => WPath + title + ".state";
-        
-        
+
+
     }
 }
