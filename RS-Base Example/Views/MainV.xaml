@@ -13,7 +13,8 @@
     DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
     CheckBeforeClose="True"
-    Icon="Helicopter"
+    TitlebarIcon="Fire"
+    
     TextElement.FontSize="16"
     TextElement.FontWeight="Medium"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}">

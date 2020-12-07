@@ -20,10 +20,13 @@ namespace RS_StandardComponents
     /// </summary>
     public partial class RSView : Window
     {
-        private void SetIcon(PackIconKind icon)
+        private void SetTitlebarIcon(PackIconKind icon)
         {
             Titlebar.Icon = icon;
+        }
 
+        private void SetTaskbarIcon(PackIconKind icon)
+        {
             var usrCtrl = new Grid();
             var border = new Border() { Background = new SolidColorBrush(WindowIconBackgroundColor), CornerRadius = new CornerRadius(50) };
             var packIcon = new PackIcon() { Kind = icon, Width = 226, Height = 226, Foreground = new SolidColorBrush(WindowIconForegroundColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
@@ -49,8 +52,6 @@ namespace RS_StandardComponents
         //    </Binding>
         //</Window.Icon>
 
-        private void UpdateIcon() => SetIcon(Icon);
-
         public Color WindowIconForegroundColor
         {
             get { return (Color)GetValue(WindowIconForegroundColorProperty); }
@@ -62,7 +63,8 @@ namespace RS_StandardComponents
         private static void ChangedColorCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is Color color)) return;
-            ((RSView)d).UpdateIcon();
+            ((RSView)d).SetTitlebarIcon(((RSView)d).TitlebarIcon);
+
         }
 
         public Color WindowIconBackgroundColor
@@ -71,33 +73,44 @@ namespace RS_StandardComponents
             set { SetValue(WindowIconBackgroundColorProperty, value); }
         }
 
-        public static readonly DependencyProperty WindowIconBackgroundColorProperty =
-            DependencyProperty.Register("WindowIconBackgroundColor", typeof(Color), typeof(RSView), new PropertyMetadata(Colors.Transparent, ChangedColorCallback));
+        public static readonly DependencyProperty WindowIconBackgroundColorProperty = DependencyProperty.Register("WindowIconBackgroundColor", typeof(Color), typeof(RSView), new PropertyMetadata(Colors.Transparent, ChangedColorCallback));
 
 
 
-
-
-
-        public new PackIconKind Icon
+        public PackIconKind TaskbarIcon
         {
-            get { return (PackIconKind)GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get { return (PackIconKind)GetValue(TaskbarIconProperty); }
+            set { SetValue(TaskbarIconProperty, value); }
         }
-        
-        public static new readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(PackIconKind), typeof(RSView), new PropertyMetadata(PackIconKind.TestTube, SetIconCallBack));
 
-        private static void SetIconCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static readonly DependencyProperty TaskbarIconProperty = DependencyProperty.Register("TaskbarIcon", typeof(PackIconKind), typeof(RSView), new PropertyMetadata(PackIconKind.TestTube, SetTaskbarIconCallBack));
+        private static void SetTaskbarIconCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is PackIconKind icon)) return;
             if (d != null)
             {
-                ((RSView)d).SetIcon(icon);
+                ((RSView)d).SetTaskbarIcon(((RSView)d).TaskbarIcon);
             }
         }
-        
-        
+
+
+        public PackIconKind TitlebarIcon
+        {
+            get { return (PackIconKind)GetValue(TitlebarIconProperty); }
+            set { SetValue(TitlebarIconProperty, value); }
+        }
+
+        public static readonly DependencyProperty TitlebarIconProperty = DependencyProperty.Register("TitlebarIcon", typeof(PackIconKind), typeof(RSView), new PropertyMetadata(PackIconKind.TestTube, SetTitlebarIconCallBack));
+        private static void SetTitlebarIconCallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(e.NewValue is PackIconKind icon)) return;
+            if (d != null)
+            {
+                ((RSView)d).SetTitlebarIcon(((RSView)d).TitlebarIcon);
+            }
+        }
+
+
 
         public RSView()
         {
@@ -108,7 +121,7 @@ namespace RS_StandardComponents
             WindowStyle = WindowStyle.None;
             AllowsTransparency = true;
             MinWidth = 10;
-            
+
             WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(6, 6, 6, 6), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             StateChanged += RSWindow_StateChanged;
@@ -118,7 +131,7 @@ namespace RS_StandardComponents
             Titlebar.BoundWindow = this;
             RSWindow_StateChanged(null, null);
             UpdateLayout();
-            
+
             JotService.Tracker.Track(this);
         }
 
@@ -171,9 +184,9 @@ namespace RS_StandardComponents
         }
 
 
-        public static new readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(RSView), new PropertyMetadata(null, (d,e)=> { ((RSView)d).Titlebar.Content = e.NewValue; }));
+        public static new readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(RSView), new PropertyMetadata(null, (d, e) => { ((RSView)d).Titlebar.Content = e.NewValue; }));
 
-        
+
 
         private void RSWindow_StateChanged(object sender, EventArgs e)
         {
@@ -232,33 +245,19 @@ namespace RS_StandardComponents
             ((RSView)d).Titlebar.UpdateLayout();
         }
 
-
-
-
-
-
-
-
-
-
         public new string Title
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
-        // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
-        public static new readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(RSView), new PropertyMetadata("", SetTitle));
 
+        public static new readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(RSView), new PropertyMetadata("", SetTitle));
         private static void SetTitle(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is string title)) return;
             ((RSView)d).Titlebar.Title = title;
             ((RSView)d).Title = title;
         }
-
-
-
 
         public new object DataContext
         {
