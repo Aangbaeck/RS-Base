@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -182,35 +183,8 @@ namespace RS_StandardComponents
             }
             return result;
         }
-        /// <summary>
-        /// Return the value for the markup extension
-        /// </summary>
-        /// <returns>The value from the resources if possible otherwise the default value</returns>
-        /// <summary>
-        /// Return the localized value with the key from the resource.
-        /// </summary>
-        /// <param name="key">The key too look for in the resource file</param>
-        /// <param name="resxName">The path to the resource file (including the file name). Example: [namespace].Folder.SubFolder.ResourceFileName (dont include language code or file extension)</param>
-        /// <returns>Returns the object in the resouce file. If string is empty or not found it will return Key.</returns>
-        public static string GetValueManual(string key, string resxName)
-        {
-            return GetValueManual<string>(key, resxName, out string _);
-        }
-        /// <summary>
-        /// Return the value for the markup extension
-        /// </summary>
-        /// <returns>The value from the resources if possible otherwise the default value</returns>
-        /// <summary>
-        /// Return the localized value with the key from the resource.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key">The key too look for in the resource file</param>
-        /// <param name="resxName">The path to the resource file (including the file name). Example: [namespace].Folder.SubFolder.ResourceFileName (dont include language code or file extension)</param>
-        /// <returns>Returns the object in the resouce file. If string is empty or not found it will return Key.</returns>
-        public static T GetValueManual<T>(string key, string resxName)
-        {
-            return GetValueManual<T>(key, resxName, out string _);
-        }
+
+        public static bool ShowBrokenManualResX { get; set; }
         /// <summary>
         /// Return the value for the markup extension
         /// </summary>
@@ -224,14 +198,17 @@ namespace RS_StandardComponents
         /// <param name="culture">if not set (i.e. null) it will be set to the applications current culture.</param>
         /// <param name="errorMsg">Can be used to understand why the method is not returning the right result</param>
         /// <returns>Returns the object in the resouce file. If string is empty or not found it will return Key.</returns>
-        public static T GetValueManual<T>(string key, string resxName, out string errorMsg, CultureInfo culture = null)
+        public static string GetValueManual(string key, string resxName, CultureInfo culture = null)
         {
-            errorMsg = "no error";
             if (culture == null) culture = CultureManager.UICulture;
             if (string.IsNullOrEmpty(key))
             {
-                errorMsg = "key IsNullOrEmpty";
-                return default;
+                if (ShowBrokenManualResX)
+                {
+                    Log.Error($"key == string.IsNullOrEmpty so returning key instead, resxName: {resxName}, key:{key}");
+                }
+                var result = "#" + key;
+                return result;
             }
 
             if (!string.IsNullOrEmpty(resxName))
@@ -241,43 +218,39 @@ namespace RS_StandardComponents
                     Assembly assembly = FindResourceAssembly(resxName);
                     if (assembly == null)
                     {
-                        errorMsg = $"could not FindResourceAssembly for {resxName}";
-                        return default;
+                        if (ShowBrokenManualResX)
+                        {
+                            Log.Error($"could not FindResourceAssembly for resxName: {resxName}, key:{key}");
+                        }
+                        return "#" + key;
                     }
-
                     var resourceManager = new ResourceManager(resxName, assembly);
                     if (resourceManager == null)
                     {
-                        errorMsg = $"could not find ResourceManager for {resxName}";
-                        return default;
-                    }
-
-                    object result = resourceManager.GetObject(key, culture);
-                    if (result == null)
-                    {
-                        if (typeof(T) == typeof(String))
+                        if (ShowBrokenManualResX)
                         {
-                            errorMsg = $"result == null but string so returning key";
-                            result = "#" + key;
-                            return (T)result;
+                            Log.Error($"could not find ResourceManager for resxName: {resxName}, key:{key}");
                         }
-                        errorMsg = $"result == null";
-                        return default;
+                        return "#" + key;
                     }
-                    if (typeof(T) == typeof(String) && (String)result == "")
+                    string result = resourceManager.GetObject(key, culture) as string;
+                    if (string.IsNullOrEmpty(result))
                     {
-                        errorMsg = $"result == String.Empty so returning key instead";
+                        if (ShowBrokenManualResX)
+                        {
+                            Log.Error($"result == string.IsNullOrEmpty so returning key instead, resxName: {resxName}, key:{key}");
+                        }
                         result = "#" + key;
-                        return (T)result;
+                        return result;
                     }
-                    return (T)result;
+                    return result;
                 }
                 catch (Exception ex)
                 {
-                    errorMsg = $"Exception: {ex.Message}";
+                    Log.Error($"ResxName: {resxName}, Key:{key}, Exception: {ex.Message}");
                 }
             }
-            return default;
+            return "#" + key;
         }
 
         /// <summary>

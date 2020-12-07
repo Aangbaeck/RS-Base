@@ -250,9 +250,9 @@ namespace RS_StandardComponents
                     var trueValue = _switch.ValueIfTrue;
                     var falseValue = _switch.ValueIfFalse;
                     var resXTrue = trueValue as ResxExtension;
-                    if (resXTrue != null) { trueValue = ResxExtension.GetValueManual<string>(resXTrue.Key.ToString(), resXTrue.ResxName.ToString()); }
+                    if (resXTrue != null) { trueValue = ResxExtension.GetValueManual(resXTrue.Key.ToString(), resXTrue.ResxName.ToString()); }
                     var resXFalse = falseValue as ResxExtension;
-                    if (resXFalse != null) { falseValue = ResxExtension.GetValueManual<string>(resXFalse.Key.ToString(), resXFalse.ResxName.ToString()); }
+                    if (resXFalse != null) { falseValue = ResxExtension.GetValueManual(resXFalse.Key.ToString(), resXFalse.ResxName.ToString()); }
                     return b ? trueValue : falseValue;
                 }
                 catch

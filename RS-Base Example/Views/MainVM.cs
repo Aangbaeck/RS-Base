@@ -136,8 +136,10 @@ namespace RS_Base.Views
 
         private void ChangeTitleLocal()
         {
+
             //To change strings with localized text in back end we could use
-            WelcomeTitle = ResxExtension.GetValueManual<string>("ChangeLanguageInBackEndString", "RS_Base.Views.Localization.Main");
+            ResxExtension.ShowBrokenManualResX = true;
+            WelcomeTitle = ResxExtension.GetValueManual("ChangeLanguageInBackEndString", "RS_Base.Views.Localization.Main");
             WelcomeTitle = "Hallabaloo!";
         }
 
