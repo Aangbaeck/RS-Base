@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
      xmlns:sys1="clr-namespace:System;assembly=System.Runtime"
     d:DesignHeight="300"
+    UseLayoutRounding="True"
     d:DesignWidth="300"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -18,7 +19,7 @@
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         DialogClosing="OnDialogClosing"
-        DialogTheme="Inherit"
+        DialogTheme="Inherit"  
         Identifier="TitleBarUserControlDialogHost">
         <materialDesign:DialogHost.DialogContent>
             <StackPanel Margin="16">
@@ -47,24 +48,9 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="1" >
-                    <ContentControl Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
-                    <Button
-                        x:Name="UnpinButton"
-                        Width="30"
-                        Height="29"
-                        Padding="0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Click="UnpinWindow"
-                        Opacity="0.5"
-                        Style="{DynamicResource MaterialDesignFlatButton}"
-                        ToolTip="{local:Resx Key=UnpinTT,
-                                             ResxName={StaticResource N}}"
-                        Visibility="Collapsed">
-                        <materialDesign:PackIcon Width="24" Height="17" Foreground="{DynamicResource MaterialDesignBody}" Kind="PinOff" />
-                    </Button>
-                </Grid>
+                
+                    <ContentControl Grid.Row="1" Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
+                
                 <materialDesign:Card x:Name="TitleBar" Grid.Row="0" materialDesign:ShadowAssist.ShadowDepth="Depth2">
                     <Grid
                         Height="30"
@@ -103,17 +89,6 @@
                                 FontWeight="Normal" />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="0 0 0 0" HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button
-                                x:Name="PinButton"
-                                Width="30"
-                                Padding="0"
-                                Click="PinWindow"
-                                Opacity="0.5"
-                                Style="{DynamicResource MaterialDesignFlatButton}"
-                                ToolTip="{local:Resx Key=PinTT,
-                                                     ResxName={StaticResource N}}">
-                                <materialDesign:PackIcon x:Name="PinIcon" Width="24" Height="17" Foreground="{DynamicResource MaterialDesignBody}" Kind="Pin" />
-                            </Button>
                             <Button
                                 x:Name="MinimizeButton"
                                 Width="30"

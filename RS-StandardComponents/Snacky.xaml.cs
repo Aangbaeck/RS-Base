@@ -27,6 +27,7 @@ namespace RS_StandardComponents
         {
             InitializeComponent();
             RecalculateSize();
+            NotifyActivePropertyChanged(this, new DependencyPropertyChangedEventArgs());
         }
 
         //Make the framework (re)calculate the size of the element. In the beginning the actual size is 0,0. This method remedies this.

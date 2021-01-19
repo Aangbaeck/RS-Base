@@ -24,7 +24,7 @@
             VerticalAlignment="Stretch"
             Background="{DynamicResource MaterialDesignSnackbarBackground}"
             CornerRadius="3"
-            SnapsToDevicePixels="True">
+            >
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
                     <Style.Triggers>

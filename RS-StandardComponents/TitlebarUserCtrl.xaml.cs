@@ -38,15 +38,6 @@ namespace RS_StandardComponents
         public static readonly DependencyProperty CheckBeforeCloseProperty =
             DependencyProperty.Register("CheckBeforeClose", typeof(bool), typeof(TitlebarUserCtrl),
                 new PropertyMetadata(false));
-        public static readonly DependencyProperty EnablePinModeProperty =
-            DependencyProperty.Register("EnablePinMode", typeof(bool), typeof(TitlebarUserCtrl),
-                new PropertyMetadata(false, SetPinMode));
-        public static readonly DependencyProperty IsPinnedProperty =
-            DependencyProperty.Register("IsPinned", typeof(bool), typeof(TitlebarUserCtrl),
-                new PropertyMetadata(false, SetIsPinned));
-
-
-
         public static new readonly DependencyProperty ContentProperty =
    DependencyProperty.Register("Content", typeof(object),
     typeof(TitlebarUserCtrl), new UIPropertyMetadata(null));
@@ -66,8 +57,6 @@ namespace RS_StandardComponents
             InitializeComponent();
             MaximizeButton.Visibility = Visibility.Collapsed;
             RestoreButton.Visibility = Visibility.Visible;
-            PinButton.Visibility = Visibility.Collapsed;
-            UnpinButton.Visibility = Visibility.Collapsed;
         }
 
         public Window LocalWindow
@@ -147,16 +136,7 @@ namespace RS_StandardComponents
             get => (bool)GetValue(CheckBeforeCloseProperty);
             set => SetValue(CheckBeforeCloseProperty, value);
         }
-        public bool EnablePinMode
-        {
-            get => (bool)GetValue(EnablePinModeProperty);
-            set => SetValue(EnablePinModeProperty, value);
-        }
-        public bool IsPinned
-        {
-            get => (bool)GetValue(IsPinnedProperty);
-            set => SetValue(IsPinnedProperty, value);
-        }
+   
 
 
         private void StateChanged(object sender, EventArgs e)
@@ -236,25 +216,7 @@ namespace RS_StandardComponents
                     ((TitlebarUserCtrl)d).BoundWindow.ResizeMode = ResizeMode.CanResize;
             }
         }
-        private static void SetPinMode(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(e.NewValue is bool enablePinMode)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            {
-                if (enablePinMode)
-                {
-                    if (((TitlebarUserCtrl)d).TitleBar.Visibility == Visibility.Visible)
-                        ((TitlebarUserCtrl)d).PinButton.Visibility = enablePinMode ? Visibility.Visible : Visibility.Collapsed;
-                    if (((TitlebarUserCtrl)d).TitleBar.Visibility == Visibility.Collapsed)
-                        ((TitlebarUserCtrl)d).UnpinButton.Visibility = enablePinMode ? Visibility.Visible : Visibility.Collapsed;
-                }
-                else
-                {
-                    ((TitlebarUserCtrl)d).PinButton.Visibility = Visibility.Collapsed;
-                    ((TitlebarUserCtrl)d).UnpinButton.Visibility = Visibility.Collapsed;
-                }
-            }
-
-        }
+        
         private static void TitlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is string s)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
@@ -283,23 +245,6 @@ namespace RS_StandardComponents
         private void MinimizeWindow(object sender, RoutedEventArgs e)
         {
             BoundWindow.WindowState = WindowState.Minimized;
-        }
-
-        private void PinWindow(object sender, RoutedEventArgs e)
-        {
-            TitleBar.Visibility = Visibility.Collapsed;
-            BoundWindow.ResizeMode = ResizeMode.NoResize;
-            UnpinButton.Visibility = Visibility.Visible;
-            IsPinned = true;
-        }
-        private void UnpinWindow(object sender, RoutedEventArgs e)
-        {
-            TitleBar.Visibility = Visibility.Visible;
-            BoundWindow.ResizeMode = ResizeMode.CanResize;
-            UnpinButton.Visibility = Visibility.Collapsed;
-            if (EnablePinMode)
-                PinButton.Visibility = Visibility.Visible;
-            IsPinned = false;
         }
 
         //These mouse methods is used for normal window behaviour and still it's a borderless stylable window

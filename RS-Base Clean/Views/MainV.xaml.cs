@@ -22,8 +22,8 @@ namespace RS_Base.Views
             Application.Current.DispatcherUnhandledException += ThreadStuffUI;
             SimpleIoc.Default.Register<SettingsService>();
             SettingsService = SimpleIoc.Default.GetInstance<SettingsService>();
-            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window no go underneath the bottom taskbar
-            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+            //MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window no go underneath the bottom taskbar
+            //MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
 
             Log.Information("STARTING APPLICATION...");
             InitializeComponent();
@@ -49,20 +49,10 @@ namespace RS_Base.Views
             };
         }
 
-        //To make sure Alt+F4 wont override the "Are you sure message box when closing.
-        private void wnd_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.System && e.SystemKey == Key.F4)
-            {
-                e.Handled = true;
-            }
-        }
+        
         public SettingsService SettingsService { get; set; }
 
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-        }
+        
 
         private void OpenAnotherWindow(Type window)
         {
@@ -82,40 +72,8 @@ namespace RS_Base.Views
             //}
         }
 
-
-        /// <summary>
-        /// This method will check for custom windows as well by specifying T to window type
-        /// </summary>
-        public static bool IsWindowOpen<T>(string name = "") where T : Window
-        {
-            return string.IsNullOrEmpty(name)
-                ? Application.Current.Windows.OfType<T>().Any()
-                : Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var startWindows = JsonConvert.DeserializeObject<List<Type>>(SettingsService.Settings.WindowsToOpenAtStart);
-                foreach (var w in startWindows)
-                {
-                    try
-                    {
-                        OpenAnotherWindow(w);
-                    }
-                    catch
-                    {
-                        //ignore
-                    }
-
-                }
-            }
-            catch
-            {
-                Log.Error("Could not read window positions setting.");
-            }
-        }
+ 
+        
 
         /// <summary>
         /// This often finds weird threading errors in the UI.

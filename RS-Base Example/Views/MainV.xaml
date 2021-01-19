@@ -5,7 +5,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:rs="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
     xmlns:sys1="clr-namespace:System;assembly=System.Runtime" 
-    Width="800"
+    Width="800" WindowState="Maximized"
     Height="800"
     MinWidth="200"
     
@@ -22,8 +22,6 @@
     <RSView.Resources>
         <sys1:String x:Key="B">RS_Base.Views.Localization.Main</sys1:String>
     </RSView.Resources>
-
-
 
     <Grid >
 
@@ -52,7 +50,7 @@
                     <Button Command="{Binding ChangeLanguageCmd}" Content="{Resx Key=Hashtags, ResxName={StaticResource B}}" Margin="5" Padding="5" CommandParameter="eo" />
                 </StackPanel>
             
-            <Slider HorizontalAlignment="Center" Width="500" Value="{Binding ZoomFactor}" Style="{StaticResource MaterialDesignDiscreteSlider}" TickFrequency="0.05" Maximum="3" Minimum="0.3"></Slider>
+            
             <TextBlock Text="Zoom" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
             <StackPanel VerticalAlignment="Bottom">
@@ -64,13 +62,7 @@
                 </Grid>
                 <TextBlock Text="*Right click logo to open log" Margin="10" HorizontalAlignment="Center" Opacity="0.2" />
             </StackPanel>
-        <Snacky   IsActive="True" VerticalAlignment="Bottom"  Margin="10 0"    >
-            <Snacky.Message>
-                <Border BorderThickness="2" BorderBrush="DarkRed">
-                    <TextBlock Background="Green" VerticalAlignment="Center" Text="Hej"></TextBlock>
-                </Border>
-            </Snacky.Message>
-        </Snacky >
+        
         </Grid>
     
 

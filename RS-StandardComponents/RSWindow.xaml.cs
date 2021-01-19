@@ -43,7 +43,7 @@ namespace RS_StandardComponents
                 EnableClosable = true,
                 EnableMaximize = true,
                 EnableMinimize = true,
-                EnablePinMode = false,
+
                 Icon = PackIconKind.Fire
             };
             base.Content = Titlebar;

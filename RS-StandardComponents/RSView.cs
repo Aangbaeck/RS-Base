@@ -29,7 +29,7 @@ namespace RS_StandardComponents
         {
             var usrCtrl = new Grid();
             var border = new Border() { Background = new SolidColorBrush(WindowIconBackgroundColor), CornerRadius = new CornerRadius(50) };
-            var packIcon = new PackIcon() { Kind = icon, Width = 226, Height = 226, Foreground = new SolidColorBrush(WindowIconForegroundColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
+            var packIcon = new PackIcon() { Kind = icon, Width = 256, Height = 256, Foreground = new SolidColorBrush(WindowIconForegroundColor), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center };
 
             usrCtrl.Children.Add(border);
             usrCtrl.Children.Add(packIcon);
@@ -168,14 +168,6 @@ namespace RS_StandardComponents
             set { SetValue(EnableMinimizeProperty, value); }
         }
         public static readonly DependencyProperty EnableMinimizeProperty = DependencyProperty.Register("EnableMinimize", typeof(bool), typeof(RSView), new PropertyMetadata(true, (d, e) => { if (e.NewValue is bool b) ((RSView)d).Titlebar.EnableMinimize = b; }));
-        public bool EnablePinMode
-        {
-            get { return (bool)GetValue(EnablePinModeProperty); }
-            set { SetValue(EnablePinModeProperty, value); }
-        }
-        public static readonly DependencyProperty EnablePinModeProperty = DependencyProperty.Register("EnablePinMode", typeof(bool), typeof(RSView), new PropertyMetadata(false, (d, e) => { if (e.NewValue is bool b) ((RSView)d).Titlebar.EnablePinMode = b; }));
-
-
 
         public new object Content
         {
@@ -198,7 +190,7 @@ namespace RS_StandardComponents
             var max = this.MaxHeight;
             if (WindowState == WindowState.Maximized)
             {
-                BorderThickness = new Thickness(6, 6, 6, 6); //I don't understand but it's always half the taskbar height.
+                BorderThickness = new Thickness(6.7, 6, 6.7, 6); //I don't understand but it's always half the taskbar height.
             }
             else
             {

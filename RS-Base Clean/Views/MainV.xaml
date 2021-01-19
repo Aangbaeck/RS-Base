@@ -1,63 +1,27 @@
-﻿<Window
+﻿<RSView
     x:Class="RS_Base.Views.MainV"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:rsStandardComponents="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents" xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    MinWidth="200"
-    AllowsTransparency="True"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    MinWidth="200" TitlebarIcon="Helicopter" TaskbarIcon="Helicopter"
+    AllowsTransparency="True" WindowState="Maximized"
     Background="{DynamicResource MaterialDesignPaper}"
     DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
-    KeyDown="wnd_KeyDown"
-    
-    Loaded="OnLoaded"
     ResizeMode="CanResize"
+    
     Style="{StaticResource WindowStyle}"
     TextElement.FontSize="16"
     TextElement.FontWeight="Medium"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}">
-    <Window.Icon>
-        <Binding Converter="{StaticResource ConvertMaterialDesignIconToIcon}">
-            <Binding.Source>
-                <materialDesign:PackIcon
-                    Width="256"
-                    Height="256"
-                    Foreground="WhiteSmoke"
-                    Kind="TestTube" />
-            </Binding.Source>
-        </Binding>
-    </Window.Icon>
     <Window.Resources>
         <sys:String x:Key="N">RS_Base.Views.Localization.Main</sys:String>
     </Window.Resources>
 
     <Grid>
-        <rsStandardComponents:TitlebarUserCtrl
-            Title="RS-Base Clean Project Template"
-            Panel.ZIndex="1"
-            BoundWindow="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-            CheckBeforeClose="True"
-            EnableClosable="True"
-            EnableMaximize="True"
-            EnableMinimize="True"
-            >
 
-            <StackPanel Margin="0,30,0,0">
 
-                <StackPanel>
-                    <!--  Add your stuff here!  -->
-                    <Grid
-                    Width="100"
-                    Height="100"
-                    Margin="0,20,0,0">
-                        <TextBlock Text="{Resx Key=Test,ResxName={StaticResource N}}"></TextBlock>
-                        <rsStandardComponents:RemaSawcoLogo />
-                    </Grid>
-                </StackPanel>
-            </StackPanel>
-        </rsStandardComponents:TitlebarUserCtrl>
-        
 
     </Grid>
-</Window>
+</RSView>
