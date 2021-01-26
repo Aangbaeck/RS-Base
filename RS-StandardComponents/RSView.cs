@@ -139,6 +139,7 @@ namespace RS_StandardComponents
         {
             var theStateThatWasActuallySet = WindowState;
             WindowState = WindowState.Normal;  //We should always start with normal, otherwise the border when maximised become f***ed up
+
             base.Show();
             WindowState = theStateThatWasActuallySet;
         }

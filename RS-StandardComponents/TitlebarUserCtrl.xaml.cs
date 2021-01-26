@@ -167,7 +167,6 @@ namespace RS_StandardComponents
             win.Activated += bar.WindowActivated;
             win.StateChanged += bar.StateChanged;
             bar.LocalWindow = win;
-            SetIsPinnedCached(bar, win);
             win.Closing += (a, o) =>
             {
                 try
@@ -183,40 +182,7 @@ namespace RS_StandardComponents
                 }
             };
         }
-
-        private static void SetIsPinnedCached(TitlebarUserCtrl bar, Window win)
-        {
-            if (bar.isPinnedCache)
-            {
-                win.ResizeMode = ResizeMode.NoResize;
-            }
-            else
-            {
-                win.ResizeMode = ResizeMode.CanResize;
-            }
-        }
-
-        private bool isPinnedCache;
-        private static void SetIsPinned(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(e.NewValue is bool isPinned)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
-            ((TitlebarUserCtrl)d).isPinnedCache = isPinned;
-            if (isPinned)
-            {
-                ((TitlebarUserCtrl)d).TitleBar.Visibility = Visibility.Collapsed;
-                if (((TitlebarUserCtrl)d).BoundWindow != null)  //if we cant do it right now do it in the SetIsPinnedCached instead
-                    ((TitlebarUserCtrl)d).BoundWindow.ResizeMode = ResizeMode.NoResize;
-                
-
-            }
-            else
-            {
-                ((TitlebarUserCtrl)d).TitleBar.Visibility = Visibility.Visible;
-                if (((TitlebarUserCtrl)d).BoundWindow != null) //if we cant do it right now do it in the SetIsPinnedCached instead
-                    ((TitlebarUserCtrl)d).BoundWindow.ResizeMode = ResizeMode.CanResize;
-            }
-        }
-        
+                        
         private static void TitlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is string s)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }

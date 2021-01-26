@@ -15,7 +15,7 @@ static class JotService
         // tell Jot how to track Window objects
         Tracker.Configure<Window>()
             .Id(w => w.Title, SystemParameters.WorkArea.Size) // <-- include the screen resolution in the id
-            .Properties(w => new { w.Top, w.Width, w.Height, w.Left, w.WindowState })
+            .Properties(w => new { w.WindowState, w.Top, w.Width, w.Height, w.Left })
             .PersistOn(nameof(Window.Closing))
             .StopTrackingOn(nameof(Window.Closing));
     }

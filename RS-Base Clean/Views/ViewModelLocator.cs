@@ -18,11 +18,13 @@ namespace RS_Base.Views
         {
             SimpleIoc.Default.Register<SettingsService>();
             SimpleIoc.Default.Register<MainVM>();
+            SimpleIoc.Default.Register<WindowManager>();
 
             //Setting language for whole application
             CultureManager.UICulture = new CultureInfo(SimpleIoc.Default.GetInstance<SettingsService>().Settings.Language);
         }
         public MainVM MainVM => SimpleIoc.Default.GetInstance<MainVM>();
+        public WindowManager WindowManager => SimpleIoc.Default.GetInstance<WindowManager>();
         
         /// <summary>
         /// Cleans up all the resources.

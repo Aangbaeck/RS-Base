@@ -5,7 +5,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:rs="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
     xmlns:sys1="clr-namespace:System;assembly=System.Runtime" 
-    Width="800" WindowState="Maximized"
+    Width="800" 
     Height="800"
     MinWidth="200"
     
@@ -49,9 +49,9 @@
                     <Button Command="{Binding ChangeLanguageCmd}" Content="{Resx Key=Finnish, ResxName={StaticResource B}}" Margin="5" Padding="5" CommandParameter="fi-FI" />
                     <Button Command="{Binding ChangeLanguageCmd}" Content="{Resx Key=Hashtags, ResxName={StaticResource B}}" Margin="5" Padding="5" CommandParameter="eo" />
                 </StackPanel>
-            
-            
-            <TextBlock Text="Zoom" HorizontalAlignment="Center"></TextBlock>
+
+
+            <TextBlock Foreground="{SwitchBinding LightTheme, Green, Red}" Text="Zoom" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
             <StackPanel VerticalAlignment="Bottom">
                 <Grid Width="100" Height="100" Margin="0 20 0 0">
@@ -62,7 +62,7 @@
                 </Grid>
                 <TextBlock Text="*Right click logo to open log" Margin="10" HorizontalAlignment="Center" Opacity="0.2" />
             </StackPanel>
-        
+        <rs:Snacky></rs:Snacky>
         </Grid>
     
 

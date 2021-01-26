@@ -182,8 +182,6 @@ namespace RS_Base.Views
             ApplyBase(S.Settings.IsLightTheme);
             Messenger.Default.Send("Hej");
             Messenger.Default.Register<string>(this, TaEmotHej);
-
-
         }
 
         private WindowManager WM { get; set; }

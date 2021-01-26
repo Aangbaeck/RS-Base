@@ -22,8 +22,8 @@ namespace RS_Base.Views
             Application.Current.DispatcherUnhandledException += ThreadStuffUI;
             SimpleIoc.Default.Register<SettingsService>();
             SettingsService = SimpleIoc.Default.GetInstance<SettingsService>();
-            //MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window no go underneath the bottom taskbar
-            //MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //This makes the window no go underneath the bottom taskbar
+            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
 
             Log.Information("STARTING APPLICATION...");
             InitializeComponent();

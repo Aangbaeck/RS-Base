@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using GalaSoft.MvvmLight.Messaging;
 using RS_Base.Net.Helper;
+using RS_Base.Views;
 using Serilog;
 using Serilog.Configuration;
 using Serilog.Core;
@@ -40,6 +41,12 @@ namespace RS_Base
         {
             // Log the exception, display it, etc
             Log.Error((e.ExceptionObject as Exception), "CurrentDomain_UnhandledException!!!");
+        }
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            var vmLoc = new ViewModelLocator();
+            vmLoc.WindowManager.CreateMainWindow();
         }
     }
     public static class StealthConsoleSinkExtensions

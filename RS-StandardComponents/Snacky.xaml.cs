@@ -28,7 +28,10 @@ namespace RS_StandardComponents
             InitializeComponent();
             RecalculateSize();
             NotifyActivePropertyChanged(this, new DependencyPropertyChangedEventArgs());
-        }
+            //NotifyActivePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+
+            }
 
         //Make the framework (re)calculate the size of the element. In the beginning the actual size is 0,0. This method remedies this.
         private void RecalculateSize()
@@ -64,9 +67,12 @@ namespace RS_StandardComponents
         {
             try
             {
-                if (!(e.NewValue is bool s)) { Console.WriteLine($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
+                Snacky snacky = d as Snacky;
+                if (snacky == null) return;
+                if (!(e.NewValue is bool s)) { snacky.Visibility = Visibility.Collapsed; return; }
                 if (d != null)
                 {
+                    snacky.Visibility = Visibility.Visible;
                     var height = ((Snacky)d).Root.ActualHeight;
 
                     if (s)
