@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using RS_Base.Net.Helper;
@@ -16,7 +17,13 @@ namespace RS_Base.Views
                 var filePath = files[files.Length-1];  //^1 is the same as files.Length-1
                 if (File.Exists(filePath))
                 {
-                    System.Diagnostics.Process.Start(filePath);
+                    new Process
+                    {
+                        StartInfo = new ProcessStartInfo(filePath)
+                        {
+                            UseShellExecute = true
+                        }
+                    }.Start();
                 }
             }
 

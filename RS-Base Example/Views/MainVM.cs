@@ -16,6 +16,7 @@ using RS_Base.Services;
 using RS_StandardComponents;
 using Serilog;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace RS_Base.Views
 {
@@ -59,7 +60,13 @@ namespace RS_Base.Views
                     var filePath = files[files.Length - 1];
                     if (File.Exists(filePath))
                     {
-                        System.Diagnostics.Process.Start(filePath);
+                        new Process
+                        {
+                            StartInfo = new ProcessStartInfo(filePath)
+                            {
+                                UseShellExecute = true
+                            }
+                        }.Start();
                     }
                 }
             }

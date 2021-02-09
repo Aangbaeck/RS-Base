@@ -14,6 +14,23 @@ namespace RS_Base.Views
     /// </summary>
     public class ViewModelLocator
     {
+        private static ViewModelLocator instance = null;
+        private static readonly object padlock = new object();
+
+        public static ViewModelLocator Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new ViewModelLocator();
+                    }
+                    return instance;
+                }
+            }
+        }
         static ViewModelLocator()
         {
             SimpleIoc.Default.Register<SettingsService>();
