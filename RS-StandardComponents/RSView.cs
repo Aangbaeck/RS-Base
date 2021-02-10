@@ -241,7 +241,10 @@ namespace RS_StandardComponents
         public new string Title
         {
             get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            set { 
+                SetValue(TitleProperty, value);
+                base.Title = value;
+            }
         }
 
         public static new readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(RSView), new PropertyMetadata("", SetTitle));

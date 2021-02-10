@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net472</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net472;net5.0-windows</TargetFrameworks>
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>2.7.6</Version>
     <Description>Containing the core components of RS-Base like converters, titlebar, logo, usercontrols and other nice stuff</Description>
-    <Copyright>RemaSawco</Copyright>
+    <Copyright>MIT</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReleaseNotes>V2.7
 RSView now works well. It's not showing in the designer but the functionality is there with icons and stuff.
+
+V2.7 RSView more or less finished and .Net 5.0 support.
 
 V2.6
 *Added Snacky. A Snackbar without the weirdness that material design has in it's own.

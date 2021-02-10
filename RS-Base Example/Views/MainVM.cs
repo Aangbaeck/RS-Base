@@ -23,7 +23,7 @@ namespace RS_Base.Views
     public class MainVM : ViewModelBase
     {
         public readonly DataService D;
-        public RelayCommand ChangeTitleLocalCmd => new RelayCommand(ChangeTitleLocal);
+        public RelayCommand<string> ChangeTitleLocalCmd => new RelayCommand<string>(ChangeTitleLocal);
         public RelayCommand ChangeTitleDataServiceCmd => new RelayCommand(ChangeTitleDataService);
 
         public RelayCommand<string> ChangeLanguageCmd => new RelayCommand<string>(lang =>
@@ -141,7 +141,7 @@ namespace RS_Base.Views
         }
 
 
-        private void ChangeTitleLocal()
+        private void ChangeTitleLocal(string s)
         {
 
             //To change strings with localized text in back end we could use
