@@ -6,10 +6,10 @@
     xmlns:local="clr-namespace:RS_StandardComponents"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-     xmlns:sys1="clr-namespace:System;assembly=System.Runtime"
+    xmlns:sys1="clr-namespace:System;assembly=System.Runtime"
     d:DesignHeight="300"
-    UseLayoutRounding="True"
     d:DesignWidth="300"
+    UseLayoutRounding="True"
     mc:Ignorable="d">
     <UserControl.Resources>
         <sys1:String x:Key="N">RS_StandardComponents.TitlebarUserCtrl</sys1:String>
@@ -19,18 +19,30 @@
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         DialogClosing="OnDialogClosing"
-        DialogTheme="Inherit"  
+        DialogTheme="Inherit"
         Identifier="TitleBarUserControlDialogHost">
         <materialDesign:DialogHost.DialogContent>
             <StackPanel Margin="16">
                 <TextBlock Text="{local:Resx Key=ClosingTextQuestion, ResxName={StaticResource N}}" HorizontalAlignment="Center" />
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button Command="materialDesign:DialogHost.CloseDialogCommand" Content="{local:Resx Key=AcceptClose, ResxName={StaticResource N}}" Margin="0 8 8 0" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}">
+                    <Button
+                        Command="materialDesign:DialogHost.CloseDialogCommand"
+                        Content="{local:Resx Key=AcceptClose,
+                                             ResxName={StaticResource N}}"
+                        Margin="0 8 8 0"
+                        IsDefault="True"
+                        Style="{DynamicResource MaterialDesignFlatButton}">
                         <Button.CommandParameter>
                             True
                         </Button.CommandParameter>
                     </Button>
-                    <Button Command="materialDesign:DialogHost.CloseDialogCommand" Content="{local:Resx Key=CancelClose, ResxName={StaticResource N}}" Margin="0 8 8 0" IsCancel="True" Style="{DynamicResource MaterialDesignFlatButton}">
+                    <Button
+                        Command="materialDesign:DialogHost.CloseDialogCommand"
+                        Content="{local:Resx Key=CancelClose,
+                                             ResxName={StaticResource N}}"
+                        Margin="0 8 8 0"
+                        IsCancel="True"
+                        Style="{DynamicResource MaterialDesignFlatButton}">
                         <Button.CommandParameter>
                             <!--<system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">-->
                             False
@@ -48,9 +60,9 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                
-                    <ContentControl Grid.Row="1" Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" />
-                
+
+                <ContentControl Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" Grid.Row="1" />
+
                 <materialDesign:Card x:Name="TitleBar" Grid.Row="0" materialDesign:ShadowAssist.ShadowDepth="Depth2">
                     <Grid
                         Height="30"
@@ -80,7 +92,6 @@
                                 </Grid>
                             </ContentControl>
                             <TextBlock
-                                Text="Example title"
                                 x:Name="TitleText"
                                 Margin="4 1 0 0"
                                 VerticalAlignment="Center"
@@ -88,7 +99,11 @@
                                 FontSize="13"
                                 FontWeight="Normal" />
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Margin="0 0 0 0" HorizontalAlignment="Right" Orientation="Horizontal">
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="0 0 0 0"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
                             <Button
                                 x:Name="MinimizeButton"
                                 Width="30"
@@ -97,7 +112,12 @@
                                 Style="{DynamicResource MaterialDesignFlatButton}"
                                 ToolTip="{local:Resx Key=MinimizeTT,
                                                      ResxName={StaticResource N}}">
-                                <materialDesign:PackIcon Width="24" Height="17" Margin="0 11 0 0" Foreground="{DynamicResource MaterialDesignBody}" Kind="WindowMinimize" />
+                                <materialDesign:PackIcon
+                                    Width="24"
+                                    Height="17"
+                                    Margin="0 11 0 0"
+                                    Foreground="{DynamicResource MaterialDesignBody}"
+                                    Kind="WindowMinimize" />
                             </Button>
 
                             <Grid x:Name="MaxRestoreGrid">
@@ -109,7 +129,11 @@
                                     Style="{DynamicResource MaterialDesignFlatButton}"
                                     ToolTip="{local:Resx Key=MaximizeTT,
                                                          ResxName={StaticResource N}}">
-                                    <materialDesign:PackIcon Width="24" Height="17" Foreground="{DynamicResource MaterialDesignBody}" Kind="WindowMaximize" />
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="17"
+                                        Foreground="{DynamicResource MaterialDesignBody}"
+                                        Kind="WindowMaximize" />
                                 </Button>
                                 <Button
                                     x:Name="RestoreButton"
@@ -119,7 +143,11 @@
                                     Style="{DynamicResource MaterialDesignFlatButton}"
                                     ToolTip="{local:Resx Key=RestoreTT,
                                                          ResxName={StaticResource N}}">
-                                    <materialDesign:PackIcon Width="24" Height="17" Foreground="{DynamicResource MaterialDesignBody}" Kind="WindowRestore" />
+                                    <materialDesign:PackIcon
+                                        Width="24"
+                                        Height="17"
+                                        Foreground="{DynamicResource MaterialDesignBody}"
+                                        Kind="WindowRestore" />
                                 </Button>
                             </Grid>
                             <Button
@@ -130,7 +158,11 @@
                                 Style="{DynamicResource MaterialDesignFlatButton}"
                                 ToolTip="{local:Resx Key=CloseTT,
                                                      ResxName={StaticResource N}}">
-                                <materialDesign:PackIcon Width="20" Height="20" Foreground="{DynamicResource MaterialDesignBody}" Kind="Close" />
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Foreground="{DynamicResource MaterialDesignBody}"
+                                    Kind="Close" />
 
                             </Button>
                         </StackPanel>
