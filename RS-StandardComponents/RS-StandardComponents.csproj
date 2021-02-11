@@ -5,7 +5,7 @@
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.7.6</Version>
+    <Version>2.7.7</Version>
     <Description>Containing the core components of RS-Base like converters, titlebar, logo, usercontrols and other nice stuff</Description>
     <Copyright>MIT</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -40,7 +40,7 @@ V2.2.2
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/Aangbaeck/RS-Base</RepositoryUrl>
     <PackageTags>wpf boilerplate template desktop applications</PackageTags>
-    <Company>RemaSawco</Company>
+    <Company>MIT</Company>
     <Authors>Björn Ångbäck</Authors>
   </PropertyGroup>
 
