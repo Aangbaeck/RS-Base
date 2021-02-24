@@ -15,10 +15,8 @@ using System.Windows.Shell;
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2008/xaml/presentation", "RS_StandardComponents")]
 namespace RS_StandardComponents
 {
-    /// <summary>
-    /// Interaction logic for EmptyWindow.xaml
-    /// </summary>
-    public partial class RSView : Window
+
+    public class RSView : Window
     {
         private void SetTitlebarIcon(PackIconKind icon)
         {
@@ -132,7 +130,7 @@ namespace RS_StandardComponents
             RSWindow_StateChanged(null, null);
             UpdateLayout();
 
-            JotService.Tracker.Track(this);
+            this.Loaded += (e,o)=>JotService.Tracker.Track(this);
         }
 
         public new void Show()

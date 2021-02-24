@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:rs="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents" 
-    Width="800"
+    
     xmlns:sys1="clr-namespace:System;assembly=mscorlib"
-    Height="800" Title="A title"
+    MinHeight="600" Title="A title"
     MinWidth="200"
     CheckBeforeClose="True"
     FontFamily="{materialDesign:MaterialDesignFont}"
