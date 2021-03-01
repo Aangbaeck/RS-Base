@@ -6,7 +6,8 @@
     xmlns:rs="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents" 
     
     xmlns:sys1="clr-namespace:System;assembly=mscorlib"
-    MinHeight="600" Title="A title"
+    DataContext="{Binding MainVM, Source={StaticResource Locator}}"
+    MinHeight="600" Title="{Binding WelcomeTitle}"
     MinWidth="200"
     CheckBeforeClose="True"
     FontFamily="{materialDesign:MaterialDesignFont}"
@@ -17,7 +18,7 @@
     </RSView.Resources>
 
     <Grid
-        DataContext="{Binding MainVM, Source={StaticResource Locator}}"
+        
         TextElement.FontSize="16"
         TextElement.FontWeight="Medium"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}">

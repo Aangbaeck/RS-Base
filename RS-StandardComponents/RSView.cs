@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,42 @@ namespace RS_StandardComponents
 
     public class RSView : Window
     {
+
+        public RSView()
+        {
+            this.SetResourceReference(Control.BackgroundProperty, "MaterialDesignPaper");
+            this.SetResourceReference(FontFamilyProperty, "materialDesign:MaterialDesignFont");
+            this.SetResourceReference(TextElement.ForegroundProperty, "MaterialDesignBody");
+            //Background = (Brush)FindResource("MaterialDesignPaper");
+            WindowStyle = WindowStyle.None;
+            AllowsTransparency = true;
+            MinWidth = 10;
+
+            WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(6, 6, 6, 6), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
+            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+            StateChanged += RSWindow_StateChanged;
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 2/* SystemParameters.WorkArea.Size.Height*//* + 12*//* + 2*/;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
+            Titlebar = new TitlebarUserCtrl();
+            base.Content = Titlebar;
+            Titlebar.BoundWindow = this;
+            RSWindow_StateChanged(null, null);
+            UpdateLayout();
+
+            this.Loaded += (e, o) => JotService.Tracker.Track(this);
+            this.Closing += Dispose;
+            Window.TitleProperty.OverrideMetadata(typeof(RSView), new FrameworkPropertyMetadata(this.Title, TitleChanged));
+            Window.DataContextProperty.OverrideMetadata(typeof(RSView), new FrameworkPropertyMetadata(this.DataContext, DataContextChangeds));
+        }
+
+        private void DataContextChangeds(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((RSView)d).Titlebar.DataContext = e.NewValue;
+        }
+        private void TitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(e.NewValue is string title)) return;
+            ((RSView)d).Titlebar.Title = title;
+        }
         private void SetTitlebarIcon(PackIconKind icon)
         {
             Titlebar.Icon = icon;
@@ -110,27 +147,18 @@ namespace RS_StandardComponents
 
 
 
-        public RSView()
+
+
+
+
+        private void Dispose(object sender, CancelEventArgs e)
         {
-            this.SetResourceReference(Control.BackgroundProperty, "MaterialDesignPaper");
-            this.SetResourceReference(FontFamilyProperty, "materialDesign:MaterialDesignFont");
-            this.SetResourceReference(TextElement.ForegroundProperty, "MaterialDesignBody");
-            //Background = (Brush)FindResource("MaterialDesignPaper");
-            WindowStyle = WindowStyle.None;
-            AllowsTransparency = true;
-            MinWidth = 10;
 
-            WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(6, 6, 6, 6), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
-            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
-            StateChanged += RSWindow_StateChanged;
-            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 2/* SystemParameters.WorkArea.Size.Height*//* + 12*//* + 2*/;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
-            Titlebar = new TitlebarUserCtrl();
-            base.Content = Titlebar;
-            Titlebar.BoundWindow = this;
-            RSWindow_StateChanged(null, null);
-            UpdateLayout();
 
-            this.Loaded += (e,o)=>JotService.Tracker.Track(this);
+            //DependencyPropertyDescriptor.FromProperty(Window.TitleProperty, typeof(Window)).RemoveValueChanged(Title, (s, b) =>
+            //{ /* ... */
+
+            //});
         }
 
         public new void Show()
@@ -236,42 +264,7 @@ namespace RS_StandardComponents
             ((RSView)d).Titlebar.UpdateLayout();
         }
 
-        public new string Title
-        {
-            get { return (string)GetValue(TitleProperty); }
-            set { 
-                SetValue(TitleProperty, value);
-                base.Title = value;
-            }
-        }
 
-        public static new readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(RSView), new PropertyMetadata("", SetTitle));
-        private static void SetTitle(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(e.NewValue is string title)) return;
-            ((RSView)d).Titlebar.Title = title;
-            ((RSView)d).Title = title;
-        }
-
-        public new object DataContext
-        {
-            get { return (object)GetValue(DataContextProperty); }
-            set { SetValue(DataContextProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for DataContext.  This enables animation, styling, binding, etc...
-        public static new readonly DependencyProperty DataContextProperty =
-            DependencyProperty.Register("DataContext", typeof(object), typeof(RSView), new PropertyMetadata(default(object), DataContextChanged));
-
-        private static new void DataContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((RSView)d).Titlebar.DataContext = e.NewValue;
-        }
-
-        public object GetDataContext()
-        {
-            return Titlebar.DataContext;
-        }
         public override string ToString()
         {
             return Title;

@@ -8,6 +8,7 @@
     MinHeight="300"
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
     Style="{StaticResource WindowStyle}"
     TaskbarIcon="Helicopter"
@@ -15,9 +16,5 @@
     <RSView.Resources>
         <sys:String x:Key="N">RS_Base.Views.Localization.Main</sys:String>
     </RSView.Resources>
-    <Grid
-        DataContext="{Binding MainVM, Source={StaticResource Locator}}"
-        TextElement.FontSize="16"
-        TextElement.FontWeight="Medium"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}" />
+    <Grid TextElement.FontSize="16" TextElement.FontWeight="Medium" TextElement.Foreground="{DynamicResource MaterialDesignBody}" />
 </RSView>
