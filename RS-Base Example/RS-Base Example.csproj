@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="MahApps.Metro" Version="2.3.4" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.8.0" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.7" />

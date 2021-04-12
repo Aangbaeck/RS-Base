@@ -10,7 +10,7 @@
 */
 
 using System.Globalization;
-using GalaSoft.MvvmLight.Ioc;
+using Autofac;
 using RS_Base.Net.Model;
 using RS_Base.Net.Views;
 using RS_Base.Services;
@@ -39,23 +39,31 @@ namespace RS_Base.Views
         }
         static ViewModelLocator()
         {
-            SimpleIoc.Default.Register<DataService>();
-            SimpleIoc.Default.Register<WindowManager>();
-            SimpleIoc.Default.Register<SettingsService>();
-            SimpleIoc.Default.Register<MainVM>();
-            SimpleIoc.Default.Register<SecondVM>();
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<DataService>().SingleInstance();
+            builder.RegisterType<WindowManager>().SingleInstance();
+            builder.RegisterType<SettingsService>().SingleInstance();
+
+            builder.RegisterType<MainVM>().SingleInstance();
+            builder.RegisterType<SecondVM>().SingleInstance();
+
+            //Build the container
+            Container = builder.Build();
 
             //Setting language for whole application
-            CultureManager.UICulture = new CultureInfo(SimpleIoc.Default.GetInstance<SettingsService>().Settings.Language);
+            CultureManager.UICulture = new CultureInfo(Container.Resolve<SettingsService>().Settings.Language);
         }
-        public MainVM MainVM => SimpleIoc.Default.GetInstance<MainVM>();
-        public SecondVM SecondVM => SimpleIoc.Default.GetInstance<SecondVM>();
-        public WindowManager WindowManager => SimpleIoc.Default.GetInstance<WindowManager>();
+        public MainVM MainVM => Container.Resolve<MainVM>();
+        public SecondVM SecondVM => Container.Resolve<SecondVM>();
+        public WindowManager WindowManager => Container.Resolve<WindowManager>();
+
+        private static IContainer Container { get; }
 
         //This can be used to clean up when windows closes (if necessary). Preferably from the WindowManager.
         public static void Cleanup()
         {
-            SimpleIoc.Default.GetInstance<MainVM>().Cleanup();
+            Container.Resolve<MainVM>().Cleanup();
         }
     }
 }

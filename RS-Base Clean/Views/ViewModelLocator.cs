@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Autofac;
 using GalaSoft.MvvmLight.Ioc;
 using RS_Base.Net.Model;
 using RS_StandardComponents;
@@ -33,22 +34,23 @@ namespace RS_Base.Views
         }
         static ViewModelLocator()
         {
-            SimpleIoc.Default.Register<SettingsService>();
-            SimpleIoc.Default.Register<MainVM>();
-            SimpleIoc.Default.Register<WindowManager>();
-
+            var builder = new ContainerBuilder();
+            builder.RegisterType<WindowManager>().SingleInstance();
+            builder.RegisterType<SettingsService>().SingleInstance();
+            builder.RegisterType<MainVM>().SingleInstance();
+            Container = builder.Build();
+            
             //Setting language for whole application
-            CultureManager.UICulture = new CultureInfo(SimpleIoc.Default.GetInstance<SettingsService>().Settings.Language);
+            CultureManager.UICulture = new CultureInfo(Container.Resolve<SettingsService>().Settings.Language);
         }
-        public MainVM MainVM => SimpleIoc.Default.GetInstance<MainVM>();
-        public WindowManager WindowManager => SimpleIoc.Default.GetInstance<WindowManager>();
-        
-        /// <summary>
-        /// Cleans up all the resources.
-        /// </summary>
+        public MainVM MainVM => Container.Resolve<MainVM>();
+        public WindowManager WindowManager => Container.Resolve<WindowManager>();
+
+        public static IContainer Container { get; }
+
         public static void Cleanup()
         {
-            SimpleIoc.Default.GetInstance<MainVM>().Cleanup();
+            Container.Resolve<MainVM>().Cleanup();
         }
     }
 }
