@@ -5,11 +5,13 @@
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.8.1</Version>
+    <Version>2.8.2</Version>
     <Description>Containing the core components of RS-Base like converters, titlebar, logo, usercontrols and other nice stuff</Description>
     <Copyright>MIT</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageReleaseNotes>V2.7
+    <PackageReleaseNotes>V2.8 
+Fixed critical bug with RSView and added the pin-button again. It's much simpler now though. When you loose focus, the view will close.
+V2.7
 RSView now works well. It's not showing in the designer but the functionality is there with icons and stuff.
 
 V2.7 RSView more or less finished and .Net 5.0 support.

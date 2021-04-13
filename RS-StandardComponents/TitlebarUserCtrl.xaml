@@ -101,9 +101,24 @@
                         </StackPanel>
                         <StackPanel
                             Grid.Column="1"
-                            Margin="0 0 0 0"
+                            Margin="0 0 0 0" 
                             HorizontalAlignment="Right"
                             Orientation="Horizontal">
+                            <Button Visibility="Collapsed"
+                                
+                                Width="30" x:Name="PinButton"
+                                Padding="0"
+                                Click="PinWindow"
+                                Style="{DynamicResource MaterialDesignFlatButton}"
+                                ToolTip="{local:Resx Key=MinimizeTT,
+                                                     ResxName={StaticResource N}}">
+                                <materialDesign:PackIcon
+                                    Width="24"
+                                    Height="17" x:Name="PinButtonIcon"
+                                    Margin="0 0 0 0"
+                                    Foreground="{DynamicResource MaterialDesignBody}"
+                                    Kind="PinOff" />
+                            </Button>
                             <Button
                                 x:Name="MinimizeButton"
                                 Width="30"

@@ -2,9 +2,12 @@
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using MaterialDesignThemes.Wpf;
 using Serilog;
 
@@ -22,25 +25,22 @@ namespace RS_StandardComponents
         public static readonly DependencyProperty MinimizableProperty = DependencyProperty.Register("EnableMinimize",
             typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, MinPropertyChanged));
 
-        public static readonly DependencyProperty MaximizableProperty = DependencyProperty.Register("EnableMaximize",
-            typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, MaxPropertyChanged));
 
-        public static readonly DependencyProperty ClosableProperty = DependencyProperty.Register("EnableClosable",
-            typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, ClosePropertyChanged));
 
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string),
-            typeof(TitlebarUserCtrl), new PropertyMetadata(TitlePropertyChanged));
+        public bool EnablePinMode
+        {
+            get { return (bool)GetValue(EnablePinModeProperty); }
+            set { SetValue(EnablePinModeProperty, value); }
+        }
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon",
-            typeof(PackIconKind), typeof(TitlebarUserCtrl),
-            new PropertyMetadata(PackIconKind.Cake, IconPropertyChanged));
-
-        public static readonly DependencyProperty CheckBeforeCloseProperty =
-            DependencyProperty.Register("CheckBeforeClose", typeof(bool), typeof(TitlebarUserCtrl),
-                new PropertyMetadata(false));
-        public static new readonly DependencyProperty ContentProperty =
-   DependencyProperty.Register("Content", typeof(object),
-    typeof(TitlebarUserCtrl), new UIPropertyMetadata(null));
+        // Using a DependencyProperty as the backing store for EnablePinMode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EnablePinModeProperty = DependencyProperty.Register("EnablePinMode", typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(false, PinModeChanged));
+        public static readonly DependencyProperty MaximizableProperty = DependencyProperty.Register("EnableMaximize", typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, MaxPropertyChanged));
+        public static readonly DependencyProperty ClosableProperty = DependencyProperty.Register("EnableClosable", typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, ClosePropertyChanged));
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(TitlebarUserCtrl), new PropertyMetadata(TitlePropertyChanged));
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(PackIconKind), typeof(TitlebarUserCtrl), new PropertyMetadata(PackIconKind.Cake, IconPropertyChanged));
+        public static readonly DependencyProperty CheckBeforeCloseProperty = DependencyProperty.Register("CheckBeforeClose", typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(false));
+        public static new readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(TitlebarUserCtrl), new UIPropertyMetadata(null));
 
         public new object Content
         {
@@ -100,6 +100,8 @@ namespace RS_StandardComponents
             get => (bool)GetValue(MinimizableProperty);
             set => SetValue(MinimizableProperty, value);
         }
+
+
         /// <summary>
         /// Hide or show maximize button titlebar
         /// </summary>
@@ -136,7 +138,19 @@ namespace RS_StandardComponents
             get => (bool)GetValue(CheckBeforeCloseProperty);
             set => SetValue(CheckBeforeCloseProperty, value);
         }
-   
+
+
+
+        public bool IsPinned
+        {
+            get { return (bool)GetValue(IsPinnedProperty); }
+            set { SetValue(IsPinnedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsPinned.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsPinnedProperty =
+            DependencyProperty.Register("IsPinned", typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(false));
+
 
 
         private void StateChanged(object sender, EventArgs e)
@@ -171,18 +185,44 @@ namespace RS_StandardComponents
             {
                 try
                 {
+                    
+
                     Closing?.Invoke(bar, EventArgs.Empty);
                     win.Deactivated -= bar.WindowDeactivated;
                     win.Activated -= bar.WindowActivated;
                     win.StateChanged -= bar.StateChanged;
+                    
                 }
                 catch (Exception ee)
                 {
                     Log.Error(ee, "Could not save window position or unsubscribe from state changes.");
                 }
             };
+            win.Closed += (a, o) =>
+            {
+
+                win.Dispatcher.InvokeAsync(() => {
+                    // added these
+                    if (win?.Owner is RSView parent)
+                        try
+                        {
+                            parent?.Activate();
+                            parent?.Focus();
+                        }
+                        catch (Exception ee)
+                        {
+                            Log.Error("Could not activate window... Please check why", ee);
+
+                        }
+                }, DispatcherPriority.Send);
+                
+                    
+            };
+
         }
-                        
+
+
+
         private static void TitlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is string s)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
@@ -206,6 +246,11 @@ namespace RS_StandardComponents
             if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
             ((TitlebarUserCtrl)d).MaxRestoreGrid.Visibility = b ? Visibility.Visible : Visibility.Collapsed;
 
+        }
+        private static void PinModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(e.NewValue is bool b)) { Log.Error($"wrong datatype in {MethodBase.GetCurrentMethod()}"); return; }
+            ((TitlebarUserCtrl)d).PinButton.Visibility = b ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)
@@ -292,6 +337,15 @@ namespace RS_StandardComponents
             TitleIcon.Opacity = 0.4;
             TitleText.Opacity = 0.4;
             Border.Opacity = 0.4;
+            if (!IsPinned && EnablePinMode)
+            {
+                if (BoundWindow?.Owner is RSView parent)
+                {
+                    BoundWindow?.Close();
+                    parent?.Activate();
+                    parent?.Focus();
+                }
+            }
         }
 
         private void WindowActivated(object sender, EventArgs e)
@@ -309,7 +363,7 @@ namespace RS_StandardComponents
             {
                 try
                 {
-                    BoundWindow.Close(); //Close this window (Main)
+                    BoundWindow?.Close(); //Close this window (Main)
                 }
                 catch
                 {
@@ -321,7 +375,7 @@ namespace RS_StandardComponents
         private void OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
         {
             if (eventArgs.Parameter == null || eventArgs.Parameter.ToString() != "True") return;
-            
+
             try
             {
                 BoundWindow.Close(); //Close this window (Main)
@@ -331,5 +385,22 @@ namespace RS_StandardComponents
                 Log.Error("Could not close window properly");
             }
         }
+
+        private void PinWindow(object sender, RoutedEventArgs e)
+        {
+            IsPinned = !IsPinned;
+            if (IsPinned)
+            {
+                PinButtonIcon.Kind = PackIconKind.Pin;
+                PinButton.ToolTip = "Pinned";
+            }
+            else
+            {
+                PinButtonIcon.Kind = PackIconKind.PinOff;
+                PinButton.ToolTip = "Not pinned";
+            }
+        }
+
+
     }
 }

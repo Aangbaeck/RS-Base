@@ -198,6 +198,12 @@ namespace RS_StandardComponents
             set { SetValue(EnableMinimizeProperty, value); }
         }
         public static readonly DependencyProperty EnableMinimizeProperty = DependencyProperty.Register("EnableMinimize", typeof(bool), typeof(RSView), new PropertyMetadata(true, (d, e) => { if (e.NewValue is bool b) ((RSView)d).Titlebar.EnableMinimize = b; }));
+        public bool EnablePinMode
+        {
+            get { return (bool)GetValue(EnablePinModeProperty); }
+            set { SetValue(EnablePinModeProperty, value); }
+        }
+        public static readonly DependencyProperty EnablePinModeProperty = DependencyProperty.Register("EnablePinMode", typeof(bool), typeof(RSView), new PropertyMetadata(false, (d, e) => { if (e.NewValue is bool b) ((RSView)d).Titlebar.EnablePinMode = b; }));
 
         public new object Content
         {

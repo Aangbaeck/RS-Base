@@ -51,9 +51,9 @@
             <Button
                 Content="Open new window"
                 Margin="10"
-                Padding="5"
+                Padding="5" 
                 HorizontalAlignment="Center"
-                Click="OpenSecondWindow" />
+                Command="{Binding WindowManager.OpenSecondWindow, Source={StaticResource Locator}}" />
             <ToggleButton
                 Command="{Binding ToggleBaseCommand}"
                 Margin="0 20 0 0"

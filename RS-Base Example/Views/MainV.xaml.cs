@@ -39,13 +39,7 @@ namespace RS_Base.Views
             var myWindow = Window.GetWindow(this);
             myWindow.Close();
         }
-        private void OpenSecondWindow(object sender, RoutedEventArgs e)
-        {
-            var w = new SecondWindow();
-            w.Show();
-            //VMLocator.WindowManager.OpenWindowButLoadOldSettings("Second window", typeof(SecondV));
-        }
-
+        
         private void wnd_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.System && e.SystemKey == Key.F4)
@@ -61,5 +55,7 @@ namespace RS_Base.Views
         {
             Log.Error(e.Exception, "Some UI Error!");
         }
+
+        
     }
 }

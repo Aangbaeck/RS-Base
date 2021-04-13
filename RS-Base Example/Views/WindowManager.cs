@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 using RS_StandardComponents;
 using Serilog;
@@ -21,25 +22,31 @@ namespace RS_Base.Views
         public void CreateMainWindow()
         {
             var win = new MainV();
-            //win.WindowState = WindowState.Maximized;
+            win.Topmost = true;
+            MainWindow = win;
             win.Show();
-            win.UpdateLayout();
-            WindowList.Add(win.Title, win);
+                        //win.UpdateLayout();
+            //WindowList.Add(win.Title, win);
         }
 
+        public RelayCommand OpenSecondWindow => new RelayCommand(() =>
+        {
+            var win = new SecondWindow();
+            win.EnablePinMode = true;
+            win.Owner = MainWindow;
+            win.Show();
+            win.Closing += (e, o) => { WindowList.Remove(win.Title); };
+            
+            WindowList.Add(win.Title, win);
+        });
         private Dictionary<string, RSView> WindowList { get; } = new Dictionary<string, RSView>();
         private string WPath => Directory.CreateDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "//" + "WindowPositions//").FullName;
 
         public double ZoomFactor
         {
-            get
-            {
-
-                return zoomFactor;
-            }
+            get => zoomFactor;
             set
             {
-
                 zoomFactor = value;
                 foreach (var win in WindowList)
                     win.Value.ZoomFactor = zoomFactor;
