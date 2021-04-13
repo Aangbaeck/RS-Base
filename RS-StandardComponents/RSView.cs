@@ -19,6 +19,11 @@ namespace RS_StandardComponents
 
     public class RSView : Window
     {
+        static RSView()
+        {
+            Window.TitleProperty.OverrideMetadata(typeof(RSView), new FrameworkPropertyMetadata("", TitleChanged));
+            Window.DataContextProperty.OverrideMetadata(typeof(RSView), new FrameworkPropertyMetadata(null, DataContextChangeds));
+        }
 
         public RSView()
         {
@@ -42,15 +47,13 @@ namespace RS_StandardComponents
 
             this.Loaded += (e, o) => JotService.Tracker.Track(this);
             this.Closing += Dispose;
-            Window.TitleProperty.OverrideMetadata(typeof(RSView), new FrameworkPropertyMetadata(this.Title, TitleChanged));
-            Window.DataContextProperty.OverrideMetadata(typeof(RSView), new FrameworkPropertyMetadata(this.DataContext, DataContextChangeds));
         }
 
-        private void DataContextChangeds(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void DataContextChangeds(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((RSView)d).Titlebar.DataContext = e.NewValue;
         }
-        private void TitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void TitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(e.NewValue is string title)) return;
             ((RSView)d).Titlebar.Title = title;
