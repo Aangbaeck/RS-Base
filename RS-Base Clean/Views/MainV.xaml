@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    MinWidth="300"
+    MinWidth="300" EnablePinMode="True"
     MinHeight="300"
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
