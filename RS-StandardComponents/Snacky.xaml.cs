@@ -31,7 +31,7 @@ namespace RS_StandardComponents
             //NotifyActivePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 
 
-            }
+        }
 
         //Make the framework (re)calculate the size of the element. In the beginning the actual size is 0,0. This method remedies this.
         private void RecalculateSize()
@@ -47,10 +47,7 @@ namespace RS_StandardComponents
         {
             try
             {
-                if (d != null && e != null)
-                {
-                    ((Snacky)d).MessageControl.Content = e.NewValue;
-                }
+                ((Snacky)d).MessageControl.Content = e.NewValue;
             }
             catch (Exception ex)
             {

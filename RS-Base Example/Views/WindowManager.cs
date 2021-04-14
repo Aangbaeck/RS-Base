@@ -40,7 +40,7 @@ namespace RS_Base.Views
             WindowList.Add(win.Title, win);
         });
         private Dictionary<string, RSView> WindowList { get; } = new Dictionary<string, RSView>();
-        private string WPath => Directory.CreateDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "//" + "WindowPositions//").FullName;
+        private string WPath => Directory.CreateDirectory(Path.GetDirectoryName(System.AppContext.BaseDirectory) + "//" + "WindowPositions//").FullName;
 
         public double ZoomFactor
         {
