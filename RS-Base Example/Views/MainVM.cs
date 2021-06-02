@@ -38,6 +38,13 @@ namespace RS_Base.Views
             S.Settings.IsLightTheme = o;
             S.SaveSettings();
         });
+        public RelayCommand FasterCmd => new RelayCommand(() =>
+        {
+            ViewModelLocator.Instance.WindowManager.OpenSecondWin();
+            //ApplyBase((bool)o);
+            //S.Settings.IsLightTheme = o;
+            //S.SaveSettings();
+        });
         public double ZoomFactor
         {
             get

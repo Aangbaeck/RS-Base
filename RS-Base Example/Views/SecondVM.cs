@@ -9,11 +9,11 @@ namespace RS_Base.Net.Views
     {
         private string _propertyName;
 
-        public SecondVM(DataService d)
+        public SecondVM()
         {
-            D = d;
+            
             
         }
-        public DataService D { get; set; }
+        
     }
 }

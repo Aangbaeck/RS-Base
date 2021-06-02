@@ -8,7 +8,7 @@
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     MinWidth="288"
-    HorizontalAlignment="Center"
+    HorizontalAlignment="Stretch"
     VerticalAlignment="Bottom"
     VerticalContentAlignment="Center"
     ClipToBounds="True"
@@ -23,8 +23,7 @@
             MinHeight="48"
             VerticalAlignment="Stretch"
             Background="{DynamicResource MaterialDesignSnackbarBackground}"
-            CornerRadius="3"
-            >
+            CornerRadius="3">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
                     <Style.Triggers>

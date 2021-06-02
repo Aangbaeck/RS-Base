@@ -28,7 +28,16 @@ namespace RS_Base.Views
                         //win.UpdateLayout();
             //WindowList.Add(win.Title, win);
         }
+        public void OpenSecondWin()
+        {
+            var win = new SecondWindow();
+            win.EnablePinMode = true;
+            win.Owner = MainWindow;
+            win.Show();
+            win.Closing += (e, o) => { WindowList.Remove(win.Title); };
 
+            WindowList.Add(win.Title, win);
+        }
         public RelayCommand OpenSecondWindow => new RelayCommand(() =>
         {
             var win = new SecondWindow();

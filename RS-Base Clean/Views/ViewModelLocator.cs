@@ -34,7 +34,7 @@ namespace RS_Base.Views
         }
         static ViewModelLocator()
         {
-            var builder = new ContainerBuilder();
+                        var builder = new ContainerBuilder();
             builder.RegisterType<WindowManager>().SingleInstance();
             builder.RegisterType<SettingsService>().SingleInstance();
             builder.RegisterType<MainVM>().SingleInstance();

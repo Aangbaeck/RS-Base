@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    MinWidth="300" EnablePinMode="True"
+    MinWidth="300"
     MinHeight="300"
     AllowsTransparency="True"
     Background="{DynamicResource MaterialDesignPaper}"
@@ -12,9 +12,12 @@
     FontFamily="{materialDesign:MaterialDesignFont}"
     Style="{StaticResource WindowStyle}"
     TaskbarIcon="Helicopter"
+    TextElement.FontSize="16"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TitlebarIcon="Helicopter">
     <RSView.Resources>
         <sys:String x:Key="N">RS_Base.Views.Localization.Main</sys:String>
     </RSView.Resources>
-    <Grid TextElement.FontSize="16" TextElement.FontWeight="Medium" TextElement.Foreground="{DynamicResource MaterialDesignBody}" />
+    <Grid />
 </RSView>

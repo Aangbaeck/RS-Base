@@ -41,12 +41,12 @@ namespace RS_Base.Views
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<DataService>().SingleInstance();
+            builder.Register(c=>new DataService()).SingleInstance();
             builder.RegisterType<WindowManager>().SingleInstance();
             builder.RegisterType<SettingsService>().SingleInstance();
 
             builder.RegisterType<MainVM>().SingleInstance();
-            builder.RegisterType<SecondVM>().SingleInstance();
+            builder.Register(c=>new SecondVM()).SingleInstance();
 
             //Build the container
             Container = builder.Build();

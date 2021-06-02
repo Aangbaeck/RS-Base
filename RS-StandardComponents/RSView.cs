@@ -25,7 +25,7 @@ namespace RS_StandardComponents
             Window.DataContextProperty.OverrideMetadata(typeof(RSView), new FrameworkPropertyMetadata(null, DataContextChangeds));
         }
 
-        public RSView()
+        public RSView(bool rememberPosition = true)
         {
             this.SetResourceReference(Control.BackgroundProperty, "MaterialDesignPaper");
             this.SetResourceReference(FontFamilyProperty, "materialDesign:MaterialDesignFont");
@@ -45,7 +45,11 @@ namespace RS_StandardComponents
             RSWindow_StateChanged(null, null);
             UpdateLayout();
 
-            this.Loaded += (e, o) => JotService.Tracker.Track(this);
+            this.Loaded += (e, o) =>
+            {
+                if (rememberPosition)
+                    JotService.Tracker.Track(this);
+            };
             this.Closing += Dispose;
         }
 
@@ -147,17 +151,8 @@ namespace RS_StandardComponents
                 ((RSView)d).SetTitlebarIcon(((RSView)d).TitlebarIcon);
             }
         }
-
-
-
-
-
-
-
         private void Dispose(object sender, CancelEventArgs e)
         {
-
-
             //DependencyPropertyDescriptor.FromProperty(Window.TitleProperty, typeof(Window)).RemoveValueChanged(Title, (s, b) =>
             //{ /* ... */
 
@@ -272,7 +267,6 @@ namespace RS_StandardComponents
             ((RSView)d).Titlebar.LayoutTransform = new ScaleTransform(zoomFactor, zoomFactor);
             ((RSView)d).Titlebar.UpdateLayout();
         }
-
 
         public override string ToString()
         {

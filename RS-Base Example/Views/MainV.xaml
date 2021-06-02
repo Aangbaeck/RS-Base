@@ -54,6 +54,12 @@
                 Padding="5" 
                 HorizontalAlignment="Center"
                 Command="{Binding WindowManager.OpenSecondWindow, Source={StaticResource Locator}}" />
+            <Button
+                Content="Open new window faster?"
+                Margin="10"
+                Padding="5" 
+                HorizontalAlignment="Center"
+                Command="{Binding FasterCmd}" />
             <ToggleButton
                 Command="{Binding ToggleBaseCommand}"
                 Margin="0 20 0 0"
@@ -107,7 +113,11 @@
                 HorizontalAlignment="Center"
                 Opacity="0.2" />
         </StackPanel>
-        <rs:Snacky />
+        <rs:Snacky Margin="10 0" IsActive="true" >
+            <Snacky.Message>
+                <TextBox Text="Hej" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBox>
+            </Snacky.Message>
+        </rs:Snacky>
     </Grid>
 
 

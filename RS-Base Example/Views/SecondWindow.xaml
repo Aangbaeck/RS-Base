@@ -1,8 +1,142 @@
-﻿<RSView x:Class="RS_Base.Views.SecondWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        Title="SecondWindow" Height="450" Width="800">
-    <Grid>
-        <TextBlock Text="Då"></TextBlock>
-    </Grid>
+﻿<RSView
+    x:Class="RS_Base.Views.SecondWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{DynamicResource MaterialDesignCardBackground}"
+    DataContext="{Binding MachineVM, Source={StaticResource Locator}}"
+    EnablePinMode="True"
+    FontFamily="{materialDesign:MaterialDesignFont}"
+    SizeToContent="WidthAndHeight"
+    TextElement.FontSize="16"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+    <StackPanel>
+        <GroupBox
+            Margin="10"
+            Header="Info"
+            Style="{DynamicResource MaterialDesignCardGroupBox}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <ContentControl FontSize="16" FontWeight="Bold">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Machine: " MinWidth="150" />
+                                <TextBlock Text="{Binding MachineName}" Grid.Column="1" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Active program: " MinWidth="150" />
+                                <TextBlock Text="{Binding ActiveProgram}" Grid.Column="1" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="OrderNo: " MinWidth="150" />
+                                <TextBlock Text="{Binding OrderNo}" Grid.Column="1" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Prod/Setup: " MinWidth="150" />
+                                <TextBlock Text="{Binding QueueType}" Grid.Column="1" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Quantity finished: " MinWidth="150" />
+                                <TextBlock Text="{Binding Quantity}" Grid.Column="1" />
+                            </StackPanel>
+                            <GroupBox
+                            Margin="0 10 0 0"
+                            Header="Loaded NC-Programs"
+                            Style="{DynamicResource MaterialDesignCardGroupBox}">
+                                <ListView ItemsSource="{Binding Items1}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding ProgramNo}" Header="ProgramNo" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Length}" Header="Length" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Description" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding ProductCode}" Header="ProductCode" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </GroupBox>
+                        </StackPanel>
+                    </ContentControl>
+                    <StackPanel Margin="10 0 0 0">
+                        <GroupBox
+                            Margin="0 0 0 0"
+                            Header="Machine settings"
+                            Style="{DynamicResource MaterialDesignCardGroupBox}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:Card HorizontalAlignment="Left">
+                                    <StackPanel Margin="10">
+                                        <TextBlock
+                                            Text="Spindle:"
+                                            Margin="0 0 0 10"
+                                            ToolTip="Default internal machine position" />
+                                        <ListBox
+                                            materialDesign:ListBoxAssist.IsToggle="True"
+                                            SelectedIndex="0"
+                                            Style="{StaticResource MaterialDesignToolToggleListBox}">
+
+                                            <ListBoxItem>
+                                                <TextBlock Text="Position 1" />
+                                            </ListBoxItem>
+                                            <ListBoxItem>
+                                                <TextBlock Text="Position 2" />
+                                            </ListBoxItem>
+                                        </ListBox>
+                                    </StackPanel>
+                                </materialDesign:Card>
+                                <StackPanel Margin="10 0 0 0">
+                                    <CheckBox IsChecked="{Binding RejectOn}">
+                                        <TextBlock Text="Reject on" Margin="0 -4 0 0" />
+                                    </CheckBox>
+                                    <CheckBox IsChecked="{Binding SingleItemRun}">
+                                        <TextBlock Text="Single item run" Margin="0 -4 0 0" />
+                                    </CheckBox>
+                                    <CheckBox IsChecked="{Binding MachineIsEnabled}">
+                                        <TextBlock
+                                            Text="Machine enabled"
+                                            Margin="0 -4 0 0"
+                                            ToolTip="If this is checked, the machine will not be used by CM" />
+                                    </CheckBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox
+                            Margin="0 10 0 0" 
+                            Header="Machine variables"
+                            Style="{DynamicResource MaterialDesignCardGroupBox}">
+                            <StackPanel>
+                                <ListView ItemsSource="{Binding MicroMacroVariables}" Height="200">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Variable}" Header="Variable" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Description" />
+                                            <GridViewColumn DisplayMemberBinding="{Binding Value}" Header="Value" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <Button Content="Edit variable" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+
+                </StackPanel>
+                <DockPanel Margin="0 20 0 0">
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                        <Button Content="Tool registry..." />
+                        <Button Content="Load NC-Program from file..." Margin="10 0 0 0" />
+                    </StackPanel>
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right"
+                        Orientation="Horizontal">
+                        <Button Content="Signals..." />
+                        <Button Content="Start mission" Margin="10 0 0 0" />
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
 </RSView>

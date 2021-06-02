@@ -14,7 +14,16 @@ static class JotService
     {
         // tell Jot how to track Window objects
         Tracker.Configure<RSView>()
-            .Id(w => w.Title, SystemParameters.WorkArea.Size) // <-- include the screen resolution in the id
+            .Id(w => w.Title
+            .Replace(":","")
+            .Replace("<", "")
+            .Replace(">", "")
+            .Replace(@"""", "")
+            .Replace(@"\", "")
+            .Replace("/", "")
+            .Replace("?", "")
+            .Replace("*", "")
+            .Replace("|", ""), SystemParameters.WorkArea.Size) // <-- include the screen resolution in the id
             .Properties(w => new { w.WindowState, w.Top, w.Width, w.Height, w.Left })
             .PersistOn(nameof(RSView.Closing))
             .StopTrackingOn(nameof(RSView.Closing));

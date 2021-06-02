@@ -25,7 +25,8 @@ namespace RS_Base.Services
                 if (File.Exists(Common.SettingsPath))
                 {
                     var json = File.ReadAllText(Common.SettingsPath);
-                    Settings = JsonConvert.DeserializeObject<Settings>(json);
+                    var serializerSettings = new JsonSerializerSettings { ObjectCreationHandling = ObjectCreationHandling.Replace };
+                    Settings = JsonConvert.DeserializeObject<Settings>(json, serializerSettings);
                 }
                 else
                 {
