@@ -47,12 +47,10 @@ namespace RS_StandardComponents
         private void DoAddRange(IEnumerable<T> items)
         {
             sync.AcquireWriterLock(Timeout.Infinite);
-            foreach (var item in collection)
-            {
+            foreach (var item in items)
                 collection.Add(item);
-            }
 
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             sync.ReleaseWriterLock();
         }
 
