@@ -62,6 +62,7 @@ namespace RS_StandardComponents
                 throw new ArgumentNullException("match");
             }
             collection.Where(entity => match(entity)).ToList().ForEach(entity => collection.Remove(entity));
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             sync.ReleaseWriterLock();
         }
 
