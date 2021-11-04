@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Markup;
-using System.Reflection;
-using System.Windows;
-using System.ComponentModel;
-using System.Globalization;
-using System.Diagnostics;
-
+﻿using System.Collections.Generic;
 
 namespace RS_StandardComponents
 {
