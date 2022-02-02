@@ -5,8 +5,8 @@
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.8.5</Version>
-    <Description>Containing the core components of RS-Base like converters, titlebar, logo, usercontrols and other nice stuff</Description>
+    <Version>2.8.6</Version>
+    <Description>Containing the core components of RS-Base like converters, RSView, Snacky, and other nice stuff</Description>
     <Copyright>MIT</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReleaseNotes>V2.8

@@ -83,10 +83,15 @@ namespace RS_StandardComponents
             return value != null ? value.Equals(TrueValue) : false;
         }
     }
-    public class BoolToStringConverter : BoolToValueConverter<String> { }
-    public class BoolToBrushConverter : BoolToValueConverter<Brush> { }
-    public class BoolToVisibilityConverter : BoolToValueConverter<Visibility> { }
-    public class BoolToObjectConverter : BoolToValueConverter<Object> { }
+    public class BoolToVisibilityConverter : BoolToValueConverter<Visibility>
+    {
+        public BoolToVisibilityConverter()
+        {
+            TrueValue = Visibility.Visible;
+            FalseValue = Visibility.Collapsed;
+        } 
+    }
+    
     public class InvertBoolConverter : BoolToValueConverter<bool>
     {
         public InvertBoolConverter()
