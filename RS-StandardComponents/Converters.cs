@@ -89,6 +89,7 @@ namespace RS_StandardComponents
         {
             TrueValue = Visibility.Visible;
             FalseValue = Visibility.Collapsed;
+            NullValue = Visibility.Collapsed;
         } 
     }
     
