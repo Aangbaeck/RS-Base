@@ -42,7 +42,7 @@ namespace RS_Base.Views
 
         public static void Cleanup()
         {
-            Container.Resolve<MainVM>().Cleanup();
+            Container.Resolve<MainVM>();
         }
     }
 }

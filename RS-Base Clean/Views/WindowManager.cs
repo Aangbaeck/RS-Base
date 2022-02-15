@@ -1,10 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using RS_StandardComponents;
+﻿using RS_StandardComponents;
 using System.Collections.Generic;
 
 namespace RS_Base.Views
 {
-    public partial class WindowManager : ObservableObject
+    public partial class WindowManager 
     {
         public RSView MainWindow { get; private set; }
         public void CreateMainWindow()

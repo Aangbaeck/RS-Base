@@ -2,16 +2,16 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFrameworks>net5.0-windows</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows</TargetFrameworks>
 		<RootNamespace>RS_Base</RootNamespace>
 		<UseWPF>true</UseWPF>
-		<Version>2.3.3</Version>
+		<Version>2.4.3</Version>
 		<PackageId>RS-Base</PackageId>
 		<AssemblyName>RS-Base</AssemblyName>
 		<Copyright>MIT</Copyright>
 		<PackageProjectUrl>https://github.com/Aangbaeck/RS-Base</PackageProjectUrl>
 		<Authors>Björn Ångbäck</Authors>
-		<AssemblyVersion>2.3.3.0</AssemblyVersion>
+		<AssemblyVersion>2.4.3.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,11 +20,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Autofac" Version="6.2.0" />
-		<PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
-		<PackageReference Include="MvvmLightStd10" Version="5.4.1.2" />
+		<PackageReference Include="Autofac" Version="6.3.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
 		<PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
-		<PackageReference Include="RS-StandardComponents" Version="2.8.4" />
+		<PackageReference Include="RS-StandardComponents" Version="2.8.7" />
 		<PackageReference Include="Serilog" Version="2.10.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 	</ItemGroup>

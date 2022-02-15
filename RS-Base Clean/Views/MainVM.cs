@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 using System.IO;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using RS_Base.Net.Helper;
 
 namespace RS_Base.Views
 {
-    public class MainVM : ViewModelBase
+    public class MainVM : ObservableRecipient
     {
         public RelayCommand OpenLogFile => new RelayCommand(() =>
         {

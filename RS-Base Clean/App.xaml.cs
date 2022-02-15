@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
-using GalaSoft.MvvmLight.Messaging;
+using System.Windows.Threading;
+using CommunityToolkit.Mvvm.Messaging;
 using RS_Base.Net.Helper;
 using RS_Base.Views;
 using Serilog;
@@ -23,7 +24,9 @@ namespace RS_Base
                 .WriteTo.File(Common.LogfilesPath + "Logfile.log", rollOnFileSizeLimit: true, fileSizeLimitBytes: 20000000, retainedFileCountLimit: 5)
                 .WriteTo.Logger(lc => lc.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Error).WriteTo.StealthConsoleSink())
                 .CreateLogger();
+            Log.Information("STARTING APPLICATION...");
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Application.Current.DispatcherUnhandledException += ThreadStuffUI;
             //We only want one application to run.
             Process current = Process.GetCurrentProcess();
             // get all the processes with current process name
@@ -42,7 +45,13 @@ namespace RS_Base
             // Log the exception, display it, etc
             Log.Error((e.ExceptionObject as Exception), "CurrentDomain_UnhandledException!!!");
         }
-
+        /// <summary>
+        /// This often finds weird threading errors in the UI.
+        /// </summary>
+        private void ThreadStuffUI(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            Log.Error(e.Exception, "Some UI Error!");
+        }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var vmLoc = new ViewModelLocator();
@@ -70,7 +79,7 @@ namespace RS_Base
 
         public void Emit(LogEvent logEvent)
         {
-            Messenger.Default.Send(logEvent.RenderMessage(_formatProvider), MessengerID.LogFrontEndMessage);
+            WeakReferenceMessenger.Default.Send(logEvent.RenderMessage(_formatProvider), MessengerID.LogFrontEndMessage);
         }
     }
 }

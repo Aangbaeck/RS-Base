@@ -15,9 +15,30 @@ namespace RS_Base.Net.Model
     {
         public Settings Settings { get; set; } = new Settings();
 
-        public SettingsService()
+       
+        // Explicit static constructor to tell C# compiler
+        // not to mark type as beforefieldinit
+        private static SettingsService? instance = null;
+        private static readonly object padlock = new object();
+
+        SettingsService()
         {
             LoadSettings();
+        }
+
+        public static SettingsService Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new SettingsService();
+                    }
+                    return instance;
+                }
+            }
         }
 
 
