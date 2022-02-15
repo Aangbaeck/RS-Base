@@ -19,5 +19,11 @@
     <RSView.Resources>
         <sys:String x:Key="N">RS_Base.Views.Localization.Main</sys:String>
     </RSView.Resources>
-    <Grid />
+    <Grid>
+        <Button Padding="10 0" Margin="10" Command="{Binding OpenLogFile}" Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+
+            <materialDesign:PackIcon Kind="DogSide" />
+        </Button>
+
+    </Grid>
 </RSView>

@@ -28,12 +28,11 @@ namespace RS_Base.Views
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<WindowManager>().SingleInstance();
-            builder.RegisterType<SettingsService>().SingleInstance();
             builder.RegisterType<MainVM>().SingleInstance();
             Container = builder.Build();
 
             //Setting language for whole application
-            CultureManager.UICulture = new CultureInfo(Container.Resolve<SettingsService>().Settings.Language);
+            CultureManager.UICulture = new CultureInfo(SettingsService.Instance.Settings.Language);
         }
         public MainVM MainVM => Container.Resolve<MainVM>();
         public WindowManager WindowManager => Container.Resolve<WindowManager>();
