@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>RS_Base</RootNamespace>
     <UseWPF>true</UseWPF>
-    <Version>2.5.3</Version>
+    <Version></Version>
     <PackageId>RS-Base</PackageId>
     <AssemblyName>RS-Base</AssemblyName>
     <PublishReadyToRun>true</PublishReadyToRun>

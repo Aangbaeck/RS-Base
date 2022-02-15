@@ -5,13 +5,13 @@
 		<TargetFrameworks>net6.0-windows</TargetFrameworks>
 		<RootNamespace>RS_Base</RootNamespace>
 		<UseWPF>true</UseWPF>
-		<Version>2.4.3</Version>
+		<Version>2.6.0</Version>
 		<PackageId>RS-Base</PackageId>
 		<AssemblyName>RS-Base</AssemblyName>
 		<Copyright>MIT</Copyright>
 		<PackageProjectUrl>https://github.com/Aangbaeck/RS-Base</PackageProjectUrl>
 		<Authors>Björn Ångbäck</Authors>
-		<AssemblyVersion>2.4.3.0</AssemblyVersion>
+		<AssemblyVersion>2.6.0.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
