@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
-using GalaSoft.MvvmLight;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RS_Base.Net.Model
 {
-    public class DataService : ViewModelBase
+    public class DataService : ObservableObject
     {
         public DataService()
         {
@@ -24,7 +24,7 @@ namespace RS_Base.Net.Model
             set
             {
                 _title = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
     }

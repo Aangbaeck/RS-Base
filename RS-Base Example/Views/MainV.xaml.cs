@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
-using Newtonsoft.Json;
-using RS_Base.Net.Model;
-using RS_Base.Net.Views;
-using RS_Base.Services;
-using RS_StandardComponents;
 using Serilog;
 
 namespace RS_Base.Views

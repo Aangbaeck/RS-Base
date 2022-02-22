@@ -8,15 +8,13 @@
     <Version></Version>
     <PackageId>RS-Base</PackageId>
     <AssemblyName>RS-Base</AssemblyName>
-    <PublishReadyToRun>true</PublishReadyToRun>
-    <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <Description>Example project that show what RS-Base can do.</Description>
     <Copyright>MIT</Copyright>
     <PackageLicenseFile></PackageLicenseFile>
     <PackageProjectUrl>https://github.com/Aangbaeck/RS-Base</PackageProjectUrl>
     <Authors>Björn Ångbäck</Authors>
-    <Platforms>AnyCPU;x86</Platforms>
+    <Platforms>AnyCPU</Platforms>
     <ApplicationIcon>DogeCoin.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -30,24 +28,27 @@
 
   <ItemGroup>
     <Compile Remove="Assets\**" />
+    <Compile Remove="Views\UserControls\**" />
     <EmbeddedResource Remove="Assets\**" />
+    <EmbeddedResource Remove="Views\UserControls\**" />
     <None Remove="Assets\**" />
+    <None Remove="Views\UserControls\**" />
     <Page Remove="Assets\**" />
+    <Page Remove="Views\UserControls\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Helper\" />
     <Folder Include="Services\" />
-    <Folder Include="Views\UserControls\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
-    <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />

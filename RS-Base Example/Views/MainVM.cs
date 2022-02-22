@@ -5,9 +5,6 @@ using System.Windows.Input;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using MaterialDesignThemes.Wpf;
 using RS_Base.Net.Helper;
 using RS_Base.Net.Model;
@@ -17,10 +14,14 @@ using RS_StandardComponents;
 using Serilog;
 using System.Drawing;
 using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using System.Threading.Tasks;
 
 namespace RS_Base.Views
 {
-    public class MainVM : ViewModelBase
+    public class MainVM : ObservableObject
     {
         public readonly DataService D;
         public RelayCommand<string> ChangeTitleLocalCmd => new RelayCommand<string>(ChangeTitleLocal);
@@ -40,7 +41,10 @@ namespace RS_Base.Views
         });
         public RelayCommand FasterCmd => new RelayCommand(() =>
         {
-            ViewModelLocator.Instance.WindowManager.OpenSecondWin();
+            Task.Run(() => {
+                ViewModelLocator.Instance.WindowManager.OpenSecondWin();
+            });
+            
             //ApplyBase((bool)o);
             //S.Settings.IsLightTheme = o;
             //S.SaveSettings();
@@ -92,7 +96,7 @@ namespace RS_Base.Views
             set
             {
                 imageSource = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
         private void ChangeTitleDataService()
@@ -169,7 +173,7 @@ namespace RS_Base.Views
 
                 // ^ samma sak som
                 _welcomeTitle = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
         private static void ApplyBase(bool isLightTheme)
@@ -194,24 +198,24 @@ namespace RS_Base.Views
             D = d;  //Here you can control that the DataService is correct
             WelcomeTitle = D.Title;  //Setting the initial values from DataService
             ApplyBase(S.Settings.IsLightTheme);
-            Messenger.Default.Send("Hej");
-            Messenger.Default.Register<string>(this, TaEmotHej);
+            WeakReferenceMessenger.Default.Send("Hej");
+            WeakReferenceMessenger.Default.Register<string>(this, TaEmotHej);
+        }
+
+        private void TaEmotHej(object recipient, string message)
+        {
+            Log.Debug("Vi fick ett Hej!");
         }
 
         private WindowManager WM { get; set; }
 
         public SettingsService S { get; set; }
 
-        private void TaEmotHej(object str)
-        {
-            Log.Debug("Vi fick ett Hej!");
-        }
-
-        public override void Cleanup()
+        public void Cleanup()
         {
             // Clean up if needed
             // Save data!
-            base.Cleanup();
+            
         }
     }
 }

@@ -8,8 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
+using CommunityToolkit.Mvvm.Messaging;
 using RS_Base.Net;
 using RS_Base.Net.Helper;
 using RS_Base.Services;
@@ -85,7 +84,7 @@ namespace RS_Base
 
         public void Emit(LogEvent logEvent)
         {
-            Messenger.Default.Send(logEvent.RenderMessage(_formatProvider), MessengerID.LogFrontEndMessage);
+            WeakReferenceMessenger.Default.Send(logEvent.RenderMessage(_formatProvider), MessengerID.LogFrontEndMessage);
         }
     }
 }

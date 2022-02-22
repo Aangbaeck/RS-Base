@@ -1,5 +1,5 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using RS_StandardComponents;
 using Serilog;
@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 
 namespace RS_Base.Views
@@ -30,12 +31,13 @@ namespace RS_Base.Views
         }
         public void OpenSecondWin()
         {
+            
             var win = new SecondWindow();
             win.EnablePinMode = true;
             win.Owner = MainWindow;
             win.Show();
             win.Closing += (e, o) => { WindowList.Remove(win.Title); };
-
+            
             WindowList.Add(win.Title, win);
         }
         public RelayCommand OpenSecondWindow => new RelayCommand(() =>
