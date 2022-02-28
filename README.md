@@ -15,7 +15,7 @@
 ## Setup
 
 ### Developer Setup
-You need to have .Net Core 3.1, Framework 4.7.2 & Visual Studio 2019 installed
+You need to have .Net 6.0 or Framework 4.8 & Visual Studio 2019/2022 installed
 
 When creating project templates - use the whole project "RS-Base Clean""
 When creating the item template for windows - use the EmptyWindowV.xaml under "RS-Base Example"
@@ -28,7 +28,7 @@ When creating the item template for windows - use the EmptyWindowV.xaml under "R
 
 When creating a new Project or Item in Visual Studiop these template will show up.
 
-You need to have .Net Core 3.1 or Framework 4.7.2 installed.
+You need to have .Net 6.0 or Framework 4.8 & Visual Studio 2019/2022 installed
 If the references gives you any troubles: Run the command "Update-Package -Reinstall" (without "") in the Package-Manager console
 
 The NuGet-package RS-StandardComponents is published on NuGet [Nuget Gallery](https://www.nuget.org/packages/RS-StandardComponents)
@@ -73,4 +73,3 @@ Tips:
 ## License
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2020 © [RemaSawco](https://remasawco.se/)
