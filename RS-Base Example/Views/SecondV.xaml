@@ -5,7 +5,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     Background="{DynamicResource MaterialDesignPaper}"
     DataContext="{Binding SecondVM, Source={StaticResource Locator}}"
-    FontFamily="{materialDesign:MaterialDesignFont}"
+    FontFamily="{materialDesign:MaterialDesignFont}" 
     TextElement.Foreground="{DynamicResource MaterialDesignBody}">
     <Grid>
         <Grid>

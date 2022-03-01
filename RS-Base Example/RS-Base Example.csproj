@@ -38,6 +38,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="DogeCoin.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Helper\" />
     <Folder Include="Services\" />
   </ItemGroup>
@@ -56,6 +60,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RS-StandardComponents\RS-StandardComponents.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="DogeCoin.ico" />
   </ItemGroup>
 
   <ItemGroup>

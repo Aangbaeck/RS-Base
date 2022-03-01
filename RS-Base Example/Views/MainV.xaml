@@ -3,14 +3,15 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:rs="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents" 
-    
+    xmlns:rs="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
     xmlns:sys1="clr-namespace:System;assembly=mscorlib"
-    DataContext="{Binding MainVM, Source={StaticResource Locator}}"
-    MinHeight="600" Title="{Binding WelcomeTitle}"
+    Title="{Binding WelcomeTitle}"
     MinWidth="200"
+    MinHeight="600"
     CheckBeforeClose="True"
+    DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
+    ShortcutForClosingWindow="Q"
     TitlebarIcon="Fire">
 
     <RSView.Resources>
@@ -18,104 +19,122 @@
     </RSView.Resources>
 
     <Grid
-        
         TextElement.FontSize="16"
         TextElement.FontWeight="Medium"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
-        <StackPanel Margin="0 0 0 0">
+        <StackPanel Margin="0,0,0,0">
             <!--  Add your stuff here!  -->
-            <TextBlock x:Name="textBlock"
-                Text="{Binding WelcomeTitle}"
-                Margin="20 20 20 50"
+            <TextBlock
+                x:Name="textBlock"
+                Margin="20,20,20,50"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="36"
                 FontWeight="Bold"
+                Text="{Binding WelcomeTitle}"
                 TextWrapping="Wrap" />
 
 
             <Button
+                Padding="5"
+                HorizontalAlignment="Center"
                 Command="{Binding ChangeTitleLocalCmd}"
+                CommandParameter="{Binding WelcomeTitle}"
                 Content="{Resx ChangeTitleLocal,
-                               {StaticResource B}}"
-                Padding="5" 
-                HorizontalAlignment="Center" CommandParameter="{Binding WelcomeTitle}" />
+                               {StaticResource B}}" />
 
             <Button
-                Command="{Binding ChangeTitleDataServiceCmd}"
-                Content="Change title DataService"
                 Margin="10"
                 Padding="5"
-                HorizontalAlignment="Center" />
-            <Button
-                Content="Open new window"
-                Margin="10"
-                Padding="5" 
                 HorizontalAlignment="Center"
-                Command="{Binding WindowManager.OpenSecondWindow, Source={StaticResource Locator}}" />
+                Command="{Binding ChangeTitleDataServiceCmd}"
+                Content="Change title DataService" />
             <Button
-                Content="Open new window faster?"
                 Margin="10"
-                Padding="5" 
+                Padding="5"
                 HorizontalAlignment="Center"
-                Command="{Binding FasterCmd}" />
+                Command="{Binding WindowManager.OpenSecondWindow, Source={StaticResource Locator}}"
+                Content="Open new window" />
+            <Button
+                Margin="10"
+                Padding="5"
+                HorizontalAlignment="Center"
+                Command="{Binding FasterCmd}"
+                Content="Open new window faster?" />
             <ToggleButton
+                Margin="0,20,0,0"
                 Command="{Binding ToggleBaseCommand}"
-                Margin="0 20 0 0"
                 CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}"
                 IsChecked="{Binding S.Settings.IsLightTheme}" />
-            <TextBlock Text="{rs:SwitchBinding S.Settings.IsLightTheme, {Resx IsLightTheme, {StaticResource B}}, Dark theme}" Margin="10" HorizontalAlignment="Center" />
+            <TextBlock
+                Margin="10"
+                HorizontalAlignment="Center"
+                Text="{rs:SwitchBinding S.Settings.IsLightTheme,
+                                        {Resx IsLightTheme,
+                                              {StaticResource B}},
+                                        Dark theme}" />
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <Button
+                    Margin="5"
+                    Padding="5"
                     Command="{Binding ChangeLanguageCmd}"
+                    CommandParameter="en-US"
                     Content="{Resx English,
-                                   {StaticResource B}}"
+                                   {StaticResource B}}" />
+                <Button
                     Margin="5"
                     Padding="5"
-                    CommandParameter="en-US" />
-                <Button
                     Command="{Binding ChangeLanguageCmd}"
+                    CommandParameter="sv-SE"
                     Content="{Resx Swedish,
-                                   ResxName={StaticResource B}}"
+                                   ResxName={StaticResource B}}" />
+                <Button
                     Margin="5"
                     Padding="5"
-                    CommandParameter="sv-SE" />
-                <Button
                     Command="{Binding ChangeLanguageCmd}"
+                    CommandParameter="fi-FI"
                     Content="{Resx Key=Finnish,
-                                   ResxName={StaticResource B}}"
-                    Margin="5"
-                    Padding="5"
-                    CommandParameter="fi-FI" />
+                                   ResxName={StaticResource B}}" />
                 <Button
-                    Command="{Binding ChangeLanguageCmd}"
-                    Content="{Resx Key=Hashtags,
-                                   ResxName={StaticResource B}}"
                     Margin="5"
                     Padding="5"
-                    CommandParameter="eo" />
+                    Command="{Binding ChangeLanguageCmd}"
+                    CommandParameter="eo"
+                    Content="{Resx Key=Hashtags,
+                                   ResxName={StaticResource B}}" />
             </StackPanel>
 
 
-            <TextBlock Text="Zoom" HorizontalAlignment="Center" Foreground="{SwitchBinding LightTheme, Green, Red}" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Foreground="{SwitchBinding LightTheme,
+                                           Green,
+                                           Red}"
+                Text="Zoom" />
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom">
-            <Grid Width="100" Height="100" Margin="0 20 0 0">
+            <Grid
+                Width="100"
+                Height="100"
+                Margin="0,20,0,0">
                 <Image Source="/RS-StandardComponents;component/DogeCoin.png" />
                 <Grid.InputBindings>
                     <MouseBinding Command="{Binding OpenLogFile}" MouseAction="RightClick" />
                 </Grid.InputBindings>
             </Grid>
             <TextBlock
-                Text="*Right click logo to open log"
                 Margin="10"
                 HorizontalAlignment="Center"
-                Opacity="0.2" />
+                Opacity="0.2"
+                Text="*Right click logo to open log" />
         </StackPanel>
-        <rs:Snacky Margin="10 0" IsActive="true" >
+        <rs:Snacky Margin="10,0" IsActive="true">
             <Snacky.Message>
-                <TextBox Text="Hej" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBox>
+                <TextBox
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Text="Hej" />
             </Snacky.Message>
         </rs:Snacky>
     </Grid>

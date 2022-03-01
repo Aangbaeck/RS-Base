@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -36,7 +37,10 @@ namespace RS_StandardComponents
             MinWidth = 10;
             WindowChrome.SetWindowChrome(this, new WindowChrome() { CaptionHeight = 1, CornerRadius = new CornerRadius(0, 0, 0, 0), GlassFrameThickness = new Thickness(6, 6, 6, 6), ResizeBorderThickness = new Thickness(6, 6, 6, 6) });
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
-            
+            PreviewKeyDown += (s, e) => { 
+                if (ShortcutForClosingWindow != Key.None && e.Key == ShortcutForClosingWindow) 
+                    Close(); 
+            };
             StateChanged += RSWindow_StateChanged;
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 2/* SystemParameters.WorkArea.Size.Height*//* + 12*//* + 2*/;  //This makes the window no go underneath the bottom taskbar 12 is 6 + 6 with borderthickness. 2 is one pixel up and one pixel down to go underneath edge.
             Titlebar = new TitlebarUserCtrl();
@@ -116,6 +120,13 @@ namespace RS_StandardComponents
         }
 
         public static readonly DependencyProperty WindowIconBackgroundColorProperty = DependencyProperty.Register("WindowIconBackgroundColor", typeof(Color), typeof(RSView), new PropertyMetadata(Colors.Transparent, ChangedColorCallback));
+
+
+
+
+        public Key ShortcutForClosingWindow { get; set; } = Key.None;
+        
+
 
 
 

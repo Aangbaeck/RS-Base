@@ -5,13 +5,14 @@
     <RootNamespace>RS_StandardComponents</RootNamespace>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.9.0</Version>
+    <Version>2.9.1</Version>
     <Description>Containing the core components of RS-Base like converters, RSView, Snacky, and other nice stuff</Description>
     <Copyright>MIT</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReleaseNotes>
 V2.9
 *Moved to net6.0
+*Added shortcuts for closing window
 		
 V2.8 
 *Fixed critical bug with RSView and added the pin-button again. It's much simpler now though. When you loose focus, the view will close.
@@ -58,6 +59,10 @@ V2.2.2
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DogeCoin.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Jot" Version="2.1.11" />
     <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -73,14 +78,18 @@ V2.2.2
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="..\Etc\DogeCoin.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </Resource>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\Etc\DogeCoin.png" Link="DogeCoin.png">
+      <PackagePath></PackagePath>
+      <Pack>True</Pack>
+    </Resource>
+    <Resource Include="DogeCoin.ico" />
   </ItemGroup>
 
 </Project>
