@@ -7,7 +7,7 @@
     xmlns:sys1="clr-namespace:System;assembly=mscorlib"
     Title="{Binding WelcomeTitle}"
     MinWidth="200"
-    MinHeight="600"
+    MinHeight="650"
     CheckBeforeClose="True"
     DataContext="{Binding MainVM, Source={StaticResource Locator}}"
     FontFamily="{materialDesign:MaterialDesignFont}"
@@ -60,8 +60,8 @@
                 Margin="10"
                 Padding="5"
                 HorizontalAlignment="Center"
-                Command="{Binding FasterCmd}"
-                Content="Open new window faster?" />
+                Command="{Binding SnackyCommand}"
+                Content="Snacky?" />
             <ToggleButton
                 Margin="0,20,0,0"
                 Command="{Binding ToggleBaseCommand}"
@@ -107,11 +107,11 @@
 
 
             <TextBlock
-                HorizontalAlignment="Center"
-                Foreground="{SwitchBinding LightTheme,
-                                           Green,
-                                           Red}"
-                Text="Zoom" />
+                HorizontalAlignment="Center" Margin="0 10 0 0"
+                Foreground="{SwitchBinding S.Settings.IsLightTheme,
+                                           Red,
+                                           Green}"
+                Text="Röd eller grön" />
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom">
             <Grid
@@ -129,10 +129,10 @@
                 Opacity="0.2"
                 Text="*Right click logo to open log" />
         </StackPanel>
-        <rs:Snacky Margin="10,0" IsActive="true">
+        <rs:Snacky Margin="10,0" IsActive="{Binding SnackyIsVisible}">
             <Snacky.Message>
-                <TextBox
-                    HorizontalAlignment="Right"
+                <TextBlock
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Text="Hej" />
             </Snacky.Message>

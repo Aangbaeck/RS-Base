@@ -20,7 +20,6 @@
         <sys:String x:Key="N">RS_Base.Views.Localization.Main</sys:String>
     </RSView.Resources>
     <Grid>
-        <TextBlock>RS-Base RSView</TextBlock>
         <Button
             Margin="10"
             Padding="10,0"

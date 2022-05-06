@@ -121,14 +121,7 @@ namespace RS_StandardComponents
 
         public static readonly DependencyProperty WindowIconBackgroundColorProperty = DependencyProperty.Register("WindowIconBackgroundColor", typeof(Color), typeof(RSView), new PropertyMetadata(Colors.Transparent, ChangedColorCallback));
 
-
-
-
         public Key ShortcutForClosingWindow { get; set; } = Key.None;
-        
-
-
-
 
         public PackIconKind TaskbarIcon
         {
@@ -145,7 +138,6 @@ namespace RS_StandardComponents
                 ((RSView)d).SetTaskbarIcon(((RSView)d).TaskbarIcon);
             }
         }
-
 
         public PackIconKind TitlebarIcon
         {

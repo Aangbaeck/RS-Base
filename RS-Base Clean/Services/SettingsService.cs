@@ -18,7 +18,7 @@ namespace RS_Base.Net.Model
        
         // Explicit static constructor to tell C# compiler
         // not to mark type as beforefieldinit
-        private static SettingsService? instance = null;
+        private static SettingsService instance = null;
         private static readonly object padlock = new object();
 
         SettingsService()

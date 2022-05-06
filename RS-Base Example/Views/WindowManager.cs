@@ -29,21 +29,17 @@ namespace RS_Base.Views
                         //win.UpdateLayout();
             //WindowList.Add(win.Title, win);
         }
-        public void OpenSecondWin()
+        
+        public RelayCommand OpenSecondWindow => new RelayCommand(() =>
         {
-            
             var win = new SecondWindow();
             win.EnablePinMode = true;
             win.ShortcutForClosingWindow = System.Windows.Input.Key.Escape;
             win.Owner = MainWindow;
             win.Show();
             win.Closing += (e, o) => { WindowList.Remove(win.Title); };
-            
+
             WindowList.Add(win.Title, win);
-        }
-        public RelayCommand OpenSecondWindow => new RelayCommand(() =>
-        {
-            OpenSecondWin();
         });
         private Dictionary<string, RSView> WindowList { get; } = new Dictionary<string, RSView>();
         private string WPath => Directory.CreateDirectory(Path.GetDirectoryName(System.AppContext.BaseDirectory) + "//" + "WindowPositions//").FullName;

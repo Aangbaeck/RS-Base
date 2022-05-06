@@ -25,8 +25,6 @@ namespace RS_StandardComponents
         public static readonly DependencyProperty MinimizableProperty = DependencyProperty.Register("EnableMinimize",
             typeof(bool), typeof(TitlebarUserCtrl), new PropertyMetadata(true, MinPropertyChanged));
 
-
-
         public bool EnablePinMode
         {
             get { return (bool)GetValue(EnablePinModeProperty); }
@@ -47,7 +45,6 @@ namespace RS_StandardComponents
             get => GetValue(ContentProperty);
             set => SetValue(ContentProperty, value);
         }
-
 
         private Window _localWindow;
         private bool _mRestoreForDragMove;
@@ -331,10 +328,10 @@ namespace RS_StandardComponents
         }
 
 
-        //These methods is to make the title text a bit faded out when window is not active (e.g. how visual studio looks)
+        
         private void WindowDeactivated(object sender, EventArgs e)
         {
-            TitleIcon.Opacity = 0.4;
+            TitleIcon.Opacity = 0.4;  //This is to make the title text a bit faded out when window is not active (e.g. how visual studio looks)
             TitleText.Opacity = 0.4;
             Border.Opacity = 0.4;
             if (!IsPinned && EnablePinMode)
