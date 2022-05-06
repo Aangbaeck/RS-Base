@@ -1,12 +1,15 @@
 ![RS-Base](Etc/LogoRSBase.png) 
 
-> An awesome boilerplate template for building beautiful MVVM WPF .Net Core and Framework applications.
-> It comes preconfigured with MVVM-light, Serilog, Localization, MaterialDesignForXAML and a nice architectural structure.
-> Every release has a Project and an Item template for Visual Studio to easily get started.
+> An awesome boilerplate template for building beautiful MVVM-WPF applications.
+> It comes preconfigured with MVVM Community Toolkit, Serilog, Localization, MaterialDesignForXAML and a nice architectural structure.
+> Every release has a Project template for Visual Studio to easily get started.
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
-[![Screenshot1](Etc/screenshot1.png)]()
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+[![Screenshot1](Etc/screenshot1.png)]()  |  [![Screenshot1](Etc/screenshot2.png)]()
+
 
 ---
 ### Clone
@@ -15,20 +18,20 @@
 ## Setup
 
 ### Developer Setup
-You need to have .Net 6.0 or Framework 4.8 & Visual Studio 2019/2022 installed
+You need to have .Net 6.0 or Framework 4.8 & Visual Studio 2022 installed
 
 When creating project templates - use the whole project "RS-Base Clean""
-When creating the item template for windows - use the EmptyWindowV.xaml under "RS-Base Example"
 
 ### User Setup
 * Download latest release.
 * Close Visual Studio.
-* Copy "RS-Base Vx.zip" and put in "%USERPROFILE%\Documents\Visual Studio 2019\Templates\ProjectTemplates".
+* Copy "RS-Base Vx.zip" and put in "%USERPROFILE%\Documents\Visual Studio 2022\Templates\ProjectTemplates".
 * Copy "RS-Base Window Vx.zip" and "RS-Base TabControlWindow Vx.zip" and put in "%USERPROFILE%\Documents\Visual Studio 2019\Templates\ItemTemplates".
 
-When creating a new Project or Item in Visual Studiop these template will show up.
+When creating a new Project in Visual Studiop this template will show up.
+Use the window RSView instead of Window in WPF to get nice styling
 
-You need to have .Net 6.0 or Framework 4.8 & Visual Studio 2019/2022 installed
+You need to have .Net 6.0 or Framework 4.8 & Visual Studio 2022 installed
 If the references gives you any troubles: Run the command "Update-Package -Reinstall" (without "") in the Package-Manager console
 
 The NuGet-package RS-StandardComponents is published on NuGet [Nuget Gallery](https://www.nuget.org/packages/RS-StandardComponents)
@@ -41,7 +44,7 @@ Tips:
 ---
 
 ## Featuring
-- [MVVM-Light](https://github.com/lbugnion/mvvmlight)
+- [Windows Community Toolkit](https://github.com/CommunityToolkit/WindowsCommunityToolkit)
 - [MaterialDesignInXamlToolkit](https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit)
 - [MaterialDesignExtensions](https://github.com/spiegelp/MaterialDesignExtensions)
 - [Serilog](https://github.com/serilog/serilog)
@@ -65,9 +68,9 @@ Tips:
 
 ---
 ## Roadmap
-* Add mahapps icon package for even more icons! + Example!
 * Extend the example app more with a lot more comments.
 * Add automatic template creation when building project.
+* Become HACKERMAN!
 ---
 
 ## License

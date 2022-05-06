@@ -75,10 +75,15 @@ V2.2
 V2.2.1
 * Fixed some minor translation bugs
 
+V.2.9
+* Support for .net 6.0.
+* MVVM-light is dead - it's been a pleasure. The new king is MVVM Community Toolkit
+* Leaving the responsibility for this repo in other hands for a while.
+* 😢
 
-REMEMBER TO GO TO TOOLS-OPTIONS-ENVIRONMENT-PREVIEW FEATURES and check "Use Previews of the .NET Core SDK (Requiers restart)" to make the WPF designer to work in VS 2019.
 
 Roadmap
 * Add FontAwesome for even more icons! + Example!  Use MahappsIcons instead and get a huge amounts of Icons
 * Add nice looking gui stuff to the examples.. :)
 * Add automatic template creation when building.
+* Keep moving forward...
