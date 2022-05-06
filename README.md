@@ -6,7 +6,7 @@
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
-Solarized dark             |  Solarized Ocean
+Dark Theme                 |  Light Theme
 :-------------------------:|:-------------------------:
 [![Screenshot1](Etc/screenshot1.png)]()  |  [![Screenshot1](Etc/screenshot2.png)]()
 
@@ -26,7 +26,6 @@ When creating project templates - use the whole project "RS-Base Clean""
 * Download latest release.
 * Close Visual Studio.
 * Copy "RS-Base Vx.zip" and put in "%USERPROFILE%\Documents\Visual Studio 2022\Templates\ProjectTemplates".
-* Copy "RS-Base Window Vx.zip" and "RS-Base TabControlWindow Vx.zip" and put in "%USERPROFILE%\Documents\Visual Studio 2019\Templates\ItemTemplates".
 
 When creating a new Project in Visual Studiop this template will show up.
 Use the window RSView instead of Window in WPF to get nice styling
