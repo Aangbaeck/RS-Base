@@ -6,13 +6,13 @@
     xmlns:local="clr-namespace:RS_StandardComponents"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys1="clr-namespace:System;assembly=System.Runtime"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     d:DesignHeight="300"
     d:DesignWidth="300"
     UseLayoutRounding="True"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <sys1:String x:Key="N">RS_StandardComponents.TitlebarUserCtrl</sys1:String>
+        <sys:String x:Key="N">RS_StandardComponents.TitlebarUserCtrl</sys:String>
     </UserControl.Resources>
     <materialDesign:DialogHost
         x:Name="DialogHost"
@@ -63,7 +63,7 @@
 
                 <ContentControl Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" Grid.Row="1" />
 
-                <materialDesign:Card x:Name="TitleBar" Grid.Row="0" materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                <materialDesign:Card x:Name="TitleBar" Grid.Row="0">
                     <Grid
                         Height="30"
                         HorizontalAlignment="Stretch"

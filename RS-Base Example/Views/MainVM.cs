@@ -35,7 +35,7 @@ namespace RS_Base.Views
         });
         public RelayCommand<bool> ToggleBaseCommand => new RelayCommand<bool>(o =>
         {
-            ApplyBase((bool)o);
+            //ApplyBase((bool)o);
             S.Settings.IsLightTheme = o;
             S.SaveSettings();
         });
@@ -172,17 +172,17 @@ namespace RS_Base.Views
                 OnPropertyChanged();
             }
         }
-        private static void ApplyBase(bool isLightTheme)
-        {
-            ModifyTheme(theme => theme.SetBaseTheme(isLightTheme ? Theme.Light : Theme.Dark));
-        }
-        private static void ModifyTheme(Action<ITheme> modificationAction)
-        {
-            PaletteHelper paletteHelper = new PaletteHelper();
-            ITheme theme = paletteHelper.GetTheme();
-            modificationAction?.Invoke(theme);
-            paletteHelper.SetTheme(theme);
-        }
+        //private static void ApplyBase(bool isLightTheme)
+        //{
+        //    ModifyTheme(theme => theme.SetBaseTheme(isLightTheme ? Theme.Light : Theme.Dark));
+        //}
+        //private static void ModifyTheme(Action<ITheme> modificationAction)
+        //{
+        //    PaletteHelper paletteHelper = new PaletteHelper();
+        //    ITheme theme = paletteHelper.GetTheme();
+        //    modificationAction?.Invoke(theme);
+        //    paletteHelper.SetTheme(theme);
+        //}
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class. IOC
@@ -193,7 +193,7 @@ namespace RS_Base.Views
             S = s;
             D = d;  //Here you can control that the DataService is correct
             WelcomeTitle = D.Title;  //Setting the initial values from DataService
-            ApplyBase(S.Settings.IsLightTheme);
+            //ApplyBase(S.Settings.IsLightTheme);
             WeakReferenceMessenger.Default.Send("Hej");
             WeakReferenceMessenger.Default.Register<string>(this, TaEmotHej);
         }

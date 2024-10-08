@@ -28,7 +28,7 @@ namespace RS_StandardComponents
 
         public RSView(bool rememberPosition = true)
         {
-            this.SetResourceReference(Control.BackgroundProperty, "MaterialDesignPaper");
+            //this.SetResourceReference(Control.BackgroundProperty, "MaterialDesignPaper");
             this.SetResourceReference(FontFamilyProperty, "materialDesign:MaterialDesignFont");
             this.SetResourceReference(TextElement.ForegroundProperty, "MaterialDesignBody");
             //Background = (Brush)FindResource("MaterialDesignPaper");
