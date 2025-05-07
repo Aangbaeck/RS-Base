@@ -10,10 +10,10 @@
         <ResourceDictionary>
             <!--  This is to make Matieral design work  -->
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:CustomColorTheme
+                <materialDesign:BundledTheme
                     BaseTheme="Dark"
                     PrimaryColor="Blue"
-                    SecondaryColor="yellow" />
+                    SecondaryColor="Yellow" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
