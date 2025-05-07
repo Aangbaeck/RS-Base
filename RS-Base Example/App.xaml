@@ -12,13 +12,12 @@
             <!--  This is to make Matieral design work  -->
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:CustomColorTheme
-                    BaseTheme="Dark"
+                    BaseTheme="Light"
                     PrimaryColor="Blue"
                     SecondaryColor="yellow" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/materialdesigndarktheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--  This style is the make the windows borderless but still resizable  -->
