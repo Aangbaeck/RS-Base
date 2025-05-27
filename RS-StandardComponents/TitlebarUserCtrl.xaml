@@ -63,7 +63,7 @@
 
                 <ContentControl Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TitlebarUserCtrl}}}" Grid.Row="1" />
 
-                <materialDesign:Card x:Name="TitleBar" Grid.Row="0" materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                <materialDesign:Card x:Name="TitleBar" Grid.Row="0" materialDesign:ElevationAssist.Elevation="Dp2">
                     <Grid
                         Height="30"
                         HorizontalAlignment="Stretch"

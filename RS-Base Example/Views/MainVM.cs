@@ -174,12 +174,13 @@ namespace RS_Base.Views
         }
         private static void ApplyBase(bool isLightTheme)
         {
-            ModifyTheme(theme => theme.SetBaseTheme(isLightTheme ? Theme.Light : Theme.Dark));
+            ModifyTheme(theme => theme.SetBaseTheme(isLightTheme ? BaseTheme.Light: BaseTheme.Dark));
         }
-        private static void ModifyTheme(Action<ITheme> modificationAction)
+        private static void ModifyTheme(Action<Theme> modificationAction)
         {
+            
             PaletteHelper paletteHelper = new PaletteHelper();
-            ITheme theme = paletteHelper.GetTheme();
+            Theme theme = paletteHelper.GetTheme();
             modificationAction?.Invoke(theme);
             paletteHelper.SetTheme(theme);
         }

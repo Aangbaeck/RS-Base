@@ -2,6 +2,7 @@
     x:Class="RS_Base.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:rsStandardComponents="clr-namespace:RS_StandardComponents;assembly=RS-StandardComponents"
     xmlns:views1="clr-namespace:RS_Base.Views"
     Startup="Application_Startup">
@@ -9,10 +10,11 @@
         <ResourceDictionary>
             <!--  This is to make Matieral design work  -->
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.yellow.xaml" />
+                <materialDesign:BundledTheme
+                    BaseTheme="Dark"
+                    PrimaryColor="Blue"
+                    SecondaryColor="Yellow" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--  This style is the make the windows borderless but still resizable  -->

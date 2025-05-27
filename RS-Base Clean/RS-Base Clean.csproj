@@ -15,18 +15,27 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Assets\" />
+	  <Compile Remove="Assets\**" />
+	  <EmbeddedResource Remove="Assets\**" />
+	  <None Remove="Assets\**" />
+	  <Page Remove="Assets\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Folder Include="Views\UserControls\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Autofac" Version="6.3.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
-		<PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+		<PackageReference Include="MaterialDesignThemes" Version="5.2.0" />
 		<PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
-		<PackageReference Include="RS-StandardComponents" Version="2.9.1" />
 		<PackageReference Include="Serilog" Version="2.11.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\RS-StandardComponents\RS-StandardComponents.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
